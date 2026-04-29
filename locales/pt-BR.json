@@ -1,0 +1,179 @@
+{
+  "language": {
+    "switcherAria": "Trocar idioma",
+    "pt-BR": "Português",
+    "en-US": "English",
+    "es-ES": "Español",
+    "de": "Deutsch",
+    "fr": "Français",
+    "it": "Italiano",
+    "ar": "العربية",
+    "ru": "Русский",
+    "sv": "Svenska"
+  },
+  "progress": {
+    "stepOf": "Passo {{step}} de {{total}}",
+    "ariaLabel": "Progresso do assistente"
+  },
+  "common": {
+    "continue": "Continuar",
+    "back": "Voltar",
+    "restart": "Recomeçar",
+    "close": "Fechar",
+    "student": "estudante"
+  },
+  "errors": {
+    "nameRequired": "Informe seu nome para continuarmos.",
+    "invalidAge": "Informe uma idade entre 12 e 120 anos.",
+    "areaRequired": "Escolha uma área para explorar.",
+    "subAreaRequired": "Selecione um nicho (uma das 6 opções ou \"Outra específica\").",
+    "customNicheTooShort": "Descreva em pelo menos 2 letras o que deseja estudar no campo de texto.",
+    "modalityRequired": "Selecione o formato do curso (presencial, online ou híbrido).",
+    "priceRangeRequired": "Escolha a faixa de investimento que faz sentido para você."
+  },
+  "onboarding": {
+    "title": "Descubra o seu caminho profissional",
+    "subtitle": "Em poucos passos, alinhamos seus interesses a cursos alinhados ao que você busca.",
+    "nameLabel": "Qual é o seu nome?",
+    "namePlaceholder": "Seu nome ou apelido",
+    "ageLabel": "Qual é a sua idade?",
+    "agePlaceholder": "Ex: 16",
+    "areaLabel": "Qual área geral você deseja explorar?",
+    "areaPlaceholder": "Selecione uma opção"
+  },
+  "step2": {
+    "title": "Legal, {{firstName}}! Vamos entender o que você busca em {{area}}.",
+    "subtitle": "{{firstName}}, escolha o nicho que mais combina com você em {{area}}.",
+    "prompt": "Em qual nicho de {{area}} você mais se identifica? (6 opções comuns + texto livre)",
+    "otherSpecific": "Outra específica — descreva o que você procura",
+    "customNicheLabel": "Qual sub-área ou palavra-chave você deseja explorar?",
+    "customNichePlaceholder": "Ex: robótica educacional, copywriting, nutrição esportiva...",
+    "freeTextFallback": "Interesse em texto livre"
+  },
+  "step3": {
+    "title": "Ótimo, {{firstName}}! Agora o formato e o investimento",
+    "nicheLabel": "Nicho:",
+    "modality": "Modalidade",
+    "priceRange": "Faixa de investimento",
+    "findCourses": "Encontrar Meus Cursos"
+  },
+  "results": {
+    "title": "Cursos selecionados para você, {{firstName}}",
+    "noneFound": "Nenhum curso nesta combinação.",
+    "exactSection": "Exatos",
+    "similarSection": "Similares",
+    "viewDetails": "Ver oferta",
+    "viewOffer": "Ver oferta",
+    "quickComparisons": "Comparativos rápidos",
+    "topRecommendedNow": "Mais recomendados agora",
+    "opportunitiesUnder100": "Oportunidades até R$ 100",
+    "loadingRecommendations": "Buscando recomendações inteligentes...",
+    "smartRecommendationsHint": "Recomendações pensadas para gerar resultado rápido no seu perfil.",
+    "providerUnknown": "Não identificado",
+    "affinityScore": "Afinidade: {{score}}/100",
+    "badges": {
+      "exact": "Exato",
+      "similar": "Similar"
+    }
+  },
+  "details": {
+    "priceLabel": "Valor (referência)",
+    "about": "Sobre o curso",
+    "duration": "Duração",
+    "level": "Nível",
+    "prerequisites": "Pré-requisitos",
+    "accessCourse": "Acessar curso",
+    "international": "Internacional",
+    "contentOrigin": "Origem do conteúdo",
+    "brazilFocus": "Oferta com foco no Brasil",
+    "linkUnavailable": "Link temporariamente indisponível",
+    "linkUnavailableForCourse": "Link temporariamente indisponível para este curso."
+  },
+  "feedback": {
+    "question": "Antes de ir para o seu curso, como você avalia a sua experiência no nosso site?",
+    "starAria": "{{count}} estrela",
+    "sending": "Enviando...",
+    "redirectingAuto": "Redirecionando automaticamente...",
+    "submitAndAccess": "Enviar e Acessar Curso",
+    "thanks": "Obrigado pela avaliação! Nota enviada: {{rating}}/5.",
+    "sendingBackground": "Enviando feedback em segundo plano...",
+    "sentSuccess": "Feedback enviado com sucesso."
+  },
+  "footer": {
+    "disclaimer": "Dados de demonstração — confira as plataformas oficiais para preços e requisitos."
+  },
+  "catalog": {
+    "normalizedCourseTitle": "Curso de {{subArea}}",
+    "normalizedInstitution": "Catálogo {{platform}}"
+  },
+  "modalities": {
+    "Presencial": "Presencial",
+    "Online": "Online",
+    "Híbrido": "Híbrido"
+  },
+  "priceOptions": {
+    "onlyFree": "Apenas cursos gratuitos",
+    "max100": "Até R$ 100,00 (inclui gratuitos)",
+    "max500": "Até R$ 500,00 (inclui tudo abaixo)",
+    "max1000": "Até R$ 1.000,00 (inclui tudo abaixo)",
+    "unlimited": "Sem limite (qualquer investimento)"
+  },
+  "areas": {
+    "tecnologia": "Tecnologia",
+    "saude": "Saúde",
+    "humanas": "Humanas",
+    "artes_design": "Artes & Design",
+    "negocios_administracao": "Negócios & Administração",
+    "engenharia": "Engenharia"
+  },
+  "categories": {
+    "technology": { "label": "Tecnologia", "subareas": {
+      "software_programming": { "label": "Programação e fundamentos de software" },
+      "data_ml": { "label": "Dados, analytics e aprendizado de máquina" },
+      "ux_ui_product": { "label": "Design de interfaces, UX e produto" },
+      "frontend_web": { "label": "Desenvolvimento web e aplicações front-end" },
+      "cloud_infrastructure_networks": { "label": "Infraestrutura, cloud e redes" },
+      "cybersecurity_devops_automation": { "label": "Cibersegurança, DevOps e automação" }
+    }},
+    "health": { "label": "Saúde", "subareas": {
+      "nursing_clinical_care": { "label": "Enfermagem, cuidados e simulação clínica" },
+      "wellbeing_mental_health": { "label": "Bem-estar, saúde mental e mindfulness" },
+      "health_management_policy": { "label": "Gestão em saúde, políticas e sistemas" },
+      "epidemiology_public_health": { "label": "Epidemiologia, evidências e saúde pública" },
+      "nutrition_health_habits": { "label": "Nutrição, hábitos e promoção de saúde" },
+      "health_education_communication": { "label": "Educação, comunicação e humanização em saúde" }
+    }},
+    "humanities": { "label": "Humanas", "subareas": {
+      "communication_public_speaking": { "label": "Comunicação, oratória e escrita" },
+      "psychology_behavior_development": { "label": "Psicologia, comportamento e desenvolvimento" },
+      "law_ethics_citizenship": { "label": "Direito, ética, justiça e cidadania" },
+      "languages_reading_academics": { "label": "Línguas, leitura e estudos acadêmicos" },
+      "philosophy_critical_humanities": { "label": "Filosofia, crítica e humanidades" },
+      "sociology_politics_society": { "label": "Sociologia, política e relações sociais" }
+    }},
+    "arts_design": { "label": "Artes & Design", "subareas": {
+      "visual_arts_illustration_identity": { "label": "Artes visuais, ilustração e identidade" },
+      "audiovisual_cinema_photography_media": { "label": "Audiovisual, cinema, fotografia e mídias" },
+      "music_audio_performance_production": { "label": "Música, áudio, performance e produção" },
+      "animation_games_interactive_arts": { "label": "Animação, games e artes interativas" },
+      "fashion_aesthetics_branding": { "label": "Moda, estética e projetos de branding" },
+      "storytelling_screenwriting_culture": { "label": "Narrativas, roteiro e criação cultural" }
+    }},
+    "business_admin": { "label": "Negócios & Administração", "subareas": {
+      "sales_negotiation_customer_success": { "label": "Vendas, negociação e atendimento" },
+      "digital_marketing_content_analytics": { "label": "Marketing digital, conteúdo e analytics" },
+      "finance_control_budget": { "label": "Finanças, controle e orçamento" },
+      "entrepreneurship_innovation_business": { "label": "Empreendedorismo, inovação e negócios" },
+      "leadership_people_operations": { "label": "Liderança, pessoas e operações" },
+      "strategy_quality_processes": { "label": "Estratégia, qualidade e processos" }
+    }},
+    "engineering": { "label": "Engenharia", "subareas": {
+      "civil_construction_budgeting": { "label": "Civil, obras, orçamento e canteiro" },
+      "mechanical_materials_industrial": { "label": "Mecânica, materiais e processos industriais" },
+      "energy_sustainability_environment": { "label": "Energia, sustentabilidade e meio ambiente" },
+      "automation_robotics_industry4": { "label": "Automação, robótica e indústria 4.0" },
+      "projects_standards_safety": { "label": "Projetos, normas técnicas e segurança" },
+      "infrastructure_installations_resources": { "label": "Infraestrutura, instalações e recursos" }
+    }}
+  }
+}

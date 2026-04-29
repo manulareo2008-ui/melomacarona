@@ -1,0 +1,52 @@
+name: Daily Course Link Maintenance
+
+on:
+  schedule:
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  maintain-course-links:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run daily link checker with autofix
+        run: npm run check:course-links:autofix
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: course-link-check-report
+          path: logs/course-link-check.log
+          if-no-files-found: warn
+
+      - name: Create PR when URLs were corrected
+        if: success()
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: auto-fix broken course registration URLs"
+          title: "chore: daily auto-fix for broken course URLs"
+          body: |
+            ## Summary
+            - Executed daily course link checker
+            - Applied automatic fixes for broken `registrationUrl` entries
+            - Attached report artifact in workflow run
+          branch: chore/daily-course-link-maintenance
+          delete-branch: true

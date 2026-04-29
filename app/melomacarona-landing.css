@@ -1,0 +1,969 @@
+/* Auto-extracted from reference HTML, scoped to .meloma-landing */
+.meloma-landing{
+      --primary:        #3B82F6;
+      --primary-dark:   #2563EB;
+      --primary-light:  #60A5FA;
+      --secondary:      #8B5CF6;
+      --secondary-dark: #7C3AED;
+      --secondary-light:#A78BFA;
+      --accent:         #10B981;
+      --accent-dark:    #059669;
+
+      --bg-dark:        #0F172A;
+      --bg-darker:      #080E1A;
+      --bg-mid:         #1E1B4B;
+      --bg-card:        #1E293B;
+      --bg-card-hover:  #263348;
+      --bg-surface:     #0F172A;
+
+      --text-primary:   #F8FAFC;
+      --text-secondary: #94A3B8;
+      --text-muted:     #64748B;
+      --text-dark:      #1E293B;
+
+      --border:         rgba(255,255,255,0.08);
+      --border-hover:   rgba(255,255,255,0.15);
+
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
+      --radius-xl:  32px;
+      --radius-full: 9999px;
+
+      --shadow-sm:  0 1px 3px rgba(0,0,0,0.3);
+      --shadow-md:  0 4px 16px rgba(0,0,0,0.4);
+      --shadow-lg:  0 8px 32px rgba(0,0,0,0.5);
+      --shadow-glow-blue:   0 0 32px rgba(59,130,246,0.5), 0 0 64px rgba(59,130,246,0.2);
+      --shadow-glow-purple: 0 0 32px rgba(139,92,246,0.5), 0 0 64px rgba(139,92,246,0.2);
+
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+
+      --nav-height: 68px;
+      --transition: 0.2s ease;
+      --transition-slow: 0.4s ease;
+    }.meloma-landing .container{ width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }.meloma-landing .flex{ display: flex; }.meloma-landing .flex-col{ flex-direction: column; }.meloma-landing .items-center{ align-items: center; }.meloma-landing .justify-center{ justify-content: center; }.meloma-landing .justify-between{ justify-content: space-between; }.meloma-landing .gap-4{ gap: 16px; }.meloma-landing .gap-6{ gap: 24px; }.meloma-landing .gap-8{ gap: 32px; }.meloma-landing .text-center{ text-align: center; }.meloma-landing .hidden{ display: none !important; }.meloma-landing .gradient-text{
+      background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }.meloma-landing .gradient-text-accent{
+      background: linear-gradient(135deg, var(--accent), var(--primary-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }.meloma-landing .badge{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }.meloma-landing .badge-blue{ background: rgba(59,130,246,0.15); color: var(--primary-light); border: 1px solid rgba(59,130,246,0.3); }.meloma-landing .badge-purple{ background: rgba(139,92,246,0.15); color: var(--secondary-light); border: 1px solid rgba(139,92,246,0.3); }.meloma-landing .badge-green{ background: rgba(16,185,129,0.15); color: #34D399; border: 1px solid rgba(16,185,129,0.3); }.meloma-landing .badge-orange{ background: rgba(249,115,22,0.15); color: #FB923C; border: 1px solid rgba(249,115,22,0.3); }.meloma-landing .section-eyebrow{
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary-light);
+      margin-bottom: 12px;
+    }.meloma-landing .section-title{
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }.meloma-landing .section-subtitle{
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto;
+    }.meloma-landing .section-header{ margin-bottom: 56px; }.meloma-landing #navbar{
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: var(--nav-height);
+      background: rgba(15,23,42,0.75);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition);
+    }.meloma-landing #navbar.scrolled{ background: rgba(15,23,42,0.95); }.meloma-landing .nav-inner{
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }.meloma-landing .nav-logo{
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      cursor: pointer;
+      flex-shrink: 0;
+    }.meloma-landing .nav-links{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }.meloma-landing .nav-link{
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: color var(--transition), background var(--transition);
+    }.meloma-landing .nav-link:hover{ color: var(--text-primary); background: rgba(255,255,255,0.06); }.meloma-landing .nav-btn{
+      padding: 9px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      transition: all var(--transition);
+    }.meloma-landing .nav-btn-ghost{
+      color: var(--text-secondary);
+      background: transparent;
+      border: 1px solid var(--border);
+    }.meloma-landing .nav-btn-ghost:hover{ color: var(--text-primary); border-color: var(--border-hover); }.meloma-landing .nav-btn-primary{
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(59,130,246,0.35);
+    }.meloma-landing .nav-btn-primary:hover{ box-shadow: 0 4px 20px rgba(59,130,246,0.5); transform: translateY(-1px); }.meloma-landing .nav-hamburger{
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      cursor: pointer;
+      background: transparent;
+    }.meloma-landing .nav-hamburger span{
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--text-secondary);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }.meloma-landing .nav-mobile{
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0; right: 0;
+      background: rgba(15,23,42,0.98);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px 24px;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 999;
+    }.meloma-landing .nav-mobile.open{ display: flex; }.meloma-landing .nav-mobile .nav-link{
+      padding: 12px 16px;
+      font-size: 16px;
+      border-radius: var(--radius-md);
+    }.meloma-landing .nav-mobile .nav-btn{
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      border-radius: var(--radius-md);
+      text-align: center;
+    }.meloma-landing #section-home{ display: block; }.meloma-landing .hero{
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: calc(var(--nav-height) + 60px) 24px 80px;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--bg-dark) 0%, var(--bg-mid) 100%);
+    }.meloma-landing .hero-glow-1{
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,0.18) 0%, transparent 70%);
+      top: -100px; left: -100px;
+      pointer-events: none;
+    }.meloma-landing .hero-glow-2{
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%);
+      bottom: 0; right: -80px;
+      pointer-events: none;
+    }.meloma-landing .hero-glow-3{
+      position: absolute;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }.meloma-landing .hero-grid{
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }.meloma-landing .hero-content{
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 780px;
+    }.meloma-landing .hero-badge{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      background: rgba(59,130,246,0.12);
+      border: 1px solid rgba(59,130,246,0.25);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary-light);
+      margin-bottom: 32px;
+      letter-spacing: 0.05em;
+    }.meloma-landing .hero-badge .dot{
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }.meloma-landing .hero-title{
+      font-size: clamp(38px, 7vw, 72px);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }.meloma-landing .hero-title .highlight{
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-light) 50%, #F472B6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }.meloma-landing .hero-subtitle{
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }.meloma-landing .hero-cta-wrap{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 64px;
+    }.meloma-landing .btn-hero{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 22px 48px;
+      border-radius: var(--radius-xl);
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      animation: hero-glow-pulse 3s ease-in-out infinite;
+    }.meloma-landing .btn-hero::before{
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }.meloma-landing .btn-hero:hover::before{ opacity: 1; }.meloma-landing .btn-hero:hover{ transform: translateY(-3px) scale(1.02); }.meloma-landing .btn-hero:active{ transform: translateY(-1px) scale(1.01); }.meloma-landing .btn-hero .arrow{
+      font-size: 22px;
+      transition: transform 0.25s ease;
+    }.meloma-landing .btn-hero:hover .arrow{ transform: translateX(4px); }.meloma-landing .hero-secondary-link{
+      font-size: 14px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color var(--transition);
+    }.meloma-landing .hero-secondary-link:hover{ color: var(--text-secondary); }.meloma-landing .hero-secondary-link span{
+      border-bottom: 1px dashed var(--text-muted);
+      padding-bottom: 1px;
+    }.meloma-landing .hero-stats{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }.meloma-landing .hero-stat{
+      padding: 20px 40px;
+      border-right: 1px solid var(--border);
+    }.meloma-landing .hero-stat:last-child{ border-right: none; }.meloma-landing .hero-stat-value{
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }.meloma-landing .hero-stat-label{
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+      font-weight: 500;
+    }.meloma-landing .section{ padding: 96px 0; }.meloma-landing .section-alt{ background: rgba(30,27,75,0.25); }.meloma-landing .steps-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      position: relative;
+    }.meloma-landing .steps-grid::before{
+      content: '';
+      position: absolute;
+      top: 60px;
+      left: calc(16.66% + 60px);
+      right: calc(16.66% + 60px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      opacity: 0.3;
+      pointer-events: none;
+    }.meloma-landing .step-card{
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      text-align: center;
+      position: relative;
+      transition: border-color var(--transition), transform var(--transition-slow);
+    }.meloma-landing .step-card:hover{ border-color: var(--border-hover); transform: translateY(-4px); }.meloma-landing .step-number{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px; height: 52px;
+      border-radius: var(--radius-full);
+      font-size: 20px;
+      font-weight: 800;
+      margin: 0 auto 20px;
+    }.meloma-landing .step-number-1{ background: linear-gradient(135deg, var(--primary), var(--primary-dark)); box-shadow: 0 4px 16px rgba(59,130,246,0.4); }.meloma-landing .step-number-2{ background: linear-gradient(135deg, var(--secondary), var(--secondary-dark)); box-shadow: 0 4px 16px rgba(139,92,246,0.4); }.meloma-landing .step-number-3{ background: linear-gradient(135deg, var(--accent), var(--accent-dark)); box-shadow: 0 4px 16px rgba(16,185,129,0.4); }.meloma-landing .step-icon{ font-size: 32px; margin-bottom: 12px; }.meloma-landing .step-title{ font-size: 18px; font-weight: 700; margin-bottom: 10px; }.meloma-landing .step-desc{ font-size: 14px; color: var(--text-secondary); line-height: 1.65; }.meloma-landing .features-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }.meloma-landing .feature-card{
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: border-color var(--transition), transform var(--transition-slow), box-shadow var(--transition-slow);
+    }.meloma-landing .feature-card:hover{
+      border-color: var(--primary);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(59,130,246,0.12);
+    }.meloma-landing .feature-icon-wrap{
+      width: 48px; height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 18px;
+    }.meloma-landing .fi-blue{ background: rgba(59,130,246,0.15); }.meloma-landing .fi-purple{ background: rgba(139,92,246,0.15); }.meloma-landing .fi-green{ background: rgba(16,185,129,0.15); }.meloma-landing .fi-orange{ background: rgba(249,115,22,0.15); }.meloma-landing .fi-pink{ background: rgba(236,72,153,0.15); }.meloma-landing .fi-yellow{ background: rgba(234,179,8,0.15);  }.meloma-landing .feature-title{ font-size: 16px; font-weight: 700; margin-bottom: 8px; }.meloma-landing .feature-desc{ font-size: 14px; color: var(--text-secondary); line-height: 1.65; }.meloma-landing .courses-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }.meloma-landing .course-card{
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color var(--transition), transform var(--transition-slow), box-shadow var(--transition-slow);
+    }.meloma-landing .course-card:hover{
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }.meloma-landing .course-thumb{
+      height: 148px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+      position: relative;
+      overflow: hidden;
+    }.meloma-landing .course-thumb::after{
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.4));
+    }.meloma-landing .cat-tech{ background: linear-gradient(135deg, #1E3A8A, #3B82F6); }.meloma-landing .cat-design{ background: linear-gradient(135deg, #581C87, #A855F7); }.meloma-landing .cat-business{ background: linear-gradient(135deg, #064E3B, #10B981); }.meloma-landing .cat-humanities{ background: linear-gradient(135deg, #78350F, #F59E0B); }.meloma-landing .cat-health{ background: linear-gradient(135deg, #881337, #F43F5E); }.meloma-landing .cat-engineering{ background: linear-gradient(135deg, #1C1917, #78716C); }.meloma-landing .course-body{ padding: 18px 18px 20px; }.meloma-landing .course-meta{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }.meloma-landing .course-category{
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }.meloma-landing .course-level{
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+    }.meloma-landing .level-iniciante{ background: rgba(16,185,129,0.15);  color: #34D399; }.meloma-landing .level-intermediario{ background: rgba(59,130,246,0.15);  color: var(--primary-light); }.meloma-landing .level-avancado{ background: rgba(249,115,22,0.15);  color: #FB923C; }.meloma-landing .course-title{ font-size: 15px; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }.meloma-landing .course-footer{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }.meloma-landing .course-price{
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--primary-light);
+    }.meloma-landing .course-sub-badge{
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      background: rgba(139,92,246,0.15);
+      color: var(--secondary-light);
+      font-weight: 600;
+    }.meloma-landing .courses-see-all{
+      text-align: center;
+      margin-top: 40px;
+    }.meloma-landing .btn-outline{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 600;
+      background: transparent;
+      border: 1px solid var(--border-hover);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition);
+    }.meloma-landing .btn-outline:hover{ color: var(--text-primary); border-color: var(--primary); box-shadow: 0 0 20px rgba(59,130,246,0.15); }.meloma-landing .vocational-section{
+      background: linear-gradient(135deg, #1E1B4B 0%, #0F172A 50%, #1A1035 100%);
+      border-top: 1px solid rgba(139,92,246,0.2);
+      border-bottom: 1px solid rgba(139,92,246,0.2);
+      position: relative;
+      overflow: hidden;
+    }.meloma-landing .vocational-section::before{
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%);
+      top: -200px; right: -100px;
+      pointer-events: none;
+    }.meloma-landing .vocational-inner{
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }.meloma-landing .vocational-left{}.meloma-landing .vocational-title{
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }.meloma-landing .vocational-desc{
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }.meloma-landing .vocational-benefits{
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 36px;
+    }.meloma-landing .vocational-benefit{
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }.meloma-landing .vb-icon{
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(139,92,246,0.2);
+      border: 1px solid rgba(139,92,246,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }.meloma-landing .btn-purple{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: var(--radius-lg);
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, var(--secondary), #6D28D9);
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 24px rgba(139,92,246,0.4);
+    }.meloma-landing .btn-purple:hover{ transform: translateY(-2px); box-shadow: 0 8px 32px rgba(139,92,246,0.55); }.meloma-landing .vocational-right{
+      position: relative;
+    }.meloma-landing .vocational-card-big{
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(139,92,246,0.25);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      backdrop-filter: blur(8px);
+    }.meloma-landing .vc-header{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }.meloma-landing .vc-avatar{
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }.meloma-landing .vc-meta-name{ font-size: 15px; font-weight: 600; }.meloma-landing .vc-meta-sub{ font-size: 12px; color: var(--text-muted); }.meloma-landing .vc-question{ font-size: 16px; font-weight: 600; margin-bottom: 16px; }.meloma-landing .vc-options{ display: flex; flex-direction: column; gap: 8px; }.meloma-landing .vc-option{
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition);
+      background: transparent;
+      text-align: left;
+    }.meloma-landing .vc-option:hover{ border-color: var(--secondary); color: var(--text-primary); background: rgba(139,92,246,0.08); }.meloma-landing .vc-option.selected{ border-color: var(--secondary); color: var(--text-primary); background: rgba(139,92,246,0.12); }.meloma-landing .vc-price-tag{
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }.meloma-landing .vc-price-val{
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--secondary-light);
+    }.meloma-landing .vc-price-sub{ font-size: 12px; color: var(--text-muted); }.meloma-landing .bonus-tag{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.25);
+      border-radius: var(--radius-full);
+      padding: 4px 12px;
+    }.meloma-landing .pricing-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      align-items: start;
+    }.meloma-landing .plan-card{
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 32px 28px;
+      position: relative;
+      transition: transform var(--transition-slow), box-shadow var(--transition-slow);
+    }.meloma-landing .plan-card:hover{ transform: translateY(-4px); }.meloma-landing .plan-card.featured{
+      background: linear-gradient(160deg, rgba(59,130,246,0.08), rgba(139,92,246,0.08));
+      border-color: rgba(139,92,246,0.4);
+      box-shadow: 0 0 40px rgba(139,92,246,0.1);
+    }.meloma-landing .plan-badge{
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: var(--radius-full);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }.meloma-landing .plan-name{ font-size: 14px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }.meloma-landing .plan-price{
+      margin-bottom: 8px;
+    }.meloma-landing .plan-price-val{
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }.meloma-landing .plan-price-period{ font-size: 14px; color: var(--text-muted); font-weight: 500; }.meloma-landing .plan-desc{ font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.6; }.meloma-landing .plan-divider{ height: 1px; background: var(--border); margin-bottom: 20px; }.meloma-landing .plan-features{ display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }.meloma-landing .plan-feature{
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }.meloma-landing .plan-feature .check{ color: var(--accent); font-size: 15px; flex-shrink: 0; }.meloma-landing .plan-feature .cross{ color: var(--text-muted); font-size: 15px; flex-shrink: 0; }.meloma-landing .btn-plan{
+      width: 100%;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }.meloma-landing .btn-plan-ghost{
+      background: transparent;
+      border: 1px solid var(--border-hover);
+      color: var(--text-secondary);
+    }.meloma-landing .btn-plan-ghost:hover{ border-color: var(--primary); color: var(--text-primary); }.meloma-landing .btn-plan-primary{
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 16px rgba(59,130,246,0.35);
+    }.meloma-landing .btn-plan-primary:hover{ box-shadow: 0 6px 24px rgba(59,130,246,0.5); transform: translateY(-1px); }.meloma-landing .btn-plan-outline{
+      background: transparent;
+      border: 1px solid rgba(139,92,246,0.4);
+      color: var(--secondary-light);
+    }.meloma-landing .btn-plan-outline:hover{ background: rgba(139,92,246,0.1); }.meloma-landing .testimonials-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }.meloma-landing .testimonial-card{
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }.meloma-landing .testimonial-stars{ color: #FBBF24; font-size: 14px; margin-bottom: 14px; letter-spacing: 2px; }.meloma-landing .testimonial-text{
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }.meloma-landing .testimonial-author{ display: flex; align-items: center; gap: 12px; }.meloma-landing .author-avatar{
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+    }.meloma-landing .av-1{ background: linear-gradient(135deg, var(--primary), #60A5FA); }.meloma-landing .av-2{ background: linear-gradient(135deg, var(--secondary), #C084FC); }.meloma-landing .av-3{ background: linear-gradient(135deg, var(--accent), #34D399); }.meloma-landing .author-name{ font-size: 14px; font-weight: 700; }.meloma-landing .author-role{ font-size: 12px; color: var(--text-muted); }.meloma-landing footer{
+      background: var(--bg-darker);
+      border-top: 1px solid var(--border);
+      padding: 64px 0 32px;
+    }.meloma-landing .footer-grid{
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }.meloma-landing .footer-brand-logo{
+      font-size: 22px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }.meloma-landing .footer-brand-desc{
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 280px;
+      margin-bottom: 20px;
+    }.meloma-landing .footer-social{ display: flex; gap: 8px; }.meloma-landing .social-btn{
+      width: 36px; height: 36px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all var(--transition);
+    }.meloma-landing .social-btn:hover{ background: rgba(255,255,255,0.1); border-color: var(--border-hover); }.meloma-landing .footer-col-title{
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }.meloma-landing .footer-links{ display: flex; flex-direction: column; gap: 10px; }.meloma-landing .footer-link{
+      font-size: 14px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color var(--transition);
+    }.meloma-landing .footer-link:hover{ color: var(--text-secondary); }.meloma-landing .footer-bottom{
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }.meloma-landing .footer-copy{ font-size: 13px; color: var(--text-muted); }.meloma-landing .footer-legal{ display: flex; gap: 16px; }.meloma-landing .footer-legal a{ font-size: 13px; color: var(--text-muted); cursor: pointer; }.meloma-landing .footer-legal a:hover{ color: var(--text-secondary); }.meloma-landing .spa-page{
+      display: none;
+      min-height: 100vh;
+      padding-top: var(--nav-height);
+    }.meloma-landing .placeholder-page{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - var(--nav-height));
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+      padding: 40px;
+    }.meloma-landing .placeholder-icon{ font-size: 64px; margin-bottom: 8px; }.meloma-landing .placeholder-title{ font-size: 28px; font-weight: 700; }.meloma-landing .placeholder-sub{ font-size: 16px; color: var(--text-secondary); max-width: 400px; }.meloma-landing .placeholder-back{
+      margin-top: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.25);
+      color: var(--primary-light);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+    }.meloma-landing .placeholder-back:hover{ background: rgba(59,130,246,0.2); }.meloma-landing #toast-container{
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }.meloma-landing .toast{
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-lg);
+      min-width: 280px;
+      max-width: 380px;
+      pointer-events: all;
+      animation: toast-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }.meloma-landing .toast.hiding{ animation: toast-out 0.3s ease forwards; }.meloma-landing .toast-icon{ font-size: 18px; flex-shrink: 0; margin-top: 1px; }.meloma-landing .toast-body{}.meloma-landing .toast-title{ font-size: 14px; font-weight: 700; margin-bottom: 2px; }.meloma-landing .toast-msg{ font-size: 13px; color: var(--text-secondary); line-height: 1.4; }.meloma-landing .toast-success{ border-left: 3px solid var(--accent); }.meloma-landing .toast-error{ border-left: 3px solid #EF4444; }.meloma-landing .toast-info{ border-left: 3px solid var(--primary); }.meloma-landing .toast-warning{ border-left: 3px solid #F59E0B; }@keyframes hero-glow-pulse{
+      0%, 100% { box-shadow: 0 0 24px rgba(59,130,246,0.5), 0 0 48px rgba(139,92,246,0.25); }
+      50%       { box-shadow: 0 0 40px rgba(59,130,246,0.75), 0 0 80px rgba(139,92,246,0.45), 0 0 120px rgba(59,130,246,0.15); }
+    }@keyframes pulse-dot{
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.6; transform: scale(0.8); }
+    }@keyframes toast-in{
+      from { opacity: 0; transform: translateX(40px) scale(0.95); }
+      to   { opacity: 1; transform: translateX(0) scale(1); }
+    }@keyframes toast-out{
+      from { opacity: 1; transform: translateX(0); }
+      to   { opacity: 0; transform: translateX(40px); }
+    }@keyframes float{
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }@media (max-width: 900px){.meloma-landing .footer-grid{ grid-template-columns: 1fr 1fr; }.meloma-landing .vocational-inner{ grid-template-columns: 1fr; gap: 40px; }.meloma-landing .vocational-right{ display: none; }.meloma-landing .steps-grid::before{ display: none; }
+    }@media (max-width: 768px){.meloma-landing .nav-links{ display: none; }.meloma-landing .nav-hamburger{ display: flex; }.meloma-landing .hero-stat{ padding: 14px 24px; }.meloma-landing .hero-stats{ gap: 0; }.meloma-landing .footer-grid{ grid-template-columns: 1fr; gap: 32px; }.meloma-landing .btn-hero{ padding: 18px 32px; font-size: 17px; }
+    }@media (max-width: 560px){.meloma-landing .hero-stats{ flex-direction: column; gap: 0; }.meloma-landing .hero-stat{ border-right: none; border-bottom: 1px solid var(--border); width: 100%; }.meloma-landing .hero-stat:last-child{ border-bottom: none; }.meloma-landing .pricing-grid{ grid-template-columns: 1fr; }.meloma-landing .courses-grid{ grid-template-columns: 1fr; }
+    }
+
+.meloma-landing {
+  min-height: 100vh;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+}
+
+.meloma-landing #nav-toggle:checked ~ #nav-mobile {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.meloma-quiz-page {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #0f172a 0%, #1e1b4b 100%);
+  color: #f8fafc;
+}
+
+.meloma-quiz-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.meloma-quiz-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.meloma-quiz-back:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.meloma-quiz-fullscreen {
+  min-height: calc(100vh - 72px);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.meloma-quiz-fullscreen > * {
+  width: 100%;
+}
+
+.meloma-landing #duvidas {
+  scroll-margin-top: calc(var(--nav-height) + 16px);
+}
+
+.meloma-landing .faq-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.meloma-landing .faq-list {
+  border-top: 1px solid var(--border);
+}
+
+.meloma-landing .faq-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.meloma-landing .faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0.25rem;
+  color: var(--text-primary);
+  font-size: 1.02rem;
+  font-weight: 600;
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.meloma-landing .faq-question.is-open {
+  color: #c4b5fd;
+}
+
+.meloma-landing .faq-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--secondary-light);
+}
+
+.meloma-landing .faq-chevron {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.meloma-landing .faq-question.is-open .faq-chevron {
+  transform: rotate(-135deg);
+}
+
+/* Painel com animação suave de altura (accordion) */
+.meloma-landing .faq-answer-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.meloma-landing .faq-answer-panel.is-open {
+  grid-template-rows: 1fr;
+}
+
+.meloma-landing .faq-answer-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.meloma-landing .faq-answer {
+  padding: 0 0.25rem 1rem;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.meloma-landing .faq-answer-panel.is-open .faq-answer {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.meloma-landing .faq-answer p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meloma-landing .faq-answer-panel,
+  .meloma-landing .faq-answer,
+  .meloma-landing .faq-chevron {
+    transition: none;
+  }
+
+  .meloma-landing .faq-answer-panel:not(.is-open) {
+    grid-template-rows: 0fr;
+  }
+
+  .meloma-landing .faq-answer-panel.is-open .faq-answer {
+    transform: none;
+  }
+}
+
+.meloma-landing .faq-cta-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1.5rem;
+}
+
+.meloma-landing .faq-cta-card h3 {
+  font-size: 1.8rem;
+  line-height: 1.2;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+}
+
+.meloma-landing .faq-cta-card p {
+  color: var(--text-secondary);
+  margin-bottom: 1.1rem;
+}
+
+.meloma-landing .faq-cta-card .btn-purple {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .meloma-landing .faq-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .meloma-landing .vocational-inner.vocational-with-wizard .vocational-right {
+    display: block !important;
+  }
+}
