@@ -3,17 +3,16 @@ import { PremiumAuthForm } from "@/components/PremiumAuthForm";
 
 export default function PremiumLoginPage() {
   return (
-    <main className="new-ui-shell min-h-screen px-4 py-10 sm:px-8">
-      <div className="new-container mb-8 flex w-full items-center justify-between">
-        <h1 className="text-2xl font-extrabold text-slate-100 sm:text-3xl">Acesso Premium</h1>
-        <Link
-          href="/"
-          className="new-btn new-btn-ghost"
-        >
-          Voltar
-        </Link>
+    <main className="meloma-premium-login-shell">
+      <div className="mx-auto flex w-full max-w-[440px] flex-col gap-8">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <h1 className="meloma-premium-login-heading">Acesso Premium</h1>
+          <Link href="/" className="meloma-premium-back-link">
+            ← Voltar
+          </Link>
+        </div>
+        <PremiumAuthForm />
       </div>
-      <PremiumAuthForm />
     </main>
   );
 }

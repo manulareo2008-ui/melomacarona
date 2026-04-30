@@ -2,6 +2,20 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import {
+  IconCheckPurple,
+  IconFeatureAdmin,
+  IconFeatureBrain,
+  IconFeatureCart,
+  IconFeatureGraduation,
+  IconFeatureQuiz,
+  IconFeatureShield,
+  IconSparkleBadge,
+  IconStepAI,
+  IconStepLink,
+  IconStepProfile,
+} from "@/components/MelomaIcons";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteFooter } from "@/components/SiteFooter";
 
 const FAQ_ITEMS = [
@@ -157,212 +171,268 @@ export default function Home() {
       </div>
 
       <div id="section-home">
-        <section className="hero">
-          <div className="hero-grid" />
-          <div className="hero-glow-1" />
-          <div className="hero-glow-2" />
-          <div className="hero-glow-3" />
-
-          <div className="hero-content">
-            <div className="hero-badge">
-              <span className="dot" />
-              Plataforma com IA de Recomendação
-            </div>
-
-            <h1 className="hero-title">
-              Encontre o curso
-              <br />
-              <span className="highlight">perfeito para você</span>
-            </h1>
-
-            <p className="hero-subtitle">
-              Nossa IA analisa seu perfil, interesses e objetivos para recomendar
-              os cursos ideais. Motor de recomendação, teste vocacional e fluxo
-              completo de matrícula do sistema atual — com visual renovado.
-            </p>
-
-            <div className="hero-cta-wrap">
-              <Link href="/quiz" className="btn-hero">
-                Descobrir meus cursos
-                <span className="arrow">→</span>
-              </Link>
-              <Link
-                href="/guias"
-                className="hero-secondary-link"
-                onClick={closeMobileMenu}
-              >
-                ou <span>explorar guias</span>
-              </Link>
-            </div>
-
-            <div className="hero-stats">
-              <div className="hero-stat">
-                <div className="hero-stat-value">15.000+</div>
-                <div className="hero-stat-label">alunos ativos</div>
-              </div>
-              <div className="hero-stat">
-                <div className="hero-stat-value">200+</div>
-                <div className="hero-stat-label">cursos disponíveis</div>
-              </div>
-              <div className="hero-stat">
-                <div className="hero-stat-value">4.9★</div>
-                <div className="hero-stat-label">avaliação média</div>
-              </div>
-            </div>
+        <section className="hero meloma-hero-v2">
+          <div className="meloma-hero-bg-layers" aria-hidden="true">
+            <div className="meloma-hero-bg-gradient" />
+            <div className="meloma-hero-bg-dots" />
           </div>
-        </section>
 
-        <section className="section" id="como-funciona">
-          <div className="container">
-            <div className="section-header text-center">
-              <div className="section-eyebrow">Como funciona</div>
-              <h2 className="section-title">
-                Três passos até o <span className="gradient-text">curso certo</span>
-              </h2>
-              <p className="section-subtitle">
-                Nossa IA faz o trabalho pesado — você só precisa aprender.
-              </p>
-            </div>
+          <div className="container meloma-hero-shell">
+            <div className="meloma-hero-col-main">
+              <div className="hero-badge meloma-hero-reveal meloma-hero-reveal--1">
+                <span className="dot" />
+                Plataforma com IA de Recomendação
+              </div>
 
-            <div className="steps-grid">
-              <div className="step-card">
-                <div className="step-number step-number-1">1</div>
-                <div className="step-icon">📝</div>
-                <div className="step-title">Responda seu perfil</div>
-                <p className="step-desc">
-                  Objetivos, área, nível e formato preferido — o mesmo fluxo
-                  completo que você já usa hoje.
-                </p>
-              </div>
-              <div className="step-card">
-                <div className="step-number step-number-2">2</div>
-                <div className="step-icon">🤖</div>
-                <div className="step-title">IA recomenda</div>
-                <p className="step-desc">
-                  Compatibilidade com nichos e cursos reais da base, com
-                  resultados alinhados ao seu perfil.
-                </p>
-              </div>
-              <div className="step-card">
-                <div className="step-number step-number-3">3</div>
-                <div className="step-icon">🚀</div>
-                <div className="step-title">Acesse sem fricção</div>
-                <p className="step-desc">
-                  Redirecionamento para URL válida com fallback de segurança.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+              <h1 className="hero-title meloma-hero-reveal meloma-hero-reveal--2">
+                Encontre o curso
+                <br />
+                <span className="highlight">perfeito para você</span>
+              </h1>
 
-        <section className="section section-alt">
-          <div className="container">
-            <div className="section-header text-center">
-              <div className="section-eyebrow">Diferenciais</div>
-              <h2 className="section-title">
-                Por que a <span className="gradient-text">Melomacarona</span>?
-              </h2>
-              <p className="section-subtitle">
-                Uma plataforma construída para você encontrar, não para você
-                procurar.
-              </p>
-            </div>
-
-            <div className="features-grid">
-              <div className="feature-card">
-                <div className="feature-icon-wrap fi-blue">🤖</div>
-                <div className="feature-title">IA de Recomendação</div>
-                <p className="feature-desc">
-                  Nosso modelo analisa seu perfil e recomenda cursos
-                  personalizados — sem você precisar saber exatamente o que
-                  quer.
-                </p>
-              </div>
-              <div className="feature-card">
-                <div className="feature-icon-wrap fi-purple">🎓</div>
-                <div className="feature-title">Trilhas e conteúdo</div>
-                <p className="feature-desc">
-                  Guias e recursos premium permanecem disponíveis na área
-                  logada, com o mesmo acesso que você já conhece.
-                </p>
-              </div>
-              <div className="feature-card">
-                <div className="feature-icon-wrap fi-green">🛒</div>
-                <div className="feature-title">Matrícula clara</div>
-                <p className="feature-desc">
-                  Fluxo de matrícula e redirecionamento pensado para reduzir
-                  cliques e dúvidas no caminho até o curso.
-                </p>
-              </div>
-              <div className="feature-card">
-                <div className="feature-icon-wrap fi-orange">🧭</div>
-                <div className="feature-title">Teste e quiz</div>
-                <p className="feature-desc">
-                  Quiz de perfil e recomendações conectados à base real de
-                  cursos e nichos.
-                </p>
-              </div>
-              <div className="feature-card">
-                <div className="feature-icon-wrap fi-pink">🏫</div>
-                <div className="feature-title">Admin e histórico</div>
-                <p className="feature-desc">
-                  Área administrativa e histórico seguem ativos para gestão e
-                  acompanhamento.
-                </p>
-              </div>
-              <div className="feature-card">
-                <div className="feature-icon-wrap fi-yellow">💰</div>
-                <div className="feature-title">Segurança no acesso</div>
-                <p className="feature-desc">
-                  Fallback de segurança nas URLs e fluxo validado para você
-                  confiar no próximo passo.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="section vocational-section" id="quiz">
-          <div className="container">
-            <div className="vocational-inner">
-              <div className="vocational-left">
-                <div className="badge badge-purple" style={{ marginBottom: 20 }}>
-                  ✦ Quiz e recomendação
-                </div>
-                <h2 className="vocational-title">
-                  Pronto para o
-                  <br />
-                  <span className="gradient-text">teste guiado</span>?
-                </h2>
-                <p className="vocational-desc">
-                  O mesmo assistente em etapas: interesses, formato e
-                  investimento, com recomendações alinhadas à sua realidade.
-                </p>
-                <div className="vocational-benefits">
-                  <div className="vocational-benefit">
-                    <div className="vb-icon">✓</div>
-                    Perfil e preferências em poucos minutos
-                  </div>
-                  <div className="vocational-benefit">
-                    <div className="vb-icon">✓</div>
-                    Sugestões compatíveis com a base de cursos
-                  </div>
-                  <div className="vocational-benefit">
-                    <div className="vb-icon">✓</div>
-                    Continuidade até matrícula com URLs seguras
-                  </div>
-                </div>
-                <Link href="/quiz" className="btn-purple" onClick={closeMobileMenu}>
-                  🧭 Abrir questionário completo
+              <div className="hero-cta-wrap meloma-hero-reveal meloma-hero-reveal--4">
+                <Link href="/quiz" className="btn-hero">
+                  Descobrir meus cursos
+                  <span className="arrow">→</span>
+                </Link>
+                <Link
+                  href="/guias"
+                  className="hero-secondary-link"
+                  onClick={closeMobileMenu}
+                >
+                  ou{" "}
+                  <span>explorar guias</span>
                 </Link>
               </div>
             </div>
+
+            <div className="meloma-hero-col-aside">
+              <p className="hero-subtitle meloma-hero-reveal meloma-hero-reveal--3">
+                Nossa IA analisa seu perfil, interesses e objetivos para recomendar
+                os cursos ideais. Motor de recomendação, teste vocacional e fluxo
+                completo de matrícula do sistema atual — com visual renovado.
+              </p>
+
+              <div className="hero-stats meloma-hero-reveal meloma-hero-reveal--5">
+                <div className="hero-stat">
+                  <div className="hero-stat-value">IA Personalizada</div>
+                  <div className="hero-stat-label">recomendações precisas</div>
+                </div>
+                <div className="hero-stat">
+                  <div className="hero-stat-value">Gratuito</div>
+                  <div className="hero-stat-label">para começar</div>
+                </div>
+                <div className="hero-stat">
+                  <div className="hero-stat-value">4.9★</div>
+                  <div className="hero-stat-label">avaliação média</div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section className="section" id="duvidas">
-          <div className="container">
-            <div className="faq-layout">
+        <ScrollReveal className="section-scroll-wrap">
+          <section className="section" id="como-funciona">
+            <div className="container">
+              <div className="section-header text-center">
+                <div className="section-eyebrow">Como funciona</div>
+                <h2 className="section-title">
+                  Três passos até o <span className="gradient-text">curso certo</span>
+                </h2>
+                <p className="section-subtitle">
+                  Nossa IA faz o trabalho pesado — você só precisa aprender.
+                </p>
+              </div>
+
+              <div className="steps-grid meloma-home-steps">
+                <div className="step-card">
+                  <div className="step-number step-number-1">1</div>
+                  <div className="step-icon meloma-step-icon-svg" aria-hidden>
+                    <IconStepProfile size={32} />
+                  </div>
+                  <div className="step-title">Responda seu perfil</div>
+                  <p className="step-desc">
+                    Objetivos, área, nível e formato preferido — o mesmo fluxo
+                    completo que você já usa hoje.
+                  </p>
+                </div>
+                <div className="step-card">
+                  <div className="step-number step-number-2">2</div>
+                  <div className="step-icon meloma-step-icon-svg" aria-hidden>
+                    <IconStepAI size={32} />
+                  </div>
+                  <div className="step-title">IA recomenda</div>
+                  <p className="step-desc">
+                    Compatibilidade com nichos e cursos reais da base, com
+                    resultados alinhados ao seu perfil.
+                  </p>
+                </div>
+                <div className="step-card">
+                  <div className="step-number step-number-3">3</div>
+                  <div className="step-icon meloma-step-icon-svg" aria-hidden>
+                    <IconStepLink size={32} />
+                  </div>
+                  <div className="step-title">Acesse sem fricção</div>
+                  <p className="step-desc">
+                    Redirecionamento para URL válida com fallback de segurança.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </ScrollReveal>
+
+        <ScrollReveal className="section-scroll-wrap">
+          <section className="section section-alt">
+            <div className="container">
+              <div className="section-header text-center">
+                <div className="section-eyebrow">Diferenciais</div>
+                <h2 className="section-title">
+                  Por que a <span className="gradient-text">Melomacarona</span>?
+                </h2>
+                <p className="section-subtitle">
+                  Uma plataforma construída para você encontrar, não para você
+                  procurar.
+                </p>
+              </div>
+
+              <div className="features-grid">
+                <div className="feature-card">
+                  <div
+                    className="feature-icon-wrap fi-blue meloma-feature-icon-wrap"
+                    aria-hidden
+                  >
+                    <IconFeatureBrain size={28} />
+                  </div>
+                  <div className="feature-title">IA de Recomendação</div>
+                  <p className="feature-desc">
+                    Nosso modelo analisa seu perfil e recomenda cursos
+                    personalizados — sem você precisar saber exatamente o que
+                    quer.
+                  </p>
+                </div>
+                <div className="feature-card">
+                  <div
+                    className="feature-icon-wrap fi-purple meloma-feature-icon-wrap"
+                    aria-hidden
+                  >
+                    <IconFeatureGraduation size={28} />
+                  </div>
+                  <div className="feature-title">Trilhas e conteúdo</div>
+                  <p className="feature-desc">
+                    Guias e recursos premium permanecem disponíveis na área
+                    logada, com o mesmo acesso que você já conhece.
+                  </p>
+                </div>
+                <div className="feature-card">
+                  <div
+                    className="feature-icon-wrap fi-green meloma-feature-icon-wrap"
+                    aria-hidden
+                  >
+                    <IconFeatureCart size={28} />
+                  </div>
+                  <div className="feature-title">Matrícula clara</div>
+                  <p className="feature-desc">
+                    Fluxo de matrícula e redirecionamento pensado para reduzir
+                    cliques e dúvidas no caminho até o curso.
+                  </p>
+                </div>
+                <div className="feature-card">
+                  <div
+                    className="feature-icon-wrap fi-orange meloma-feature-icon-wrap"
+                    aria-hidden
+                  >
+                    <IconFeatureQuiz size={28} />
+                  </div>
+                  <div className="feature-title">Teste e quiz</div>
+                  <p className="feature-desc">
+                    Quiz de perfil e recomendações conectados à base real de
+                    cursos e nichos.
+                  </p>
+                </div>
+                <div className="feature-card">
+                  <div
+                    className="feature-icon-wrap fi-pink meloma-feature-icon-wrap"
+                    aria-hidden
+                  >
+                    <IconFeatureAdmin size={28} />
+                  </div>
+                  <div className="feature-title">Admin e histórico</div>
+                  <p className="feature-desc">
+                    Área administrativa e histórico seguem ativos para gestão e
+                    acompanhamento.
+                  </p>
+                </div>
+                <div className="feature-card">
+                  <div
+                    className="feature-icon-wrap fi-yellow meloma-feature-icon-wrap"
+                    aria-hidden
+                  >
+                    <IconFeatureShield size={28} />
+                  </div>
+                  <div className="feature-title">Segurança no acesso</div>
+                  <p className="feature-desc">
+                    Fallback de segurança nas URLs e fluxo validado para você
+                    confiar no próximo passo.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </ScrollReveal>
+
+        <ScrollReveal className="section-scroll-wrap">
+          <section className="section vocational-section meloma-voc-bg" id="quiz">
+            <div className="container">
+              <div className="vocational-inner">
+                <div className="vocational-left">
+                  <div className="badge badge-purple flex items-center gap-2" style={{ marginBottom: 20 }}>
+                    <IconSparkleBadge size={14} />
+                    Quiz e recomendação
+                  </div>
+                  <h2 className="vocational-title">
+                    Pronto para o
+                    <br />
+                    <span className="gradient-text">teste guiado</span>?
+                  </h2>
+                  <p className="vocational-desc">
+                    O mesmo assistente em etapas: interesses, formato e
+                    investimento, com recomendações alinhadas à sua realidade.
+                  </p>
+                  <div className="vocational-benefits">
+                    <div className="vocational-benefit">
+                      <div className="vb-icon" aria-hidden>
+                        <IconCheckPurple size={14} />
+                      </div>
+                      Perfil e preferências em poucos minutos
+                    </div>
+                    <div className="vocational-benefit">
+                      <div className="vb-icon" aria-hidden>
+                        <IconCheckPurple size={14} />
+                      </div>
+                      Sugestões compatíveis com a base de cursos
+                    </div>
+                    <div className="vocational-benefit">
+                      <div className="vb-icon" aria-hidden>
+                        <IconCheckPurple size={14} />
+                      </div>
+                      Continuidade até matrícula com URLs seguras
+                    </div>
+                  </div>
+                  <Link href="/quiz" className="btn-purple inline-flex items-center gap-2" onClick={closeMobileMenu}>
+                    <IconFeatureQuiz size={22} />
+                    Abrir questionário completo
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        </ScrollReveal>
+
+        <ScrollReveal className="section-scroll-wrap">
+          <section className="section" id="duvidas">
+            <div className="container">
+              <div className="faq-layout">
               <div>
                 <div className="section-header" style={{ marginBottom: 24 }}>
                   <h2 className="section-title">Principais dúvidas</h2>
@@ -418,10 +488,12 @@ export default function Home() {
                   Iniciar teste vocacional
                 </Link>
               </aside>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </ScrollReveal>
 
+        <ScrollReveal className="section-scroll-wrap">
         <section id="guias" className="section section-alt">
           <div className="container">
             <div className="section-header text-center">
@@ -436,7 +508,7 @@ export default function Home() {
             </div>
 
             <div className="mx-auto max-w-3xl">
-              <div className="feature-card flex flex-col gap-6 p-8 md:flex-row md:items-center md:justify-between">
+              <div className="feature-card meloma-premium-block-card flex flex-col gap-6 p-8 md:flex-row md:items-center md:justify-between">
                 <div>
                   <h3 className="feature-title text-lg">
                     Conteúdo e trilhas premium
@@ -466,6 +538,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+        </ScrollReveal>
       </div>
 
       <SiteFooter />

@@ -5,7 +5,7 @@ export function SiteFooter() {
   const email = getPublicContactEmail();
 
   return (
-    <footer>
+    <footer className="meloma-site-footer">
       <div className="container">
         <div className="footer-grid">
           <div>
@@ -64,11 +64,7 @@ export function SiteFooter() {
             © {new Date().getFullYear()} {SITE_NAME}. Todos os direitos reservados.
           </p>
           <div className="footer-legal">
-            {email ? (
-              <a href={`mailto:${encodeURIComponent(email)}`}>{email}</a>
-            ) : (
-              <span className="text-slate-500">Canal de contato em configuração</span>
-            )}
+            <a href={`mailto:${encodeURIComponent(email)}`}>{email}</a>
           </div>
         </div>
       </div>

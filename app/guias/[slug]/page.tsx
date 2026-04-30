@@ -9,31 +9,31 @@ const guideContent: Record<
   "cursos-ia-iniciantes": {
     title: "Cursos de IA para iniciantes",
     intro:
-      "Se voce esta comecando em IA, priorize cursos com projetos praticos, suporte e boa trilha de aprendizado.",
+      "Se você está começando em IA, priorize cursos com projetos práticos, suporte e boa trilha de aprendizado.",
     bullets: [
-      "Comece com base: logica, dados e prompts.",
-      "Prefira cursos com exercicios aplicados ao mercado.",
-      "Use o recomendador para comparar preco e afinidade.",
+      "Comece com base: lógica, dados e prompts.",
+      "Prefira cursos com exercícios aplicados ao mercado.",
+      "Use o recomendador para comparar preço e afinidade.",
     ],
   },
   "melhores-cursos-ate-100": {
-    title: "Melhores cursos ate R$ 100",
+    title: "Melhores cursos até R$ 100",
     intro:
-      "Para reduzir risco, foque em cursos de entrada com baixo investimento e foco em entrega rapida.",
+      "Para reduzir risco, foque em cursos de entrada com baixo investimento e foco em entrega rápida.",
     bullets: [
       "Valide interesse com curso curto antes de investir alto.",
-      "Compare carga horaria e nivel do conteudo.",
-      "Priorize cursos com aplicacao imediata no trabalho.",
+      "Compare carga horária e nível do conteúdo.",
+      "Priorize cursos com aplicação imediata no trabalho.",
     ],
   },
   "cursos-online-com-certificado": {
     title: "Cursos online com certificado",
     intro:
-      "Cursos com certificado ajudam no curriculo, desde que tragam conteudo util e pratica real.",
+      "Cursos com certificado ajudam no currículo, desde que tragam conteúdo útil e prática real.",
     bullets: [
-      "Certificado e importante, mas resultado pratico vem primeiro.",
-      "Verifique reputacao da instituicao e da plataforma.",
-      "Escolha modalidade e preco que cabem na sua rotina.",
+      "Certificado é importante, mas resultado prático vem primeiro.",
+      "Verifique reputação da instituição e da plataforma.",
+      "Escolha modalidade e preço que cabem na sua rotina.",
     ],
   },
 };
@@ -50,7 +50,7 @@ export function generateMetadata({
   const guide = guideContent[params.slug];
   if (!guide) {
     return {
-      title: "Guia nao encontrado",
+      title: "Guia não encontrado",
     };
   }
   return {
@@ -73,39 +73,27 @@ export default function GuideDetailPage({
   if (!guide) notFound();
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-      <article className="rounded-2xl border border-zinc-800/90 bg-zinc-950 p-6 shadow-sm">
-        <p className="text-xs uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-          Guia pratico
-        </p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-zinc-100">
-          {guide.title}
-        </h1>
-        <p className="mt-3 text-sm leading-relaxed text-white">
-          {guide.intro}
-        </p>
-        <ul className="mt-5 space-y-2 text-sm text-white">
+    <main className="meloma-guide-detail-main px-4 py-10 sm:px-6">
+      <article className="meloma-guide-detail-article mx-auto max-w-3xl">
+        <p className="meloma-label-caps text-[var(--text-muted)]">Guia prático</p>
+        <h1 className="meloma-heading-xl mt-3 text-3xl">{guide.title}</h1>
+        <p className="mt-4 text-[var(--text-muted)] leading-relaxed">{guide.intro}</p>
+        <ul className="mt-6 space-y-3 text-[var(--text-primary)]">
           {guide.bullets.map((item) => (
             <li
               key={item}
-              className="rounded-xl bg-zinc-900 px-3 py-2"
+              className="rounded-xl border border-[var(--meloma-border)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-relaxed"
             >
               {item}
             </li>
           ))}
         </ul>
 
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link
-            href="/"
-            className="rounded-full bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-900 hover:bg-zinc-200"
-          >
-            Fazer recomendacao agora
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link href="/quiz" className="meloma-btn-primary text-sm no-underline">
+            Fazer recomendação agora
           </Link>
-          <Link
-            href="/guias"
-            className="rounded-full border border-zinc-700 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
-          >
+          <Link href="/guias" className="meloma-btn-secondary text-sm no-underline">
             Ver todos os guias
           </Link>
         </div>
@@ -113,4 +101,3 @@ export default function GuideDetailPage({
     </main>
   );
 }
-

@@ -3,18 +3,12 @@ import { SITE_NAME } from "@/lib/site-config";
 
 export function TrustNav() {
   return (
-    <header className="border-b border-white/[0.08] bg-[#080e1a]/90 backdrop-blur-md">
-      <div className="container flex h-[68px] items-center justify-between">
-        <Link
-          href="/"
-          className="text-xl font-black tracking-tight text-transparent bg-gradient-to-br from-[#60A5FA] to-[#A78BFA] bg-clip-text"
-        >
+    <header className="meloma-trust-nav sticky top-0 z-50">
+      <div className="container meloma-trust-nav-inner">
+        <Link href="/" className="meloma-trust-logo">
           {SITE_NAME}
         </Link>
-        <Link
-          href="/"
-          className="text-sm font-medium text-slate-400 transition hover:text-slate-200"
-        >
+        <Link href="/" className="meloma-trust-back">
           ← Voltar ao início
         </Link>
       </div>

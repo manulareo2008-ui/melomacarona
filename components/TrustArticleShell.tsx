@@ -4,16 +4,22 @@ import { TrustNav } from "@/components/TrustNav";
 
 type Props = {
   title: string;
+  subtitle?: string;
+  eyebrow?: string;
   children: ReactNode;
 };
 
-export function TrustArticleShell({ title, children }: Props) {
+export function TrustArticleShell({ title, subtitle, eyebrow, children }: Props) {
   return (
-    <main className="meloma-landing min-h-screen bg-[#0F172A] text-[#F8FAFC]">
+    <main className="meloma-trust-page meloma-landing">
       <TrustNav />
-      <article className="container max-w-3xl py-14 pb-8">
-        <h1 className="mb-8 text-3xl font-bold tracking-tight text-white">{title}</h1>
-        <div className="space-y-6 text-sm leading-relaxed text-slate-300">{children}</div>
+      <article className="container meloma-trust-article max-w-3xl">
+        {eyebrow ? (
+          <p className="meloma-badge-pill mb-4 inline-flex">{eyebrow}</p>
+        ) : null}
+        <h1 className="meloma-trust-title">{title}</h1>
+        {subtitle ? <p className="meloma-trust-subtitle">{subtitle}</p> : null}
+        <div className="meloma-trust-body space-y-6">{children}</div>
       </article>
       <SiteFooter />
     </main>

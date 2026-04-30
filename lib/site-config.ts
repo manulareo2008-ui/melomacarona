@@ -15,9 +15,12 @@ export function getAbsoluteSiteUrl(): string {
   return "http://localhost:3000";
 }
 
-export function getPublicContactEmail(): string | undefined {
+/** E-mail público exibido no site quando `NEXT_PUBLIC_CONTACT_EMAIL` não está definido. */
+const FALLBACK_PUBLIC_CONTACT_EMAIL = "manulareo2008@gmail.com";
+
+export function getPublicContactEmail(): string {
   const raw = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim();
-  return raw || undefined;
+  return raw || FALLBACK_PUBLIC_CONTACT_EMAIL;
 }
 
 export function getSiteOperatorLabel(): string {

@@ -77,79 +77,82 @@ export function PremiumAuthForm() {
   }
 
   return (
-    <section className="new-card-rise mx-auto w-full max-w-md rounded-3xl border border-slate-500/35 bg-slate-950/80 p-6 shadow-[0_20px_60px_-30px_rgba(37,99,235,0.45)]">
-      <div className="mb-5 flex rounded-full border border-slate-500/35 bg-slate-900/70 p-1">
+    <section className="meloma-premium-auth-card">
+      <div className="meloma-premium-tabs" role="tablist" aria-label="Modo de acesso">
         <button
           type="button"
+          role="tab"
+          aria-selected={mode === "login"}
           onClick={() => setMode("login")}
-          className={`flex-1 rounded-full px-3 py-2 text-sm font-medium transition ${
-            mode === "login"
-              ? "bg-gradient-to-r from-blue-500 to-violet-500 text-white"
-              : "text-slate-300 hover:text-slate-100"
-          }`}
+          className={`meloma-premium-tab ${mode === "login" ? "is-active" : ""}`}
         >
           Entrar
         </button>
         <button
           type="button"
+          role="tab"
+          aria-selected={mode === "signup"}
           onClick={() => setMode("signup")}
-          className={`flex-1 rounded-full px-3 py-2 text-sm font-medium transition ${
-            mode === "signup"
-              ? "bg-gradient-to-r from-blue-500 to-violet-500 text-white"
-              : "text-slate-300 hover:text-slate-100"
-          }`}
+          className={`meloma-premium-tab ${mode === "signup" ? "is-active" : ""}`}
         >
           Criar conta
         </button>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
         {mode === "signup" && (
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-slate-100">Nome</label>
+            <label htmlFor="premium-name" className="meloma-premium-field-label">
+              Nome
+            </label>
             <input
+              id="premium-name"
               type="text"
               value={name}
               onChange={(event) => setName(event.target.value)}
-              className="w-full rounded-xl border border-slate-500/35 bg-slate-900/65 px-3 py-2.5 text-slate-100 outline-none ring-blue-500/60 transition focus:ring-2"
+              className="meloma-premium-input"
               placeholder="Seu nome"
               required
             />
           </div>
         )}
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-slate-100">E-mail</label>
+          <label htmlFor="premium-email" className="meloma-premium-field-label">
+            E-mail
+          </label>
           <input
+            id="premium-email"
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="w-full rounded-xl border border-slate-500/35 bg-slate-900/65 px-3 py-2.5 text-slate-100 outline-none ring-blue-500/60 transition focus:ring-2"
+            className="meloma-premium-input"
             placeholder="voce@email.com"
             required
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-slate-100">Senha</label>
+          <label htmlFor="premium-password" className="meloma-premium-field-label">
+            Senha
+          </label>
           <input
+            id="premium-password"
             type="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            className="w-full rounded-xl border border-slate-500/35 bg-slate-900/65 px-3 py-2.5 text-slate-100 outline-none ring-blue-500/60 transition focus:ring-2"
+            className="meloma-premium-input"
             placeholder="********"
             minLength={6}
             required
           />
         </div>
 
-        {error && <p className="text-sm text-rose-400">{error}</p>}
-        {message && <p className="text-sm text-emerald-400">{message}</p>}
+        {error ? <p className="text-sm text-rose-400">{error}</p> : null}
+        {message ? <p className="text-sm text-emerald-400">{message}</p> : null}
 
         <button
           type="submit"
           disabled={loading}
-          className={`w-full rounded-xl bg-gradient-to-r from-blue-500 to-violet-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:brightness-110 ${
-            loading ? "cursor-not-allowed opacity-60" : ""
-          }`}
+          className={`meloma-premium-submit ${loading ? "opacity-60" : ""}`}
         >
           {loading
             ? "Processando..."
