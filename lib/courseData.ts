@@ -24,6 +24,8 @@ export { getCourseById } from "./coursesData";
 
 const MAX_EXACT = 12;
 const MAX_SIMILAR = 12;
+/** Mantido explicitamente (Leva 2); sem preenchimento sintético a lista exata pode ser < 3. */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- valor documental / futuro uso do motor
 const MIN_EXACT = 3;
 
 const LEGACY_SUBAREA_TO_KEY: Record<string, string> = {
@@ -65,162 +67,8 @@ const LEGACY_SUBAREA_TO_KEY: Record<string, string> = {
   "Infraestrutura, instalações e recursos": "infrastructure_installations_resources",
 };
 
-const DIRECT_URL_POOL_BY_AREA: Record<GeneralArea, string[]> = {
-  technology: [
-    "https://www.coursera.org/professional-certificates/google-ux-design",
-    "https://www.edx.org/course/introduction-computer-science-harvardx-cs50x",
-    "https://www.udemy.com/course/terraform-aws-devops/",
-  ],
-  health: [
-    "https://www.coursera.org/learn/introduction-nursing",
-    "https://www.coursera.org/learn/the-science-of-well-being",
-    "https://www.edx.org/course/healthcare-quality",
-  ],
-  humanities: [
-    "https://www.coursera.org/specializations/public-speaking",
-    "https://www.coursera.org/learn/introduction-psychology",
-    "https://www.edx.org/course/justice-2",
-  ],
-  arts_design: [
-    "https://www.coursera.org/specializations/game-design",
-    "https://www.udemy.com/course/brand-identity-and-logo-design-process/",
-    "https://www.coursera.org/specializations/photography",
-  ],
-  business_admin: [
-    "https://www.coursera.org/professional-certificates/google-digital-marketing-ecommerce",
-    "https://www.coursera.org/learn/wharton-marketing-analytics",
-    "https://www.coursera.org/learn/wharton-finance",
-  ],
-  engineering: [
-    "https://www.coursera.org/learn/mechanics-of-materials-1",
-    "https://www.coursera.org/specializations/modern-robotics",
-    "https://www.edx.org/course/solar-energy-0",
-  ],
-};
-
 function canonicalSubAreaKey(value: string): string {
   return LEGACY_SUBAREA_TO_KEY[value] ?? value;
-}
-
-function humanizeSubAreaKey(value: string): string {
-  if (!value.includes("_")) return value;
-  return value
-    .split("_")
-    .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
-    .join(" ");
-}
-
-function directFillUrl(area: GeneralArea, seed: number): string {
-  const pool = DIRECT_URL_POOL_BY_AREA[area];
-  return pool[seed % pool.length] ?? "https://www.coursera.org/";
-}
-
-function priceBrlForSynthetic(range: PriceRangeId, index: number): number {
-  switch (range) {
-    case "onlyFree":
-      return 0;
-    case "max100":
-      return [29, 55, 99][index % 3];
-    case "max500":
-      return [120, 280, 450][index % 3];
-    case "max1000":
-      return [400, 720, 999][index % 3];
-    case "unlimited":
-      return [1500, 2800, 5200][index % 3];
-    default:
-      return 0;
-  }
-}
-
-function fillExactCourses(
-  exact: InternationalCourse[],
-  area: GeneralArea,
-  modality: Modality,
-  priceRange: PriceRangeId,
-  niche: string | null,
-  query: string | null
-): InternationalCourse[] {
-  if (exact.length >= MIN_EXACT) return exact;
-  const out = [...exact];
-  const existing = new Set(exact.map((c) => c.id));
-  let i = 0;
-  while (out.length < MIN_EXACT) {
-    const priceBrl = priceBrlForSynthetic(priceRange, i);
-    if (!priceWithinUserCeiling(priceBrl, priceRange)) {
-      i += 1;
-      continue;
-    }
-    const qNorm = query ? normalize(query).replace(/\s+/g, "-").slice(0, 32) : "interesse";
-    const subLabel = niche
-      ? canonicalSubAreaKey(niche)
-      : `Interesse: ${query ?? ""}`.slice(0, 80);
-    const id = `fill-${area}-${slugId(subLabel)}-${slugId(modality)}-${priceRange}-${i}-${qNorm.slice(0, 12)}`;
-    if (existing.has(id)) {
-      i += 1;
-      continue;
-    }
-    existing.add(id);
-    const name = niche
-      ? [
-          `Formação Prática em ${niche}`,
-          `Projeto Guiado de ${niche}`,
-          `Especialização Rápida: ${niche}`,
-        ][out.length % 3]
-      : [
-          `${query ?? "Busca"} Aplicado ao Mercado`,
-          `Laboratório Intensivo: ${query ?? "Busca"}`,
-          `Trilha Estratégica em ${query ?? "Busca"}`,
-        ][out.length % 3];
-    const tags = query
-      ? [
-          normalize(query),
-          ...normalize(query)
-            .split(/\s+/)
-            .filter((t) => t.length > 1),
-        ]
-      : [
-          ...(niche ? [niche.toLowerCase()] : []),
-          area.toLowerCase(),
-        ];
-    out.push({
-      id,
-      name,
-      shortDescription: query
-        ? `Curso orientado por prática para desenvolver competências em ${query.trim()} com foco em aplicação imediata.`
-        : `Curso de ${humanizeSubAreaKey(niche ?? "especialização")} com exercícios guiados, estudos de caso e entregáveis para portfólio.`,
-      institution: "Catálogo complementar (protótipo)",
-      platform: "Matrícula",
-      modality,
-      area,
-      subArea: subLabel,
-      priceBrl,
-      priceDisplay:
-        priceBrl === 0
-          ? "100% Gratuito (protótipo)"
-          : `${priceBrl.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} (protótipo)`,
-      about:
-        "Entrada sintética para manter o mínimo de três resultados exatos nesta combinação de filtros.",
-      duration: "3 semanas",
-      level: "Iniciante",
-      prerequisites: ["Nenhum pré-requisito obrigatório"],
-      registrationUrl: directFillUrl(area, i),
-      isInternational: false,
-      originCountry: "Brasil",
-      tags: tags.length ? tags : ["geral"],
-    });
-    i += 1;
-  }
-  return out;
-}
-
-function slugId(s: string): string {
-  return s
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")
-    .slice(0, 24);
 }
 
 function normalize(s: string): string {
@@ -354,14 +202,13 @@ export function searchCourses(
 
   if (subInput.type === "preset") {
     const { niche } = subInput;
-    let exact = INTERNATIONAL_COURSES.filter(
+    const exact = INTERNATIONAL_COURSES.filter(
       (c) =>
         c.area === area &&
         canonicalSubAreaKey(c.subArea) === canonicalSubAreaKey(niche) &&
         priceWithinUserCeiling(c.priceBrl, priceRange) &&
         c.modality === modality
     );
-    exact = fillExactCourses(exact, area, modality, priceRange, niche, null);
     const exactIds = new Set(exact.map((c) => c.id));
     const similarRaw = INTERNATIONAL_COURSES.filter(
       (c) =>
@@ -380,13 +227,12 @@ export function searchCourses(
     return { exact: [], similar: [] };
   }
 
-  let exact = INTERNATIONAL_COURSES.filter(
+  const exact = INTERNATIONAL_COURSES.filter(
     (c) =>
       inAreaAndPrice(c) &&
       c.modality === modality &&
       courseMatchesFreeText(c, q)
   );
-  exact = fillExactCourses(exact, area, modality, priceRange, null, q);
   const exactIds = new Set(exact.map((c) => c.id));
   const similarRaw = INTERNATIONAL_COURSES.filter(
     (c) => inAreaAndPrice(c) && !exactIds.has(c.id)

@@ -1,10 +1,4 @@
-import type { GeneralArea, Modality, PriceRangeId } from "./domain";
-import {
-  GENERAL_AREAS,
-  PRICE_OPTIONS,
-  SUB_AREAS,
-  priceWithinUserCeiling,
-} from "./domain";
+import type { GeneralArea, Modality } from "./domain";
 
 /**
  * Base mock inspirada em ofertas reais de plataformas internacionais (nomes
@@ -425,24 +419,6 @@ const COURSE_CATALOG_RAW: Array<
     ],
   },
   {
-    id: "edx-ucwrite",
-    name: "How to Write an Essay (academic writing, inglês)",
-    institution: "University of California, Berkeley (via edX)",
-    platform: "edX",
-    modality: "Online",
-    area: "Humanas",
-    subArea: "Educação e comunicação",
-    priceBrl: 0,
-    priceDisplay: "Gratuito para auditar",
-    about:
-      "Tese, parágrafo, coesão, argumento e citação em língua inglesa, com foco no ensino médio início de graduação internacional.",
-    duration: "5 semanas",
-    level: "Iniciante",
-    prerequisites: [
-      "Inglês em nível intermediário",
-    ],
-  },
-  {
     id: "coursera-psych",
     name: "Introduction to Psychology (Yale / Coursera)",
     institution: "Yale University",
@@ -461,24 +437,6 @@ const COURSE_CATALOG_RAW: Array<
     ],
   },
   {
-    id: "edinburgh-forensic-psych",
-    name: "Introduction to Criminology e psicologia forense (aberto)",
-    institution: "University of Edinburgh",
-    platform: "Coursera",
-    modality: "Online",
-    area: "Humanas",
-    subArea: "Psicologia e comportamento",
-    priceBrl: 200,
-    priceDisplay: "Cerca de US$ 40/mês (plataforma) · aprox. R$ 200 com câmbio",
-    about:
-      "Comportamento violento, investigação, viés, sistema criminal e aplicação crítica de estudos. Excelente aprofundamento após o básico de psicologia geral.",
-    duration: "7 semanas",
-    level: "Intermediário",
-    prerequisites: [
-      "Curso introdutório de psicologia ou leitura equivalente (recomendado)",
-    ],
-  },
-  {
     id: "coursera-justice",
     name: "Justiça (filosofia moral e política)",
     institution: "Harvard University",
@@ -494,24 +452,6 @@ const COURSE_CATALOG_RAW: Array<
     level: "Iniciante",
     prerequisites: [
       "Inglês para entender debate acelerado (legendas em vários idiomas)",
-    ],
-  },
-  {
-    id: "unibo-crime",
-    name: "Corruption: ethical and criminal perspectives (especialização introdutória)",
-    institution: "Università di Bologna (parceiro Coursera)",
-    platform: "Coursera",
-    modality: "Online",
-    area: "Humanas",
-    subArea: "Direito e cidadania",
-    priceBrl: 0,
-    priceDisplay: "Trilha gratuita com módulo de certificação pago",
-    about:
-      "Estruturas de poder, abuso, marcos legais internacionais e cidadania ativa, conectando direito, política e ética.",
-    duration: "4 semanas",
-    level: "Iniciante",
-    prerequisites: [
-      "Inglês intermediário",
     ],
   },
   {
@@ -658,24 +598,6 @@ const COURSE_CATALOG_RAW: Array<
     prerequisites: [
       "Planilha (Excel/Google)",
       "Matemática básica (média, proporção, porcentual)",
-    ],
-  },
-  {
-    id: "coursera-umich-finance",
-    name: "Finance for Non-Financial Managers (especialização resumida)",
-    institution: "University of Michigan",
-    platform: "Coursera",
-    modality: "Híbrido",
-    area: "Negócios & Administração",
-    subArea: "Gestão e finanças",
-    priceBrl: 200,
-    priceDisplay: "Aprox. R$ 200–400 + eventos híbridos (parceiro local)",
-    about:
-      "Balanço, fluxo, custos, break-even, indicadores, leitura de gráficos. Encontros híbridos (online + hub presencial) para case studies e discussão.",
-    duration: "8 semanas",
-    level: "Iniciante",
-    prerequisites: [
-      "Matemática básica (porcentual, proporções)",
     ],
   },
   {
@@ -826,24 +748,6 @@ const COURSE_CATALOG_RAW: Array<
     ],
   },
   {
-    id: "delft-solar-eng",
-    name: "Solar Energy: photovoltaic energy conversion (TU Delft, edX)",
-    institution: "Delft University of Technology",
-    platform: "edX",
-    modality: "Online",
-    area: "Engenharia",
-    subArea: "Energia e sustentabilidade",
-    priceBrl: 0,
-    priceDisplay: "Acesso a materiais; certificação (EUR/USD) opcional",
-    about:
-      "Célula solar, MPPT, painéis, conexão à rede, perdas e otimização. Abordagem de eng.fotovoltaica, com tarefas numéricas sugeridas.",
-    duration: "8 semanas (estimado)",
-    level: "Intermediário",
-    prerequisites: [
-      "Cálculo básico e física (eletricidade básica ajuda muito)",
-    ],
-  },
-  {
     id: "udemy-eng-budget",
     name: "Orçamento e cronograma em obras: planilha na prática",
     institution: "Udemy (instrutor autoral)",
@@ -971,31 +875,15 @@ const COURSE_ENROLLMENT: Record<
     isInternational: true,
     originCountry: "EUA",
   },
-  "edx-ucwrite": {
-    registrationUrl: "https://www.edx.org/search?q=how%20to%20write%20an%20essay",
-    isInternational: true,
-    originCountry: "EUA",
-  },
   "coursera-psych": {
     registrationUrl: "https://www.coursera.org/learn/introduction-psychology",
     isInternational: true,
     originCountry: "EUA",
   },
-  "edinburgh-forensic-psych": {
-    registrationUrl: "https://www.coursera.org/search?query=forensic%20psychology",
-    isInternational: true,
-    originCountry: "Reino Unido",
-  },
   "coursera-justice": {
     registrationUrl: "https://www.edx.org/course/justice-2",
     isInternational: true,
     originCountry: "EUA",
-  },
-  "unibo-crime": {
-    registrationUrl:
-      "https://www.coursera.org/search?query=corruption%20ethical%20criminal%20perspectives",
-    isInternational: true,
-    originCountry: "Itália",
   },
   "coursera-animacion": {
     registrationUrl: "https://www.coursera.org/specializations/game-design",
@@ -1040,12 +928,6 @@ const COURSE_ENROLLMENT: Record<
     isInternational: true,
     originCountry: "EUA",
   },
-  "coursera-umich-finance": {
-    registrationUrl:
-      "https://www.coursera.org/search?query=finance%20for%20non-financial%20managers",
-    isInternational: true,
-    originCountry: "EUA",
-  },
   "edx-imb-fin": {
     registrationUrl: "https://www.edx.org/learn/finance",
     isInternational: true,
@@ -1086,12 +968,6 @@ const COURSE_ENROLLMENT: Record<
     registrationUrl: "https://www.coursera.org/learn/renewable-energy",
     isInternational: true,
     originCountry: "EUA",
-  },
-  "delft-solar-eng": {
-    registrationUrl:
-      "https://www.edx.org/search?q=solar%20energy%20photovoltaic%20energy%20conversion",
-    isInternational: true,
-    originCountry: "Países Baixos",
   },
   "udemy-eng-budget": {
     registrationUrl: "https://www.udemy.com/course/construction-management-estimating/",
@@ -1300,15 +1176,6 @@ const COURSE_NICHE: Record<
       "comunicação",
     ],
   },
-  "edx-ucwrite": {
-    subArea: "Línguas, leitura e estudos acadêmicos",
-    tags: [
-      "inglês",
-      "redação",
-      "essay",
-      "acadêmico",
-    ],
-  },
   "coursera-psych": {
     subArea: "Psicologia, comportamento e desenvolvimento",
     tags: [
@@ -1318,15 +1185,6 @@ const COURSE_NICHE: Record<
       "comportamento",
     ],
   },
-  "edinburgh-forensic-psych": {
-    subArea: "Psicologia, comportamento e desenvolvimento",
-    tags: [
-      "psicologia",
-      "forense",
-      "investigação",
-      "crimes",
-    ],
-  },
   "coursera-justice": {
     subArea: "Direito, ética, justiça e cidadania",
     tags: [
@@ -1334,15 +1192,6 @@ const COURSE_NICHE: Record<
       "ética",
       "justiça",
       "direito",
-    ],
-  },
-  "unibo-crime": {
-    subArea: "Direito, ética, justiça e cidadania",
-    tags: [
-      "corrupção",
-      "poder",
-      "direito",
-      "política",
     ],
   },
   "coursera-animacion": {
@@ -1417,15 +1266,6 @@ const COURSE_NICHE: Record<
       "dados de marketing",
     ],
   },
-  "coursera-umich-finance": {
-    subArea: "Finanças, controle e orçamento",
-    tags: [
-      "finanças",
-      "custo",
-      "break-even",
-      "gestor",
-    ],
-  },
   "edx-imb-fin": {
     subArea: "Finanças, controle e orçamento",
     tags: [
@@ -1494,14 +1334,6 @@ const COURSE_NICHE: Record<
       "sustentabilidade",
     ],
   },
-  "delft-solar-eng": {
-    subArea: "Energia, sustentabilidade e meio ambiente",
-    tags: [
-      "solar",
-      "fotovoltaico",
-      "painéis",
-    ],
-  },
   "udemy-eng-budget": {
     subArea: "Civil, obras, orçamento e canteiro",
     tags: [
@@ -1547,164 +1379,6 @@ const MANUAL_COURSES: InternationalCourse[] = COURSE_CATALOG_RAW.map((c) => {
   };
 });
 
-const COVERAGE_MODALITIES: Modality[] = ["Presencial", "Online", "Híbrido"];
-
-function coverageCourseName(
-  area: GeneralArea,
-  niche: string,
-  modality: Modality,
-  variant: number
-): string {
-  const prefixByArea: Record<GeneralArea, string[]> = {
-    technology: ["Bootcamp Aplicado", "Trilha Profissional", "Imersão Técnica"],
-    health: ["Programa Clínico", "Formação Assistencial", "Capacitação em Saúde"],
-    humanities: ["Percurso Analítico", "Trilha de Humanidades", "Jornada Formativa"],
-    arts_design: ["Ateliê Criativo", "Programa de Portfólio", "Oficina de Projeto"],
-    business_admin: ["Trilha Executiva", "Programa de Mercado", "Formação em Gestão"],
-    engineering: ["Programa Técnico", "Trilha de Projetos", "Imersão em Engenharia"],
-  };
-  return `${prefixByArea[area][variant % 3]}: ${niche} (${modality})`;
-}
-
-function coverageShortDescription(
-  niche: string,
-  modality: Modality,
-  range: PriceRangeId
-): string {
-  const pricingTone =
-    range === "onlyFree"
-      ? "com acesso gratuito"
-      : range === "max100"
-        ? "com investimento inicial baixo"
-        : range === "max500"
-          ? "com foco em aplicação prática"
-          : range === "max1000"
-            ? "com aprofundamento técnico"
-            : "com trilha completa premium";
-  return `Aprendizado orientado a projeto em ${niche}, formato ${modality.toLowerCase()}, ${pricingTone}.`;
-}
-
-function slugPart(s: string): string {
-  return s
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")
-    .slice(0, 40);
-}
-
-function priceBrlForCoverage(range: PriceRangeId, index: number): number {
-  switch (range) {
-    case "onlyFree":
-      return 0;
-    case "max100":
-      return [29, 55, 99][index] ?? 50;
-    case "max500":
-      return [120, 280, 450][index] ?? 200;
-    case "max1000":
-      return [400, 720, 999][index] ?? 600;
-    case "unlimited":
-      return [1500, 2800, 5200][index] ?? 2000;
-    default:
-      return 0;
-  }
-}
-
-const DIRECT_URL_POOL_BY_AREA: Record<GeneralArea, string[]> = {
-  technology: [
-    "https://www.coursera.org/professional-certificates/google-ux-design",
-    "https://www.edx.org/course/introduction-computer-science-harvardx-cs50x",
-    "https://www.udemy.com/course/terraform-aws-devops/",
-    "https://www.coursera.org/professional-certificates/meta-front-end-developer",
-  ],
-  health: [
-    "https://www.coursera.org/learn/vital-signs",
-    "https://www.coursera.org/learn/the-science-of-well-being",
-    "https://www.edx.org/learn/public-health",
-    "https://www.udemy.com/course/mindfulness-meditation-stress-management/",
-  ],
-  humanities: [
-    "https://www.coursera.org/specializations/public-speaking",
-    "https://www.coursera.org/learn/english-composition",
-    "https://www.coursera.org/learn/introduction-psychology",
-    "https://www.edx.org/course/justice-2",
-  ],
-  arts_design: [
-    "https://www.coursera.org/specializations/game-design",
-    "https://www.udemy.com/course/brand-identity-and-logo-design-process/",
-    "https://www.coursera.org/specializations/photography-basics",
-    "https://www.coursera.org/learn/songwriting-lyrics",
-  ],
-  business_admin: [
-    "https://www.coursera.org/professional-certificates/google-digital-marketing-ecommerce",
-    "https://www.edx.org/learn/business-administration/the-wharton-school-of-the-university-of-pennsylvania-marketing-analytics-data-tools-and-techniques",
-    "https://www.coursera.org/learn/wharton-finance",
-    "https://www.coursera.org/specializations/business-entrepreneurship",
-  ],
-  engineering: [
-    "https://www.coursera.org/learn/mechanics-of-materials-1",
-    "https://www.edx.org/learn/renewable-energy",
-    "https://www.coursera.org/specializations/modernrobotics",
-    "https://www.coursera.org/learn/solar-energy-basics",
-  ],
-};
-
-function directCoverageUrl(area: GeneralArea, seed: number): string {
-  const pool = DIRECT_URL_POOL_BY_AREA[area];
-  return pool[seed % pool.length] ?? "https://www.coursera.org/";
-}
-
-/** 3 cursos por (área × nicho × modalidade × faixa de preço), para cobertura total do fluxo. */
-function buildCoverageCatalog(): InternationalCourse[] {
-  const out: InternationalCourse[] = [];
-  for (const area of GENERAL_AREAS) {
-    for (const niche of SUB_AREAS[area as GeneralArea]) {
-      for (const modality of COVERAGE_MODALITIES) {
-        for (const opt of PRICE_OPTIONS) {
-          const range = opt.id;
-          for (let i = 0; i < 3; i++) {
-            const priceBrl = priceBrlForCoverage(range, i);
-            if (!priceWithinUserCeiling(priceBrl, range)) continue;
-            const id = `cov-${slugPart(area)}-${slugPart(niche)}-${slugPart(modality)}-${range}-${i}`;
-            out.push({
-              id,
-              name: coverageCourseName(area as GeneralArea, niche, modality, i),
-              shortDescription: coverageShortDescription(niche, modality, range),
-              institution: "Matriz de cobertura (demonstração)",
-              platform: "Portal de matrícula",
-              modality,
-              area: area as GeneralArea,
-              subArea: niche,
-              priceBrl,
-              priceDisplay:
-                priceBrl === 0
-                  ? "100% Gratuito (demonstração)"
-                  : `${priceBrl.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} (referência)`,
-              about:
-                "Curso sintético para garantir no mínimo três correspondências exatas em cada combinação de área, nicho, modalidade e faixa de preço do assistente.",
-              duration: "4 semanas (estimado)",
-              level: "Iniciante",
-              prerequisites: ["Nenhum pré-requisito obrigatório"],
-              registrationUrl: directCoverageUrl(area as GeneralArea, i),
-              isInternational: false,
-              originCountry: "Brasil",
-              tags: [
-                niche.toLowerCase(),
-                area.toLowerCase(),
-                modality.toLowerCase(),
-                "referência",
-                "demonstração",
-              ],
-            });
-          }
-        }
-      }
-    }
-  }
-  return out;
-}
-
 function dedupeCatalogById(
   courses: InternationalCourse[]
 ): InternationalCourse[] {
@@ -1718,10 +1392,8 @@ function dedupeCatalogById(
   return out;
 }
 
-export const INTERNATIONAL_COURSES: InternationalCourse[] = dedupeCatalogById([
-  ...MANUAL_COURSES,
-  ...buildCoverageCatalog(),
-]);
+export const INTERNATIONAL_COURSES: InternationalCourse[] =
+  dedupeCatalogById(MANUAL_COURSES);
 
 export function getCourseById(
   id: string
