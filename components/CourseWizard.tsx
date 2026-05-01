@@ -96,6 +96,7 @@ const errorTextClass = "mt-4 text-center text-sm text-rose-300";
 type RecommendationProvider =
   | "openai"
   | "gemini"
+  | "anthropic"
   | "local"
   | "mock-external-api"
   | "unknown";
@@ -509,6 +510,29 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     }
   }
 
+  function restartWizardFromBeginning() {
+    setWizardStep(1);
+    setDetailOpen(false);
+    setCareerFlow("");
+    setName("");
+    setEmail("");
+    setAge("");
+    setArea("");
+    setKnowledgeLevel("");
+    setObjectives("");
+    setSubChoice("");
+    setCustomNiche("");
+    setModality(null);
+    setPriceRange(null);
+    setRecommendedCourses([]);
+    setExternalRecommendations([]);
+    setRecommendationInsights({});
+    setRecommendationError("");
+    setRecommendationProvider("unknown");
+    setVocationalAnswers({});
+    setVocationalResult(null);
+  }
+
   function openDetails(courseId: string) {
     setSelectedCourseId(courseId);
     setDetailOpen(true);
@@ -586,32 +610,19 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     return null;
   }
 
-  function buildPlatformSearchUrl(course: InternationalCourse | null): string | null {
-    if (!course) return null;
-    const query = encodeURIComponent(course.name.trim());
-    const platform = course.platform.toLowerCase();
-    if (platform.includes("coursera")) return `https://www.coursera.org/search?query=${query}`;
-    if (platform.includes("edx")) return `https://www.edx.org/search?q=${query}`;
-    if (platform.includes("udemy")) return `https://www.udemy.com/courses/search/?q=${query}`;
-    if (platform.includes("harvard")) return `https://pll.harvard.edu/catalog?keywords=${query}`;
-    if (platform.includes("mit")) return `https://www.edx.org/school/mitx`;
-    return `https://www.google.com/search?q=${query}+curso`;
-  }
-
   function resolveCourseTargetUrl(course: InternationalCourse | null): string | null {
-    const direct = normalizeCourseUrl(course);
-    if (direct) return direct;
-    return buildPlatformSearchUrl(course);
+    return normalizeCourseUrl(course);
   }
 
   function buildRedirectBridgeUrl(
     course: InternationalCourse,
-    targetUrl: string,
     notifyId?: string
-  ): string {
+  ): string | null {
+    const targetUrl = resolveCourseTargetUrl(course);
+    if (!targetUrl) return null;
     const params = new URLSearchParams({
       target: targetUrl,
-      fallback: buildPlatformSearchUrl(course) ?? targetUrl,
+      fallback: targetUrl,
       course: course.name,
     });
     if (notifyId) {
@@ -632,7 +643,9 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
 
     const targetUrl = resolveCourseTargetUrl(detailCourse);
     if (!targetUrl) {
-      setFeedbackSubmitError(t("details.linkUnavailableForCourse"));
+      setFeedbackSubmitError(
+        "Link indisponível para este curso. Tente outro."
+      );
       setIsSubmittingFeedback(false);
       return;
     }
@@ -658,7 +671,14 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
       }
     };
 
-    const bridgeUrl = buildRedirectBridgeUrl(detailCourse, targetUrl, notifyId);
+    const bridgeUrl = buildRedirectBridgeUrl(detailCourse, notifyId);
+    if (!bridgeUrl) {
+      setFeedbackSubmitError(
+        "Link indisponível para este curso. Tente outro."
+      );
+      setIsSubmittingFeedback(false);
+      return;
+    }
     setRedirectingNotice(true);
     // Abre uma página intermediária do próprio site, com mensagem de espera,
     // e dela redireciona para o curso selecionado.
@@ -853,6 +873,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
         if (
           providerRaw === "openai" ||
           providerRaw === "gemini" ||
+          providerRaw === "anthropic" ||
           providerRaw === "mock-external-api" ||
           providerRaw === "local"
         ) {
@@ -1689,11 +1710,13 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                         ? "OpenAI"
                         : recommendationProvider === "gemini"
                           ? "Gemini"
-                          : recommendationProvider === "mock-external-api"
-                            ? "Mock API"
-                          : recommendationProvider === "local"
-                            ? "Fallback local"
-                            : t("results.providerUnknown")}
+                          : recommendationProvider === "anthropic"
+                            ? "Anthropic Claude"
+                            : recommendationProvider === "mock-external-api"
+                              ? "Mock API"
+                              : recommendationProvider === "local"
+                                ? "Fallback local"
+                                : t("results.providerUnknown")}
                     </span>
                   </div>
                 )}
@@ -1707,28 +1730,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                   </button>
                   <button
                     type="button"
-                    onClick={() => {
-                      setWizardStep(1);
-                      setDetailOpen(false);
-                      setCareerFlow("");
-                      setName("");
-                      setEmail("");
-                      setAge("");
-                      setArea("");
-                      setKnowledgeLevel("");
-                      setObjectives("");
-                      setSubChoice("");
-                      setCustomNiche("");
-                      setModality(null);
-                      setPriceRange(null);
-                      setRecommendedCourses([]);
-                      setExternalRecommendations([]);
-                      setRecommendationInsights({});
-                      setRecommendationError("");
-                      setRecommendationProvider("unknown");
-                      setVocationalAnswers({});
-                      setVocationalResult(null);
-                    }}
+                    onClick={restartWizardFromBeginning}
                     className={secondaryBtn}
                   >
                     {t("common.restart")}
@@ -1810,12 +1812,30 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
 
               {!isLoadingRecommendations &&
                 !recommendationError &&
-                exactMatches.length === 0 &&
-                similarMatches.length === 0 && (
-                <p className="mb-6 text-center text-sm text-slate-400">
-                  {t("results.noneFound")}
-                </p>
-              )}
+                (externalRecommendations.length === 0 ||
+                  (externalRecommendations.length > 0 &&
+                    exactMatches.length === 0 &&
+                    similarMatches.length === 0)) && (
+                  <div
+                    className={`${panelClass} mb-6 mx-auto max-w-2xl text-center`}
+                  >
+                    <h3 className="text-lg font-bold text-slate-100">
+                      Sem cursos exatos para esses critérios
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-300">
+                      Estamos expandindo nosso catálogo curado conforme novas
+                      parcerias institucionais. Tente ajustar a área, modalidade
+                      ou faixa de preço.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={restartWizardFromBeginning}
+                      className={`${primaryBtn} mt-6`}
+                    >
+                      Refazer com outros critérios
+                    </button>
+                  </div>
+                )}
 
               {exactMatches.length > 0 && (
                 <section

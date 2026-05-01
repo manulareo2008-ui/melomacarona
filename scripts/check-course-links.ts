@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { INTERNATIONAL_COURSES } from "../lib/coursesData";
 
@@ -15,7 +15,6 @@ const DEFAULT_TIMEOUT_MS = 15_000;
 const DEFAULT_CONCURRENCY = 12;
 const OUTPUT_DIR = join(process.cwd(), "logs");
 const OUTPUT_FILE = join(OUTPUT_DIR, "course-link-check.log");
-const COURSE_DATA_FILE = join(process.cwd(), "lib", "coursesData.ts");
 
 const BROWSER_HEADERS: Record<string, string> = {
   "User-Agent":
@@ -160,13 +159,17 @@ function toLogLine(item: CheckResult): string {
 }
 
 function readArg(name: string): string | null {
-  const token = process.argv.find((arg) => arg.startsWith(`${name}=`));
-  if (!token) return null;
-  return token.slice(name.length + 1);
-}
-
-function hasFlag(name: string): boolean {
-  return process.argv.includes(name);
+  const eq = process.argv.find((arg) => arg.startsWith(`${name}=`));
+  if (eq) return eq.slice(name.length + 1);
+  const idx = process.argv.indexOf(name);
+  if (
+    idx !== -1 &&
+    process.argv[idx + 1] &&
+    !process.argv[idx + 1].startsWith("-")
+  ) {
+    return process.argv[idx + 1];
+  }
+  return null;
 }
 
 function parsePositiveInt(raw: string | null, fallback: number): number {
@@ -174,59 +177,10 @@ function parsePositiveInt(raw: string | null, fallback: number): number {
   return Number.isFinite(value) && value > 0 ? value : fallback;
 }
 
-function buildPlatformSearchUrl(course: (typeof INTERNATIONAL_COURSES)[number]): string {
-  const query = encodeURIComponent(course.name.trim());
-  const platform = course.platform.toLowerCase();
-  if (platform.includes("coursera")) return `https://www.coursera.org/search?query=${query}`;
-  if (platform.includes("edx")) return `https://www.edx.org/search?q=${query}`;
-  if (platform.includes("udemy")) return `https://www.udemy.com/courses/search/?q=${query}`;
-  if (platform.includes("harvard")) return `https://pll.harvard.edu/catalog?keywords=${query}`;
-  if (platform.includes("mit")) return `https://www.edx.org/school/mitx`;
-  return `https://www.google.com/search?q=${query}+curso`;
-}
-
-async function autoFixBrokenRegistrationUrls(
-  broken: CheckResult[]
-): Promise<{ fixedCount: number; unresolvedIds: string[] }> {
-  if (broken.length === 0) return { fixedCount: 0, unresolvedIds: [] };
-
-  const byId = new Map(INTERNATIONAL_COURSES.map((c) => [c.id, c]));
-  let source = await readFile(COURSE_DATA_FILE, "utf8");
-  let fixedCount = 0;
-  const unresolvedIds: string[] = [];
-
-  for (const item of broken) {
-    const course = byId.get(item.id);
-    if (!course) {
-      unresolvedIds.push(item.id);
-      continue;
-    }
-    const replacement = buildPlatformSearchUrl(course);
-    const escapedId = item.id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const blockRegex = new RegExp(
-      `("${escapedId}"\\s*:\\s*\\{[\\s\\S]*?registrationUrl\\s*:\\s*")([^"]+)(")`,
-      "m"
-    );
-
-    if (!blockRegex.test(source)) {
-      unresolvedIds.push(item.id);
-      continue;
-    }
-    source = source.replace(blockRegex, `$1${replacement}$3`);
-    fixedCount += 1;
-  }
-
-  if (fixedCount > 0) {
-    await writeFile(COURSE_DATA_FILE, source, "utf8");
-  }
-  return { fixedCount, unresolvedIds };
-}
-
 async function main() {
   const timeoutMs = parsePositiveInt(readArg("--timeout"), DEFAULT_TIMEOUT_MS);
   const concurrency = parsePositiveInt(readArg("--concurrency"), DEFAULT_CONCURRENCY);
   const limit = parsePositiveInt(readArg("--limit"), INTERNATIONAL_COURSES.length);
-  const autoFix = hasFlag("--autofix");
   const list = INTERNATIONAL_COURSES.slice(0, Math.min(limit, INTERNATIONAL_COURSES.length));
 
   console.log(
@@ -261,24 +215,12 @@ async function main() {
   console.log(`Quebrados: ${broken.length}`);
   console.log(`Relatorio: ${OUTPUT_FILE}`);
 
-  let unresolvedAfterAutofix = broken;
-  if (autoFix && broken.length > 0) {
-    const { fixedCount, unresolvedIds } = await autoFixBrokenRegistrationUrls(broken);
-    console.log(`\nAutofix aplicado em ${fixedCount} curso(s).`);
-    if (unresolvedIds.length > 0) {
-      console.log(`Sem autofix para: ${unresolvedIds.join(", ")}`);
-    }
-    unresolvedAfterAutofix = broken.filter((item) => unresolvedIds.includes(item.id));
-  }
-
   if (broken.length > 0) {
     console.log("\nLinks com problema:");
     for (const item of broken) {
       console.log(`- (${item.status}) ${item.name} -> ${item.url}`);
     }
-    if (!autoFix || unresolvedAfterAutofix.length > 0) {
-      process.exitCode = 1;
-    }
+    process.exitCode = 1;
   }
 }
 

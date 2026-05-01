@@ -7,8 +7,7 @@
     "build": "node scripts/clean-next.mjs && next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "check:course-links": "tsx scripts/check-course-links.ts",
-    "check:course-links:autofix": "tsx scripts/check-course-links.ts --autofix"
+    "check:course-links": "tsx scripts/check-course-links.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.56.0",
