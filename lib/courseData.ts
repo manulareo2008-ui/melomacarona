@@ -1,6 +1,7 @@
 /**
  * Motor de busca e utilidades (catálogo em `coursesData.ts`).
  */
+// TODO: Fase 1.2 client migration — substituir INTERNATIONAL_COURSES por fetch de endpoint API
 
 export {
   GENERAL_AREAS,

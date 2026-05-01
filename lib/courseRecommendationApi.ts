@@ -1,6 +1,7 @@
 import { INTERNATIONAL_COURSES } from "@/lib/coursesData";
 import type { GeneralArea, Modality } from "@/lib/domain";
 import { createBrowserSupabaseClient } from "@/lib/supabase/client";
+// TODO: Fase 1.2 client migration — fallback pode usar endpoint API em vez de array local
 
 export type UserProfile = {
   nome?: string;

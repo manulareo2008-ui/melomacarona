@@ -1,4 +1,4 @@
-import { INTERNATIONAL_COURSES } from "@/lib/coursesData";
+import { getAllActiveCourses, toInternationalCourse } from "@/lib/supabase/courses";
 import { enrichWithLlm } from "@/lib/recommendation/llm";
 import { computeAffinityScore, computePillarScores } from "@/lib/recommendation/scoring";
 import type {
@@ -22,11 +22,10 @@ export async function recommendCourses(
   input: RecommendationRequest
 ): Promise<RecommendationResponse> {
   const limit = Math.max(1, Math.min(20, input.limit ?? DEFAULT_LIMIT));
+  const courses = (await getAllActiveCourses()).map(toInternationalCourse);
 
   // Regra inegociavel de negocio: nunca sugerir curso acima do teto.
-  const budgetCompliant = INTERNATIONAL_COURSES.filter(
-    (course) => course.priceBrl <= input.budgetMaxBrl
-  );
+  const budgetCompliant = courses.filter((course) => course.priceBrl <= input.budgetMaxBrl);
 
   const scored = budgetCompliant
     .map((course) => {
