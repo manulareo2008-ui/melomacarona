@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
-import { INTERNATIONAL_COURSES } from "@/lib/coursesData";
+import type { InternationalCourse } from "@/lib/coursesData";
 import { recommendationInputSchema } from "@/lib/recommendation/schema";
+import { getCoursesForRag } from "@/lib/recommendation/courseRepository";
+import { getAllActiveCourses, toInternationalCourse } from "@/lib/supabase/courses";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 const RECOMMENDATION_COUNT = 5;
@@ -31,7 +33,7 @@ function tokenize(value: string): string[] {
     .filter((token) => token.length > 1);
 }
 
-function nicheAffinity(niche: string, course: (typeof INTERNATIONAL_COURSES)[number]): number {
+function nicheAffinity(niche: string, course: InternationalCourse): number {
   const nicheTokens = new Set(tokenize(niche));
   if (nicheTokens.size === 0) return 0;
   const courseTokens = new Set(
@@ -52,7 +54,7 @@ function localScore(
     nicho: string;
     objetivos: string;
   },
-  course: (typeof INTERNATIONAL_COURSES)[number]
+  course: InternationalCourse
 ): number {
   const areaScore = course.area === input.area ? 30 : 0;
   const modalityScore = course.modality === input.modalidade ? 20 : 0;
@@ -76,7 +78,7 @@ function localScore(
   );
 }
 
-function buildLocalRecommendations(
+async function buildLocalRecommendations(
   input: {
     area: string;
     modalidade: string;
@@ -84,8 +86,10 @@ function buildLocalRecommendations(
     nicho: string;
     objetivos: string;
   }
-): RankedCourse[] {
-  const preFiltered = INTERNATIONAL_COURSES
+): Promise<RankedCourse[]> {
+  const activeCourses = await getAllActiveCourses();
+  const normalizedCourses = activeCourses.map(toInternationalCourse);
+  const preFiltered = normalizedCourses
     .filter((course) => course.area === input.area && course.priceBrl <= input.budget)
     .sort((a, b) => nicheAffinity(input.nicho, b) - nicheAffinity(input.nicho, a));
 
@@ -195,15 +199,17 @@ export async function POST(request: Request) {
     }
 
     const input = parsed.data;
-    const preFiltered = INTERNATIONAL_COURSES
-      .filter((course) => course.area === input.area && course.priceBrl <= input.budget)
-      .sort((a, b) => nicheAffinity(input.nicho, b) - nicheAffinity(input.nicho, a))
-      .slice(0, 60);
+    const preFiltered = await getCoursesForRag({
+      area: input.area,
+      budget: input.budget,
+      modalidade: input.modalidade,
+      maxRows: 60,
+    });
 
     const userId = await resolveUserIdFromAuthHeader(request);
 
     let provider: "anthropic" | "local" = "local";
-    let recomendacoes: RankedCourse[] = buildLocalRecommendations(input);
+    let recomendacoes: RankedCourse[] = await buildLocalRecommendations(input);
 
     if (preFiltered.length > 0 && process.env.ANTHROPIC_API_KEY) {
       try {
