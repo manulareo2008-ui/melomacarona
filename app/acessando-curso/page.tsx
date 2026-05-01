@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { getOrCreateAnonId } from "@/lib/anonId";
 import {
   COURSE_REDIRECT_BROADCAST,
   type CourseRedirectNotifyPayload,
@@ -22,6 +23,8 @@ function AcessandoCursoContent() {
   const target = normalizeExternalUrl(params.get("target"));
   const fallback = normalizeExternalUrl(params.get("fallback"));
   const course = params.get("course")?.trim() || "curso selecionado";
+  const area = params.get("area")?.trim() || undefined;
+  const modalidade = params.get("modalidade")?.trim() || undefined;
   const notifyId = params.get("notify")?.trim() || null;
   const [failed, setFailed] = useState(false);
 
@@ -40,10 +43,26 @@ function AcessandoCursoContent() {
       }
     }
 
+    function trackCourseClick(sucesso: boolean) {
+      fetch("/api/track/course-click", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          curso_id: course,
+          pagina_origem: "acessando-curso",
+          sucesso,
+          anon_id: getOrCreateAnonId(),
+          area,
+          modalidade,
+        }),
+      }).catch(() => {});
+    }
+
     async function redirectSafely() {
       const directDestination = target ?? fallback;
       if (!directDestination) {
         if (!cancelled) {
+          trackCourseClick(false);
           setFailed(true);
           postNotify("error");
         }
@@ -66,6 +85,7 @@ function AcessandoCursoContent() {
 
         if (!response.ok || !data?.ok || !data?.resolvedUrl) {
           if (!cancelled) {
+            trackCourseClick(false);
             setFailed(true);
             postNotify("error");
           }
@@ -76,11 +96,13 @@ function AcessandoCursoContent() {
           normalizeExternalUrl(data.resolvedUrl) ?? directDestination;
 
         if (!cancelled) {
+          trackCourseClick(true);
           postNotify("redirect");
           window.location.replace(resolvedUrl);
         }
       } catch {
         if (!cancelled) {
+          trackCourseClick(false);
           setFailed(true);
           postNotify("error");
         }
@@ -92,7 +114,7 @@ function AcessandoCursoContent() {
     return () => {
       cancelled = true;
     };
-  }, [course, fallback, target, notifyId]);
+  }, [area, course, fallback, modalidade, target, notifyId]);
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-white px-4 text-zinc-900">
