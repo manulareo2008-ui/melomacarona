@@ -226,6 +226,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     setAppState((prev) => ({ ...prev, priceRange: nextPriceRange }));
   const [userState, setUserState] = useState("");
   const [userCity, setUserCity] = useState("");
+  const [publicoAlvo, setPublicoAlvo] = useState<"jovem" | "adulto" | "">("");
   const [formError, setFormError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
@@ -559,6 +560,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     setPriceRange(null);
     setUserState("");
     setUserCity("");
+    setPublicoAlvo("");
     setRecommendedCourses([]);
     setExternalRecommendations([]);
     setRecommendationInsights({});
@@ -666,6 +668,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     const stateTrim = userState.trim();
     if (cityTrim) params.set("cidade", cityTrim);
     if (stateTrim) params.set("estado", stateTrim);
+    if (publicoAlvo) params.set("publico", publicoAlvo);
     if (notifyId) {
       params.set("notify", notifyId);
     }
@@ -1249,6 +1252,45 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                     className={`max-w-[160px] ${fieldClass(!!fieldErrors.age)}`}
                   />
                 </div>
+
+                <div className="mt-2">
+                  <p className={labelClass}>Qual é o seu objetivo principal?</p>
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                    <button
+                      type="button"
+                      onClick={() => setPublicoAlvo("jovem")}
+                      className={`rounded-2xl border px-4 py-4 text-start transition ${
+                        publicoAlvo === "jovem"
+                          ? "border-violet-500 bg-violet-950/35 text-violet-100"
+                          : "border-zinc-700 bg-zinc-900/70 text-white hover:border-zinc-500"
+                      }`}
+                    >
+                      <p className="text-sm font-semibold">
+                        Encontrar meu primeiro curso
+                      </p>
+                      <p className="mt-1 text-xs text-zinc-300">
+                        Estou começando ou quero explorar áreas
+                      </p>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setPublicoAlvo("adulto")}
+                      className={`rounded-2xl border px-4 py-4 text-start transition ${
+                        publicoAlvo === "adulto"
+                          ? "border-violet-500 bg-violet-950/35 text-violet-100"
+                          : "border-zinc-700 bg-zinc-900/70 text-white hover:border-zinc-500"
+                      }`}
+                    >
+                      <p className="text-sm font-semibold">
+                        Me especializar na minha área
+                      </p>
+                      <p className="mt-1 text-xs text-zinc-300">
+                        Busco pós-graduação, MBA, mestrado ou certificação avançada
+                      </p>
+                    </button>
+                  </div>
+                </div>
+
                 <div>
                   <label htmlFor="email" className={labelClass}>
                     E-mail
