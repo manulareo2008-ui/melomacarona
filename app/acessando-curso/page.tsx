@@ -25,6 +25,8 @@ function AcessandoCursoContent() {
   const course = params.get("course")?.trim() || "curso selecionado";
   const area = params.get("area")?.trim() || undefined;
   const modalidade = params.get("modalidade")?.trim() || undefined;
+  const cidadeUsuario = params.get("cidade")?.trim() || undefined;
+  const estadoUsuario = params.get("estado")?.trim() || undefined;
   const notifyId = params.get("notify")?.trim() || null;
   const [failed, setFailed] = useState(false);
 
@@ -54,6 +56,8 @@ function AcessandoCursoContent() {
           anon_id: getOrCreateAnonId(),
           area,
           modalidade,
+          cidade_usuario: cidadeUsuario,
+          estado_usuario: estadoUsuario,
         }),
       }).catch(() => {});
     }
@@ -114,7 +118,16 @@ function AcessandoCursoContent() {
     return () => {
       cancelled = true;
     };
-  }, [area, course, fallback, modalidade, target, notifyId]);
+  }, [
+    area,
+    cidadeUsuario,
+    course,
+    estadoUsuario,
+    fallback,
+    modalidade,
+    target,
+    notifyId,
+  ]);
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-white px-4 text-zinc-900">

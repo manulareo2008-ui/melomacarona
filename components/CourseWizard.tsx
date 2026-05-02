@@ -89,6 +89,37 @@ const KNOWLEDGE_LEVEL_OPTIONS: Array<{ value: KnowledgeLevel; label: string }> =
   { value: "avancado", label: "Avançado" },
 ];
 
+/** Siglas das 27 UFs (valor e rótulo curtos no select). */
+const BR_STATE_UFS = [
+  "AC",
+  "AL",
+  "AP",
+  "AM",
+  "BA",
+  "CE",
+  "DF",
+  "ES",
+  "GO",
+  "MA",
+  "MT",
+  "MS",
+  "MG",
+  "PA",
+  "PB",
+  "PR",
+  "PE",
+  "PI",
+  "RJ",
+  "RN",
+  "RS",
+  "RO",
+  "RR",
+  "SC",
+  "SP",
+  "SE",
+  "TO",
+] as const;
+
 const selectChevronClass =
   "cursor-pointer appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M5.3%207.3%2010%2012l4.7-4.7%201.4%201.4L10%2014.8%203.9%208.7z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem] bg-[right_0.75rem_center] bg-no-repeat pr-10";
 const errorTextClass = "mt-4 text-center text-sm text-rose-300";
@@ -193,6 +224,8 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     setAppState((prev) => ({ ...prev, modality: nextModality }));
   const setPriceRange = (nextPriceRange: PriceRangeId | null) =>
     setAppState((prev) => ({ ...prev, priceRange: nextPriceRange }));
+  const [userState, setUserState] = useState("");
+  const [userCity, setUserCity] = useState("");
   const [formError, setFormError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
@@ -524,6 +557,8 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     setCustomNiche("");
     setModality(null);
     setPriceRange(null);
+    setUserState("");
+    setUserCity("");
     setRecommendedCourses([]);
     setExternalRecommendations([]);
     setRecommendationInsights({});
@@ -625,6 +660,12 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
       fallback: targetUrl,
       course: course.name,
     });
+    if (area) params.set("area", area);
+    if (modality) params.set("modalidade", modality);
+    const cityTrim = userCity.trim();
+    const stateTrim = userState.trim();
+    if (cityTrim) params.set("cidade", cityTrim);
+    if (stateTrim) params.set("estado", stateTrim);
     if (notifyId) {
       params.set("notify", notifyId);
     }
@@ -1651,6 +1692,55 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                       </button>
                     );
                   })}
+                </div>
+              </div>
+
+              <div
+                className="mt-6 rounded-2xl border border-zinc-800/50 bg-zinc-900/30 p-5"
+                aria-labelledby="geo-preference-title"
+              >
+                <h3
+                  id="geo-preference-title"
+                  className="text-sm font-medium text-zinc-300"
+                >
+                  Quer ver opções perto de você?
+                </h3>
+                <p className="mt-1 text-xs text-zinc-500">
+                  Mostramos cursos presenciais e EAD com instituições da sua região.
+                </p>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="wizard-user-state" className={labelClass}>
+                      Estado
+                    </label>
+                    <select
+                      id="wizard-user-state"
+                      value={userState}
+                      onChange={(e) => setUserState(e.target.value)}
+                      className={`${fieldClass(false)} ${selectChevronClass}`}
+                    >
+                      <option value="">Selecione</option>
+                      {BR_STATE_UFS.map((uf) => (
+                        <option key={uf} value={uf}>
+                          {uf}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label htmlFor="wizard-user-city" className={labelClass}>
+                      Cidade
+                    </label>
+                    <input
+                      id="wizard-user-city"
+                      type="text"
+                      autoComplete="address-level2"
+                      value={userCity}
+                      onChange={(e) => setUserCity(e.target.value)}
+                      placeholder="Digite sua cidade"
+                      className={fieldClass(false)}
+                    />
+                  </div>
                 </div>
               </div>
 
