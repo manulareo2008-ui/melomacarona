@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { isAdminSessionValid } from "@/lib/admin-auth";
 import { AdminDashboard } from "@/components/AdminDashboard";
+import { AdminPatrocinadores } from "@/components/AdminPatrocinadores";
 import { AdminLogoutButton } from "./AdminLogoutButton";
 
 export default async function AdminMetricsPage() {
@@ -38,6 +39,10 @@ export default async function AdminMetricsPage() {
       </header>
 
       <AdminDashboard />
+
+      <section className="mt-10">
+        <AdminPatrocinadores />
+      </section>
     </main>
   );
 }
