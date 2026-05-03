@@ -13,8 +13,9 @@ create table if not exists public.marketing_leads (
   last_seen_at timestamptz not null default now()
 );
 
-create unique index if not exists uq_marketing_leads_email_lower
-  on public.marketing_leads ((lower(email)));
+-- UNIQUE na coluna email (app sempre grava lower case) — exigido por upsert onConflict: "email"
+create unique index if not exists uq_marketing_leads_email
+  on public.marketing_leads (email);
 
 create or replace function public.set_marketing_leads_updated_at()
 returns trigger

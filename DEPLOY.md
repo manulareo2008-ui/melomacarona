@@ -40,6 +40,12 @@ Use Render/Separate backend **só se no futuro** você extrair uma API Node/Pyth
 
 Sem isso, login Premium pode falhar só em produção.
 
+### 2b) Migrações SQL (`supabase/migrations/`)
+
+O app grava leads em `marketing_leads` via `upsert` com `onConflict: "email"`, o que exige um **índice UNIQUE na coluna `email`**. Se o projeto Supabase foi criado com a migração antiga (único só em `lower(email)`), as rotas **`POST /api/parcerias/contato`** e **`POST /api/marketing/lead`** podem falhar com erro Postgres **42P10**. Nesse caso, no Supabase abra **SQL Editor**, cole e execute o conteúdo de **`supabase/migrations/20260503_marketing_leads_email_unique_for_upsert.sql`**, depois confirme com um envio de teste na página Parcerias.
+
+Repositórios novos ou que reapliquem todas as migrações na ordem já recebem o índice correto na migração inicial atualizada.
+
 ### 3) Variáveis que espelham o “.env na nuvem”
 
 Copie do seu `.env.local` para o painel do host (Vercel → Settings → Environment Variables) os valores necessários. Lista completa em **`.env.example`**.
