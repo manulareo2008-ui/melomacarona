@@ -4,12 +4,10 @@ import { CookieConsent } from "@/components/CookieConsent";
 import { getAbsoluteSiteUrl, SITE_NAME } from "@/lib/site-config";
 import "./globals.css";
 
-/* Inter: hierarquia e legibilidade alinhadas a Stripe / Framer. */
 const inter = Inter({
-  variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-inter",
 });
 
 const geistMono = Geist_Mono({
@@ -50,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className={inter.variable}>
       <body
         className={`${inter.className} ${geistMono.variable} antialiased`}
       >

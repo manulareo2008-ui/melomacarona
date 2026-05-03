@@ -6,25 +6,48 @@
   respiro e contraste (Apple/Dropbox).
  */
 :root {
-  --background: #000000;
-  --foreground: #f5f5f5;
-  --card: #121212;
-  --muted: #c2c2c2;
-  --border: #2a2a2a;
-  --accent: #4f46e5;
-  --accent-muted: rgba(79, 70, 229, 0.2);
+  /* Tailwind / legado (alguns utilitários ainda referenciam) */
+  --background: #0a0a0f;
+  --foreground: #f0f0f5;
+  --card: #16161f;
+  --muted: #8a8a9a;
+  --accent-muted: rgba(99, 91, 255, 0.15);
 
-  /* Melomacarona — sistema visual */
+  /* Compatibilidade — não remover na Leva 1 */
+  --meloma-border: rgb(99 91 255 / 0.18);
+  --meloma-glow: rgb(99 91 255 / 0.22);
+  --primary-light: #8b85ff;
+  --accent-cyan: #00d4aa;
+
+  /* Fase 5 — fundação visual */
   --bg-base: #0a0a0f;
-  --bg-surface: #13131a;
-  --bg-card: #1a1a2e;
-  --primary: #7c3aed;
-  --primary-light: #a78bfa;
-  --accent-cyan: #06b6d4;
-  --text-primary: #f8fafc;
-  --text-muted: rgb(248 250 252 / 0.55);
-  --meloma-border: rgb(124 58 237 / 0.18);
-  --meloma-glow: rgb(124 58 237 / 0.25);
+  --bg-surface: #111118;
+  --bg-card: #16161f;
+  --bg-elevated: #1c1c28;
+
+  --primary: #635bff;
+  --primary-hover: #7a73ff;
+  --primary-soft: rgba(99, 91, 255, 0.12);
+
+  --accent: #00d4aa;
+  --accent-soft: rgba(0, 212, 170, 0.12);
+
+  --text-primary: #f0f0f5;
+  --text-secondary: #8a8a9a;
+  --text-muted: #55556a;
+
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(255, 255, 255, 0.12);
+
+  --gradient-hero: linear-gradient(135deg, #635bff 0%, #00d4aa 100%);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --font-body: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-inter), system-ui, -apple-system, sans-serif;
 }
 
 @theme inline {
@@ -46,8 +69,9 @@
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
   font-weight: 400;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
@@ -55,9 +79,40 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.text-gradient {
+  background: var(--gradient-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 ::selection {
-  background-color: rgba(79, 70, 229, 0.18);
-  color: var(--foreground);
+  background-color: rgba(99, 91, 255, 0.22);
+  color: var(--text-primary);
 }
 
 @keyframes wizard-enter {
