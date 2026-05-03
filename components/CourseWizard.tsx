@@ -16,6 +16,10 @@ import {
   PRICE_OPTIONS,
 } from "@/lib/courseData";
 import { CourseResultCard } from "@/components/CourseResultCard";
+import {
+  SponsorBanner,
+  type SponsorBannerProps,
+} from "@/components/SponsorBanner";
 import { RTL_LANGUAGES, type SupportedLanguage } from "@/lib/i18n";
 import { translateCourseMockTextByCourseId } from "@/lib/courseTextTranslations";
 import { trackEvent } from "@/lib/analytics";
@@ -227,6 +231,9 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
   const [userState, setUserState] = useState("");
   const [userCity, setUserCity] = useState("");
   const [publicoAlvo, setPublicoAlvo] = useState<"jovem" | "adulto" | "">("");
+  const [matchedSponsors, setMatchedSponsors] = useState<
+    SponsorBannerProps["patrocinadores"]
+  >([]);
   const [formError, setFormError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
@@ -561,6 +568,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     setUserState("");
     setUserCity("");
     setPublicoAlvo("");
+    setMatchedSponsors([]);
     setRecommendedCourses([]);
     setExternalRecommendations([]);
     setRecommendationInsights({});
@@ -879,12 +887,42 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     const modalityValue: Modality = modality as Modality;
 
     const controller = new AbortController();
+    const sponsorAbort = new AbortController();
     setIsLoadingRecommendations(true);
     setRecommendationError("");
     setRecommendedCourses([]);
     setExternalRecommendations([]);
     setRecommendationInsights({});
     setRecommendationProvider("unknown");
+    setMatchedSponsors([]);
+
+    const cityTrim = userCity.trim();
+    const stateTrim = userState.trim();
+    if (cityTrim || stateTrim) {
+      const sponsorParams = new URLSearchParams();
+      if (cityTrim) sponsorParams.set("cidade", cityTrim);
+      if (stateTrim) sponsorParams.set("estado", stateTrim);
+      if (area) sponsorParams.set("area", area);
+      void fetch(`/api/patrocinadores/match?${sponsorParams.toString()}`, {
+        signal: sponsorAbort.signal,
+      })
+        .then((r) => r.json())
+        .then(
+          (data: {
+            ok?: boolean;
+            patrocinadores?: SponsorBannerProps["patrocinadores"];
+          }) => {
+            if (
+              data.ok &&
+              data.patrocinadores &&
+              data.patrocinadores.length > 0
+            ) {
+              setMatchedSponsors(data.patrocinadores);
+            }
+          }
+        )
+        .catch(() => {});
+    }
 
     async function fetchRecommendations() {
       try {
@@ -945,7 +983,10 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     }
 
     void fetchRecommendations();
-    return () => controller.abort();
+    return () => {
+      controller.abort();
+      sponsorAbort.abort();
+    };
   }, [
     age,
     area,
@@ -958,6 +999,8 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     subChoice,
     subNicheLabel,
     t,
+    userCity,
+    userState,
     wizardStep,
   ]);
 
@@ -1869,6 +1912,16 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                   </button>
                 </div>
               </div>
+
+              {matchedSponsors.length > 0 && userCity.trim() && (
+                <div className="mb-6 w-full max-w-5xl">
+                  <SponsorBanner
+                    patrocinadores={matchedSponsors}
+                    cidade={userCity}
+                    estado={userState}
+                  />
+                </div>
+              )}
 
               {(comparisonGroups.topRecommended.length > 0 ||
                 comparisonGroups.budgetFriendly.length > 0) && (
