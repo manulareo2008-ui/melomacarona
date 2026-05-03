@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp *)",
+      "PowerShell(claude mcp *)",
+      "PowerShell(Get-Command *)",
+      "PowerShell(& \"C:\\\\Users\\\\Alejandro\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\@anthropic-ai\\\\claude-code\\\\bin\\\\claude.exe\" mcp add magic --scope user --env \"API_KEY=f64664483b42d3b61ff3cf33205633d070fa1f3530c91b10db4f981024e75e7e\" -- npx -y \"@21st.dev/magic@latest\")",
+      "mcp__filesystem__read_text_file"
+    ]
+  }
+}
