@@ -1289,3 +1289,9 @@ footer.meloma-site-footer {
     grid-template-columns: 1fr !important;
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
