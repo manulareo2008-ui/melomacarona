@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 @import "./melomacarona-landing.css";
 
 /*
@@ -1350,3 +1350,4 @@ footer.meloma-site-footer {
     scroll-behavior: smooth;
   }
 }
+
