@@ -3,9 +3,9 @@
 import { useState } from "react";
 
 const btnClass =
-  "inline-flex w-full items-center justify-center rounded-full bg-violet-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-violet-500 sm:w-auto";
+  "inline-flex w-full items-center justify-center rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-500 sm:w-auto";
 const inputClass =
-  "w-full rounded-xl border border-zinc-700 bg-zinc-950/80 px-3 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-600 outline-none ring-violet-500/40 focus:ring-2";
+  "w-full rounded-xl border border-zinc-700 bg-zinc-950/80 px-3 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-600 outline-none ring-emerald-500/40 focus:ring-2";
 const labelClass = "mb-1.5 block text-sm font-medium text-zinc-300";
 
 export function ParceriasContatoForm() {

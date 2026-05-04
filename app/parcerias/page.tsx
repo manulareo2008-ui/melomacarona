@@ -76,10 +76,10 @@ export default function ParceriasPage() {
   return (
     <main className="min-h-screen bg-[#0A0A0F] text-zinc-100">
       <section
-        className={`${sectionShell} border-b border-zinc-800/50 bg-gradient-to-b from-violet-950/25 via-[#0A0A0F] to-[#0A0A0F] pb-20 pt-12`}
+        className={`${sectionShell} border-b border-zinc-800/50 bg-gradient-to-b from-emerald-950/25 via-[#0A0A0F] to-[#0A0A0F] pb-20 pt-12`}
       >
         <div className="mx-auto max-w-3xl text-center">
-          <p className="mb-5 inline-flex rounded-full border border-violet-500/30 bg-violet-500/20 px-3 py-1 text-xs font-medium text-violet-300">
+          <p className="mb-5 inline-flex rounded-full border border-emerald-500/30 bg-emerald-500/20 px-3 py-1 text-xs font-medium text-emerald-300">
             Parcerias institucionais
           </p>
           <h1 className="text-balance text-4xl font-bold tracking-tight text-zinc-100 sm:text-5xl">
@@ -92,7 +92,7 @@ export default function ParceriasPage() {
           <div className="mt-10">
             <a
               href="#contato-parceria"
-              className="inline-flex items-center justify-center rounded-full bg-violet-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-violet-900/30 transition hover:bg-violet-500"
+              className="inline-flex items-center justify-center rounded-full bg-emerald-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/30 transition hover:bg-emerald-500"
             >
               Quero ser parceiro
             </a>
@@ -106,7 +106,7 @@ export default function ParceriasPage() {
         </h2>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           <div className={cardBase}>
-            <IconSearch className="mb-4 h-8 w-8 text-violet-400" />
+            <IconSearch className="mb-4 h-8 w-8 text-emerald-400" />
             <h3 className="text-lg font-semibold text-zinc-100">
               Aluno busca formação
             </h3>
@@ -116,7 +116,7 @@ export default function ParceriasPage() {
             </p>
           </div>
           <div className={cardBase}>
-            <IconTarget className="mb-4 h-8 w-8 text-violet-400" />
+            <IconTarget className="mb-4 h-8 w-8 text-emerald-400" />
             <h3 className="text-lg font-semibold text-zinc-100">
               Exibição segmentada
             </h3>
@@ -126,7 +126,7 @@ export default function ParceriasPage() {
             </p>
           </div>
           <div className={cardBase}>
-            <IconChart className="mb-4 h-8 w-8 text-violet-400" />
+            <IconChart className="mb-4 h-8 w-8 text-emerald-400" />
             <h3 className="text-lg font-semibold text-zinc-100">
               Resultados mensuráveis
             </h3>
@@ -192,7 +192,7 @@ export default function ParceriasPage() {
         </p>
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           <div className={`${cardBase} relative pt-2`}>
-            <span className="absolute right-4 top-4 rounded-full border border-violet-500/35 bg-violet-500/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-violet-200">
+            <span className="absolute right-4 top-4 rounded-full border border-emerald-500/35 bg-emerald-500/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-200">
               Mais popular
             </span>
             <h3 className="text-xl font-bold text-zinc-100">Institucional</h3>
@@ -271,7 +271,7 @@ export default function ParceriasPage() {
           Dúvidas? Entre em contato pelo e-mail{" "}
           <a
             href="mailto:manulareo2008@gmail.com"
-            className="font-medium text-violet-400 underline-offset-2 hover:text-violet-300 hover:underline"
+            className="font-medium text-emerald-400 underline-offset-2 hover:text-emerald-300 hover:underline"
           >
             manulareo2008@gmail.com
           </a>

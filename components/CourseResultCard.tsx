@@ -30,9 +30,9 @@ const matchBadge: Record<
 
 const articleShell: Record<CourseMatchKind, string> = {
   exact:
-    "group flex flex-col rounded-3xl border border-slate-500/35 border-l-4 border-l-blue-400/80 bg-slate-900/65 p-6 pl-5 shadow-[0_16px_40px_-18px_rgba(37,99,235,0.35)] backdrop-blur-sm transition duration-300",
+    "group flex flex-col rounded-3xl border border-slate-500/35 border-l-4 border-l-emerald-400/80 bg-slate-900/65 p-6 pl-5 shadow-[0_16px_40px_-18px_rgba(22,163,74,0.35)] backdrop-blur-sm transition duration-300",
   similar:
-    "group flex flex-col rounded-3xl border border-slate-500/30 border-l-4 border-l-violet-400/75 bg-slate-900/50 p-6 pl-5 shadow-[0_12px_34px_-18px_rgba(0,0,0,0.5)] backdrop-blur-sm transition duration-300",
+    "group flex flex-col rounded-3xl border border-slate-500/30 border-l-4 border-l-green-400/75 bg-slate-900/50 p-6 pl-5 shadow-[0_12px_34px_-18px_rgba(0,0,0,0.5)] backdrop-blur-sm transition duration-300",
 };
 
 export function CourseResultCard({
@@ -92,7 +92,7 @@ export function CourseResultCard({
 
   return (
     <article
-      className={`${articleShell[match]} motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-[0_18px_50px_-20px_rgba(30,64,175,0.5)] motion-safe:hover:border-slate-300/30`}
+      className={`${articleShell[match]} motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-[0_18px_50px_-20px_rgba(21,128,61,0.45)] motion-safe:hover:border-slate-300/30`}
     >
       <span className={`mb-2 ${badge.className}`}>
         {t(`results.badges.${match}`, { defaultValue: badge.label })}

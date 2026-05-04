@@ -78,7 +78,7 @@ export default function TermosPage() {
         <h2 className="text-lg font-semibold text-white">7. Privacidade</h2>
         <p>
           O tratamento de dados pessoais é descrito na{" "}
-          <Link href="/privacidade" className="font-medium text-indigo-300 hover:underline">
+          <Link href="/privacidade" className="font-medium text-emerald-300 hover:underline">
             Política de Privacidade
           </Link>
           .
@@ -99,12 +99,12 @@ export default function TermosPage() {
         <p>
           Dúvidas sobre estes termos:{" "}
           {email ? (
-            <a href={`mailto:${encodeURIComponent(email)}`} className="font-medium text-indigo-300 hover:underline">
+            <a href={`mailto:${encodeURIComponent(email)}`} className="font-medium text-emerald-300 hover:underline">
               {email}
             </a>
           ) : (
             <span>
-              configure <code className="text-indigo-300">NEXT_PUBLIC_CONTACT_EMAIL</code>.
+              configure <code className="text-emerald-300">NEXT_PUBLIC_CONTACT_EMAIL</code>.
             </span>
           )}
         </p>

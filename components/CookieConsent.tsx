@@ -40,7 +40,7 @@ export function CookieConsent() {
           Utilizamos dados necessários ao funcionamento do site e, quando aplicável,
           medições agregadas para melhorar a experiência. Ao continuar, você concorda com
           nossa{" "}
-          <Link href="/privacidade" className="font-medium text-indigo-300 underline-offset-2 hover:text-indigo-200 hover:underline">
+          <Link href="/privacidade" className="font-medium text-emerald-300 underline-offset-2 hover:text-emerald-200 hover:underline">
             Política de Privacidade
           </Link>
           .
@@ -49,7 +49,7 @@ export function CookieConsent() {
           <button
             type="button"
             onClick={accept}
-            className="rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-500"
+            className="rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-500"
           >
             Aceitar e continuar
           </button>

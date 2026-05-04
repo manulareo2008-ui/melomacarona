@@ -1212,7 +1212,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                   }}
                   className={`rounded-2xl border px-4 py-4 text-start transition ${
                     careerFlow === "known"
-                      ? "border-indigo-500 bg-indigo-950/40 text-indigo-100"
+                      ? "border-emerald-500 bg-emerald-950/35 text-emerald-100"
                       : "border-zinc-700 bg-zinc-900/70 text-white hover:border-zinc-500"
                   }`}
                 >
@@ -1226,7 +1226,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                   onClick={() => setCareerFlow("discover")}
                   className={`rounded-2xl border px-4 py-4 text-start transition ${
                     careerFlow === "discover"
-                      ? "border-indigo-500 bg-indigo-950/40 text-indigo-100"
+                      ? "border-emerald-500 bg-emerald-950/35 text-emerald-100"
                       : "border-zinc-700 bg-zinc-900/70 text-white hover:border-zinc-500"
                   }`}
                 >
@@ -1261,7 +1261,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                               onClick={() => setVocationalAnswer(q.id, score)}
                               className={`rounded-full px-3 py-1 text-xs font-semibold transition ${
                                 vocationalAnswers[q.id] === score
-                                  ? "bg-indigo-600 text-white"
+                                  ? "bg-emerald-600 text-white"
                                   : "bg-zinc-800 text-zinc-200 hover:bg-zinc-700"
                               }`}
                             >
@@ -1327,7 +1327,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                       onClick={() => setPublicoAlvo("jovem")}
                       className={`rounded-2xl border px-4 py-4 text-start transition ${
                         publicoAlvo === "jovem"
-                          ? "border-violet-500 bg-violet-950/35 text-violet-100"
+                        ? "border-emerald-500 bg-emerald-950/35 text-emerald-100"
                           : "border-zinc-700 bg-zinc-900/70 text-white hover:border-zinc-500"
                       }`}
                     >
@@ -1343,7 +1343,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                       onClick={() => setPublicoAlvo("adulto")}
                       className={`rounded-2xl border px-4 py-4 text-start transition ${
                         publicoAlvo === "adulto"
-                          ? "border-violet-500 bg-violet-950/35 text-violet-100"
+                        ? "border-emerald-500 bg-emerald-950/35 text-emerald-100"
                           : "border-zinc-700 bg-zinc-900/70 text-white hover:border-zinc-500"
                       }`}
                     >
@@ -1468,7 +1468,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                     }}
                     className={`rounded-2xl border px-4 py-4 text-start transition ${
                       careerFlow === "known"
-                        ? "border-blue-400/80 bg-blue-950/35 text-blue-100 shadow-sm shadow-blue-500/20"
+                        ? "border-emerald-400/80 bg-emerald-950/35 text-emerald-100 shadow-sm shadow-emerald-500/20"
                         : "border-slate-500/40 bg-slate-900/60 text-slate-100 hover:border-slate-300/40"
                     }`}
                   >
@@ -1479,7 +1479,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                     onClick={() => setCareerFlow("discover")}
                     className={`rounded-2xl border px-4 py-4 text-start transition ${
                       careerFlow === "discover"
-                        ? "border-blue-400/80 bg-blue-950/35 text-blue-100 shadow-sm shadow-blue-500/20"
+                        ? "border-emerald-400/80 bg-emerald-950/35 text-emerald-100 shadow-sm shadow-emerald-500/20"
                         : "border-slate-500/40 bg-slate-900/60 text-slate-100 hover:border-slate-300/40"
                     }`}
                   >
@@ -1515,7 +1515,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                               onClick={() => setVocationalAnswer(q.id, score)}
                               className={`rounded-full px-3 py-1 text-xs font-semibold transition ${
                                 vocationalAnswers[q.id] === score
-                                  ? "bg-gradient-to-r from-blue-500 to-violet-500 text-white"
+                                  ? "bg-gradient-to-r from-emerald-500 to-green-500 text-white"
                                   : "bg-slate-800 text-slate-200 hover:bg-slate-700"
                               }`}
                             >
@@ -1639,8 +1639,8 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
               </p>
 
               {vocationalResult && vocationalResult.area === area && (
-                <div className="mt-5 rounded-2xl border border-blue-400/45 bg-blue-950/25 p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-indigo-300">
+                <div className="mt-5 rounded-2xl border border-emerald-400/45 bg-emerald-950/25 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-300">
                     Nichos priorizados automaticamente
                   </p>
                   <p className="mt-1 text-xs text-slate-100">
@@ -1682,7 +1682,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                         ? subOptionActive
                         : fieldErrors.subChoice
                           ? "border-rose-500 bg-rose-950/30 text-rose-200"
-                          : "border-slate-500/40 bg-slate-950/45 text-slate-100 hover:border-blue-400/70"
+                          : "border-slate-500/40 bg-slate-950/45 text-slate-100 hover:border-emerald-400/70"
                     }`}
                   >
                     {t("step2.otherSpecific")}
@@ -1965,7 +1965,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                         <>
                           {recommendationStreamText}
                           <span
-                            className="ml-0.5 inline-block h-3.5 w-1 animate-pulse rounded-sm bg-blue-400 align-middle"
+                            className="ml-0.5 inline-block h-3.5 w-1 animate-pulse rounded-sm bg-emerald-400 align-middle"
                             aria-hidden
                           />
                         </>
@@ -2028,8 +2028,8 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                     {exactMatches.map((c) => (
                       <li key={c.id} className="flex flex-col gap-2">
                         {recommendationInsights[c.id] && (
-                          <div className="mb-2 rounded-xl border border-blue-800/50 bg-gradient-to-br from-blue-950/45 to-zinc-950/85 p-3 text-zinc-100">
-                            <p className="text-base font-extrabold tabular-nums text-blue-200 sm:text-lg">
+                          <div className="mb-2 rounded-xl border border-emerald-800/50 bg-gradient-to-br from-emerald-950/45 to-zinc-950/85 p-3 text-zinc-100">
+                            <p className="text-base font-extrabold tabular-nums text-emerald-200 sm:text-lg">
                               {t("results.affinityScore", {
                                 score: recommendationInsights[c.id].score,
                               })}
@@ -2148,7 +2148,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                     className={`${detailsCtaBtn} ${
                       detailCourseHasValidUrl
                         ? ""
-                        : "cursor-not-allowed opacity-55 hover:translate-y-0 hover:bg-indigo-600"
+                        : "cursor-not-allowed opacity-55 hover:translate-y-0 hover:bg-emerald-600"
                     }`}
                   >
                     {t("details.accessCourse", { defaultValue: "Garantir esta oferta agora" })}
@@ -2282,7 +2282,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                     disabled={feedbackRating < 1 || isSubmittingFeedback}
                     className={`${primaryBtn} ${
                       feedbackRating < 1 || isSubmittingFeedback
-                        ? "cursor-not-allowed opacity-50 hover:translate-y-0 hover:bg-indigo-600 hover:shadow-indigo-500/30"
+                        ? "cursor-not-allowed opacity-50 hover:translate-y-0 hover:bg-emerald-600 hover:shadow-emerald-500/30"
                         : ""
                     }`}
                   >
@@ -2309,7 +2309,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
           </div>
         )}
         {redirectingNotice && (
-          <div className="pointer-events-none fixed bottom-16 left-1/2 z-[75] -translate-x-1/2 rounded-full border border-blue-500/45 bg-blue-950/85 px-4 py-2 text-xs font-medium text-blue-50 shadow-lg backdrop-blur">
+          <div className="pointer-events-none fixed bottom-16 left-1/2 z-[75] -translate-x-1/2 rounded-full border border-emerald-500/45 bg-emerald-950/85 px-4 py-2 text-xs font-medium text-emerald-50 shadow-lg backdrop-blur">
             O site já está sendo carregado e logo aparecerá na tela. Aguarde alguns segundos para o redirecionamento.
           </div>
         )}

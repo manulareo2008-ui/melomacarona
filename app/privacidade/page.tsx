@@ -25,7 +25,7 @@ export default function PrivacidadePage() {
         <p>
           O tratamento de dados pessoais observa a Lei nº 13.709/2018 (LGPD). Em relação a
           este site, considera-se responsável: <strong>{operator}</strong>. Você pode definir
-          razão social e CNPJ via variável de ambiente <code className="text-indigo-300">NEXT_PUBLIC_SITE_OPERATOR_NAME</code>{" "}
+          razão social e CNPJ via variável de ambiente <code className="text-emerald-300">NEXT_PUBLIC_SITE_OPERATOR_NAME</code>{" "}
           e revisar este texto com seu jurídico.
         </p>
       </section>
@@ -117,12 +117,12 @@ export default function PrivacidadePage() {
         <p>
           Para exercer direitos ou dúvidas sobre privacidade:{" "}
           {email ? (
-            <a href={`mailto:${encodeURIComponent(email)}`} className="font-medium text-indigo-300 hover:underline">
+            <a href={`mailto:${encodeURIComponent(email)}`} className="font-medium text-emerald-300 hover:underline">
               {email}
             </a>
           ) : (
             <span>
-              Configure <code className="text-indigo-300">NEXT_PUBLIC_CONTACT_EMAIL</code> no
+              Configure <code className="text-emerald-300">NEXT_PUBLIC_CONTACT_EMAIL</code> no
               ambiente de produção.
             </span>
           )}

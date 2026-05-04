@@ -41,11 +41,11 @@ const AREA_LABELS: Record<string, string> = {
 };
 
 const AREA_COLORS: Record<string, string> = {
-  technology: "bg-blue-500/20 text-blue-300 border-blue-500/30",
+  technology: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
   health: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
   humanities: "bg-amber-500/20 text-amber-300 border-amber-500/30",
   arts_design: "bg-pink-500/20 text-pink-300 border-pink-500/30",
-  business_admin: "bg-violet-500/20 text-violet-300 border-violet-500/30",
+  business_admin: "bg-green-500/20 text-green-300 border-green-500/30",
   engineering: "bg-orange-500/20 text-orange-300 border-orange-500/30",
 };
 
@@ -170,7 +170,7 @@ export function AdminDashboard() {
         <button
           type="button"
           onClick={() => void load()}
-          className="mt-4 rounded-full bg-violet-600 px-5 py-2 text-sm font-medium text-white transition-all duration-200 hover:bg-violet-500"
+          className="mt-4 rounded-full bg-emerald-600 px-5 py-2 text-sm font-medium text-white transition-all duration-200 hover:bg-emerald-500"
         >
           Tentar novamente
         </button>
@@ -200,7 +200,7 @@ export function AdminDashboard() {
             onClick={() => setPeriodo(key)}
             className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
               periodo === key
-                ? "bg-violet-600 text-white"
+                ? "bg-emerald-600 text-white"
                 : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
             }`}
           >
@@ -298,7 +298,7 @@ export function AdminDashboard() {
                 <div className="flex min-w-0 flex-1 items-center gap-2">
                   <div className="h-3 min-w-0 flex-1 overflow-hidden rounded-full bg-zinc-800">
                     <div
-                      className="h-full rounded-full bg-violet-600 transition-all duration-200"
+                      className="h-full rounded-full bg-emerald-600 transition-all duration-200"
                       style={{
                         width: `${(row.total / maxCliquesDia) * 100}%`,
                         minWidth: row.total > 0 ? "4px" : "0",
@@ -387,7 +387,7 @@ export function AdminDashboard() {
                     </div>
                     <div className="h-2 overflow-hidden rounded-full bg-zinc-800">
                       <div
-                        className="h-full rounded-full bg-violet-600 transition-all duration-200"
+                        className="h-full rounded-full bg-emerald-600 transition-all duration-200"
                         style={{
                           width: `${(row.total / maxBarCliquesArea) * 100}%`,
                           minWidth: row.total > 0 ? "4px" : "0",
@@ -419,7 +419,7 @@ export function AdminDashboard() {
                     </div>
                     <div className="h-2 overflow-hidden rounded-full bg-zinc-800">
                       <div
-                        className="h-full rounded-full bg-violet-600 transition-all duration-200"
+                        className="h-full rounded-full bg-emerald-600 transition-all duration-200"
                         style={{
                           width: `${(row.total / maxBarQuizzesArea) * 100}%`,
                           minWidth: row.total > 0 ? "4px" : "0",

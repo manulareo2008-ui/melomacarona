@@ -16,11 +16,11 @@ const AREA_LABELS: Record<string, string> = {
 };
 
 const AREA_COLORS: Record<string, string> = {
-  technology: "bg-blue-500/20 text-blue-300 border-blue-500/30",
+  technology: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
   health: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
   humanities: "bg-amber-500/20 text-amber-300 border-amber-500/30",
   arts_design: "bg-pink-500/20 text-pink-300 border-pink-500/30",
-  business_admin: "bg-violet-500/20 text-violet-300 border-violet-500/30",
+  business_admin: "bg-green-500/20 text-green-300 border-green-500/30",
   engineering: "bg-orange-500/20 text-orange-300 border-orange-500/30",
 };
 
@@ -101,14 +101,14 @@ export function SponsorBanner({
           key={p.id}
           className={
             featured
-              ? "group relative overflow-hidden rounded-3xl border border-violet-500/45 bg-gradient-to-br from-violet-950/50 via-zinc-900/90 to-zinc-950/95 p-6 shadow-[0_20px_50px_-20px_rgba(139,92,246,0.35)] transition-all duration-200 sm:p-8"
-              : "group relative overflow-hidden rounded-2xl border border-violet-500/40 bg-gradient-to-r from-violet-950/40 to-zinc-900/80 p-6 shadow-lg shadow-violet-500/5 transition-all duration-200 hover:border-violet-500/60"
+              ? "group relative overflow-hidden rounded-3xl border border-emerald-500/45 bg-gradient-to-br from-emerald-950/45 via-zinc-900/90 to-zinc-950/95 p-6 shadow-[0_20px_50px_-20px_rgba(22,163,74,0.35)] transition-all duration-200 sm:p-8"
+              : "group relative overflow-hidden rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-950/35 to-zinc-900/80 p-6 shadow-lg shadow-emerald-500/5 transition-all duration-200 hover:border-emerald-500/60"
           }
         >
           <div
-            className={`mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-violet-200/95 ${featured ? "text-sm" : ""}`}
+            className={`mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-emerald-200/95 ${featured ? "text-sm" : ""}`}
           >
-            <LocationIcon className="h-4 w-4 shrink-0 text-violet-400" />
+            <LocationIcon className="h-4 w-4 shrink-0 text-emerald-400" />
             <span>{featured ? "Parceiro em destaque" : "Parceiro na sua região"}</span>
           </div>
 
@@ -129,7 +129,7 @@ export function SponsorBanner({
                 />
               ) : (
                 <div
-                  className={`flex items-center justify-center rounded-2xl bg-violet-600 font-bold text-white ${featured ? "h-16 w-16 text-2xl sm:h-20 sm:w-20" : "h-12 w-12 rounded-full text-lg"}`}
+                  className={`flex items-center justify-center rounded-2xl bg-emerald-600 font-bold text-white ${featured ? "h-16 w-16 text-2xl sm:h-20 sm:w-20" : "h-12 w-12 rounded-full text-lg"}`}
                   aria-hidden
                 >
                   {p.nome.trim().charAt(0).toUpperCase()}
@@ -143,7 +143,7 @@ export function SponsorBanner({
               >
                 {p.nome}
               </h3>
-              <span className="inline-flex rounded-full border border-violet-500/35 bg-violet-500/15 px-2.5 py-0.5 text-xs font-medium text-violet-200">
+              <span className="inline-flex rounded-full border border-emerald-500/35 bg-emerald-500/15 px-2.5 py-0.5 text-xs font-medium text-emerald-200">
                 {TIPO_LABELS[p.tipo] ?? p.tipo}
               </span>
 
@@ -191,7 +191,7 @@ export function SponsorBanner({
                     href={p.site_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex rounded-xl bg-violet-600 px-4 py-2.5 font-semibold text-white shadow-lg shadow-violet-900/30 transition hover:bg-violet-500 ${featured ? "text-base" : "text-sm"}`}
+                    className={`inline-flex rounded-xl bg-emerald-600 px-4 py-2.5 font-semibold text-white shadow-lg shadow-emerald-900/30 transition hover:bg-emerald-500 ${featured ? "text-base" : "text-sm"}`}
                   >
                     Visitar site
                   </a>

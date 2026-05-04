@@ -168,7 +168,7 @@ export function PremiumHistoryClient() {
                     className="rounded-xl border border-slate-500/35 bg-slate-900/65 p-3"
                   >
                     <p className="text-sm font-semibold text-slate-100">{rec.nome}</p>
-                    <p className="text-xs text-blue-300">Afinidade: {rec.score_afinidade}/100</p>
+                    <p className="text-xs text-emerald-300">Afinidade: {rec.score_afinidade}/100</p>
                     <p className="mt-1 text-xs text-slate-100">{rec.pitch_venda}</p>
                   </article>
                 ))}

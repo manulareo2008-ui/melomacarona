@@ -11,12 +11,12 @@
   --foreground: #f0f0f5;
   --card: #16161f;
   --muted: #8a8a9a;
-  --accent-muted: rgba(99, 91, 255, 0.15);
+  --accent-muted: rgba(21, 128, 61, 0.18);
 
   /* Compatibilidade — não remover na Leva 1 */
-  --meloma-border: rgb(99 91 255 / 0.18);
-  --meloma-glow: rgb(99 91 255 / 0.22);
-  --primary-light: #8b85ff;
+  --meloma-border: rgb(22 101 52 / 0.32);
+  --meloma-glow: rgb(21 128 61 / 0.28);
+  --primary-light: #4ade80;
   --accent-cyan: #00d4aa;
 
   /* Fase 5 — fundação visual */
@@ -25,9 +25,9 @@
   --bg-card: #16161f;
   --bg-elevated: #1c1c28;
 
-  --primary: #635bff;
-  --primary-hover: #7a73ff;
-  --primary-soft: rgba(99, 91, 255, 0.12);
+  --primary: #166534;
+  --primary-hover: #15803d;
+  --primary-soft: rgba(21, 128, 61, 0.18);
 
   --accent: #00d4aa;
   --accent-soft: rgba(0, 212, 170, 0.12);
@@ -39,7 +39,7 @@
   --border: rgba(255, 255, 255, 0.06);
   --border-hover: rgba(255, 255, 255, 0.12);
 
-  --gradient-hero: linear-gradient(135deg, #635bff 0%, #00d4aa 100%);
+  --gradient-hero: linear-gradient(135deg, #166534 0%, #00d4aa 100%);
 
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -70,6 +70,26 @@
 
 body {
   background-color: var(--bg-base);
+  background-image:
+    radial-gradient(
+      circle at 18% 16%,
+      rgb(21 128 61 / 0.16) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 82% 22%,
+      rgb(0 212 170 / 0.12) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 50% 84%,
+      rgb(20 83 45 / 0.2) 0%,
+      transparent 46%
+    ),
+    linear-gradient(180deg, #0a0a0f 0%, #0d1411 52%, #0a0a0f 100%);
+  background-size: 155% 155%, 170% 170%, 165% 165%, 100% 100%;
+  background-attachment: fixed;
+  animation: meloma-site-gradient-float 30s ease-in-out infinite;
   color: var(--text-primary);
   font-family: var(--font-body);
   font-weight: 400;
@@ -77,6 +97,24 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+@keyframes meloma-site-gradient-float {
+  0%,
+  100% {
+    background-position:
+      0% 0%,
+      100% 0%,
+      50% 100%,
+      0% 0%;
+  }
+  50% {
+    background-position:
+      8% 12%,
+      88% 14%,
+      42% 86%,
+      0% 0%;
+  }
 }
 
 .reveal {
@@ -98,6 +136,13 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  body,
+  .meloma-trust-page,
+  .meloma-guides-page,
+  .meloma-guide-detail-main {
+    animation: none;
+  }
+
   .reveal {
     opacity: 1;
     transform: none;
@@ -111,7 +156,7 @@ body {
 }
 
 ::selection {
-  background-color: rgba(99, 91, 255, 0.22);
+  background-color: rgba(21, 128, 61, 0.3);
   color: var(--text-primary);
 }
 
@@ -258,7 +303,7 @@ body {
 }
 
 .new-hero h1 span {
-  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  background: linear-gradient(135deg, #22c55e, #4ade80);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -397,7 +442,7 @@ body {
   background:
     radial-gradient(
       ellipse 60vw 55vw at 28% 22%,
-      rgb(59 7 100 / 0.4),
+      rgb(6 78 59 / 0.42),
       transparent 58%
     ),
     radial-gradient(
@@ -407,7 +452,7 @@ body {
     ),
     radial-gradient(
       ellipse 50vw 48vw at 50% 50%,
-      rgb(59 7 100 / 0.22),
+      rgb(6 78 59 / 0.24),
       transparent 62%
     );
   animation: meloma-hero-gradient-orbit 22s ease-in-out infinite,
@@ -451,16 +496,16 @@ body {
   font-weight: 600;
   letter-spacing: 0.04em;
   color: rgb(248 250 252 / 0.95);
-  background: rgb(59 7 100 / 0.72);
-  border: 1px solid rgb(167 139 250 / 0.35);
+  background: rgb(6 78 59 / 0.72);
+  border: 1px solid rgb(74 222 128 / 0.36);
   box-shadow:
-    0 0 28px rgb(124 58 237 / 0.38),
+    0 0 28px rgb(21 128 61 / 0.38),
     inset 0 1px 0 rgb(255 255 255 / 0.06);
 }
 
 .meloma-landing .meloma-hero-v2 .hero-badge .dot {
-  background: rgb(167 139 250 / 0.95);
-  box-shadow: 0 0 10px rgb(124 58 237 / 0.65);
+  background: rgb(74 222 128 / 0.95);
+  box-shadow: 0 0 10px rgb(21 128 61 / 0.65);
 }
 
 .meloma-landing .meloma-hero-v2 .hero-title {
@@ -475,8 +520,8 @@ body {
 .meloma-landing .meloma-hero-v2 .hero-title .highlight {
   background: linear-gradient(
     105deg,
-    #7c3aed 0%,
-    #a78bfa 45%,
+    #166534 0%,
+    #4ade80 45%,
     #06b6d4 100%
   );
   -webkit-background-clip: text;
@@ -506,12 +551,12 @@ body {
 
 .meloma-landing .meloma-hero-v2 .btn-hero {
   animation: none;
-  background: #7c3aed;
+  background: #166534;
   border-radius: 999px;
   padding: 18px 36px;
   font-size: 17px;
   font-weight: 700;
-  box-shadow: 0 4px 24px rgb(124 58 237 / 0.25);
+  box-shadow: 0 4px 24px rgb(21 128 61 / 0.26);
   transition:
     transform 0.22s ease,
     box-shadow 0.22s ease;
@@ -519,8 +564,8 @@ body {
 
 .meloma-landing .meloma-hero-v2 .btn-hero:hover {
   box-shadow:
-    0 6px 32px rgb(124 58 237 / 0.5),
-    0 0 48px rgb(124 58 237 / 0.22);
+    0 6px 32px rgb(21 128 61 / 0.5),
+    0 0 48px rgb(21 128 61 / 0.22);
   transform: translateY(-2px);
 }
 
@@ -571,7 +616,7 @@ body {
 
 .meloma-landing .meloma-hero-v2 .hero-stat-value {
   font-size: clamp(24px, 3.2vw, 32px);
-  background: linear-gradient(125deg, #7c3aed 0%, #a78bfa 40%, #06b6d4 100%);
+  background: linear-gradient(125deg, #166534 0%, #4ade80 40%, #06b6d4 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -623,6 +668,111 @@ body {
 
 .meloma-landing #navbar:not(.scrolled) .nav-hamburger span {
   background: #f8fafc;
+}
+
+/* Barra de navegação flutuante (estilo glass / MotionSites) */
+.meloma-landing #navbar {
+  top: 1rem;
+  left: 50%;
+  right: auto;
+  width: min(calc(100% - 2rem), 72rem);
+  height: auto;
+  min-height: var(--nav-height);
+  transform: translateX(-50%);
+  border-radius: 1rem;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background: rgb(255 255 255 / 0.06);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: none;
+  box-shadow:
+    0 8px 32px rgb(0 0 0 / 0.28),
+    inset 0 1px 0 rgb(255 255 255 / 0.06);
+}
+
+.meloma-landing #navbar.scrolled {
+  background: rgb(15 23 42 / 0.72);
+  border-color: rgb(255 255 255 / 0.14);
+}
+
+.meloma-landing #navbar .nav-inner {
+  padding: 0.55rem 1rem;
+}
+
+@media (max-width: 640px) {
+  .meloma-landing #navbar {
+    top: 0.5rem;
+    width: calc(100% - 1rem);
+    border-radius: 0.875rem;
+  }
+}
+
+.meloma-landing .nav-mobile {
+  top: calc(1rem + var(--nav-height));
+}
+
+@media (max-width: 640px) {
+  .meloma-landing .nav-mobile {
+    top: calc(0.5rem + var(--nav-height));
+  }
+}
+
+/* Hero com vídeo HLS em tela cheia e conteúdo inferior esquerdo */
+.meloma-landing .meloma-video-hero.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  min-height: 100svh;
+  padding-top: calc(var(--nav-height) + 3rem);
+  padding-bottom: clamp(2rem, 6vw, 4rem);
+  padding-left: 24px;
+  padding-right: 24px;
+  background: transparent;
+}
+
+.meloma-landing .meloma-video-hero__video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.meloma-landing .meloma-video-hero__fade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgb(15 23 42 / 0.92) 0%,
+    rgb(15 23 42 / 0.32) 48%,
+    rgb(15 23 42 / 0.52) 100%
+  );
+}
+
+.meloma-landing .meloma-video-hero__fade--side {
+  background: linear-gradient(
+    to right,
+    rgb(15 23 42 / 0.78) 0%,
+    rgb(15 23 42 / 0.12) 58%,
+    transparent 100%
+  );
+}
+
+.meloma-landing .meloma-video-hero__content-wrap {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.meloma-landing .meloma-video-hero__shell {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 42rem;
+  margin: 0;
+  justify-items: start;
 }
 
 @media (max-width: 960px) {
@@ -746,7 +896,7 @@ body {
   background: var(--primary);
   border: none;
   cursor: pointer;
-  box-shadow: 0 0 20px rgb(124 58 237 / 0.35);
+  box-shadow: 0 0 20px rgb(21 128 61 / 0.35);
   transition:
     filter 0.2s ease,
     box-shadow 0.2s ease,
@@ -755,7 +905,7 @@ body {
 
 .meloma-btn-primary:hover {
   filter: brightness(1.15);
-  box-shadow: 0 0 28px rgb(124 58 237 / 0.55);
+  box-shadow: 0 0 28px rgb(21 128 61 / 0.55);
 }
 
 .meloma-btn-primary:disabled {
@@ -784,7 +934,7 @@ body {
 
 .meloma-btn-secondary:hover {
   border-color: var(--primary);
-  background: rgb(124 58 237 / 0.08);
+  background: rgb(21 128 61 / 0.1);
 }
 
 .meloma-card-surface {
@@ -814,14 +964,19 @@ body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--primary-light);
-  background: rgb(124 58 237 / 0.15);
-  border: 1px solid rgb(124 58 237 / 0.3);
+  background: rgb(21 128 61 / 0.18);
+  border: 1px solid rgb(21 128 61 / 0.34);
 }
 
 /* Trust shell / páginas institucionais */
 .meloma-trust-page {
   min-height: 100vh;
   background: var(--bg-base);
+  background-image:
+    radial-gradient(circle at 8% 0%, rgb(21 128 61 / 0.12) 0%, transparent 38%),
+    radial-gradient(circle at 92% 100%, rgb(0 212 170 / 0.08) 0%, transparent 36%);
+  background-size: 140% 140%, 140% 140%;
+  animation: meloma-site-gradient-float 34s ease-in-out infinite;
   color: var(--text-primary);
 }
 
@@ -889,19 +1044,19 @@ body {
 
 .meloma-contact-panel {
   background: var(--bg-card);
-  border: 1px solid rgb(124 58 237 / 0.32);
+  border: 1px solid rgb(21 128 61 / 0.35);
   border-radius: 16px;
   transition: border-color 0.25s ease;
 }
 
 .meloma-contact-panel:hover {
-  border-color: rgb(167 139 250 / 0.45);
+  border-color: rgb(74 222 128 / 0.45);
 }
 
 /* Footer global Melomacarona */
 footer.meloma-site-footer {
   background: var(--bg-base);
-  border-top: 1px solid rgb(124 58 237 / 0.35);
+  border-top: 1px solid rgb(21 128 61 / 0.35);
   padding-top: 3rem;
   padding-bottom: 2rem;
 }
@@ -950,7 +1105,7 @@ footer.meloma-site-footer {
   height: 2px;
   background: linear-gradient(
     90deg,
-    rgb(124 58 237 / 0.5),
+    rgb(21 128 61 / 0.5),
     rgb(6 182 212 / 0.45)
   );
   opacity: 0.3;
@@ -959,8 +1114,8 @@ footer.meloma-site-footer {
 .meloma-landing .meloma-home-steps .step-number-1,
 .meloma-landing .meloma-home-steps .step-number-2,
 .meloma-landing .meloma-home-steps .step-number-3 {
-  background: linear-gradient(145deg, var(--primary), #5b21b6);
-  box-shadow: 0 4px 18px rgb(124 58 237 / 0.45);
+  background: linear-gradient(145deg, var(--primary), #14532d);
+  box-shadow: 0 4px 18px rgb(21 128 61 / 0.45);
 }
 
 .meloma-landing .meloma-home-steps .step-card {
@@ -1005,8 +1160,8 @@ footer.meloma-site-footer {
 }
 
 .meloma-landing .features-grid .feature-icon-wrap {
-  background: rgb(124 58 237 / 0.12) !important;
-  border: 1px solid rgb(124 58 237 / 0.28);
+  background: rgb(21 128 61 / 0.14) !important;
+  border: 1px solid rgb(21 128 61 / 0.3);
   color: var(--primary-light);
 }
 
@@ -1020,15 +1175,15 @@ footer.meloma-site-footer {
 .meloma-landing .vocational-section.meloma-voc-bg {
   background: linear-gradient(
     185deg,
-    #1a0533 0%,
+    #052e1f 0%,
     rgb(15 23 42 / 0.95) 52%,
     rgb(15 23 42 / 1) 100%
   );
 }
 
 .meloma-landing .vocational-section.meloma-voc-bg .vocational-benefit .vb-icon {
-  background: rgb(124 58 237 / 0.15);
-  border: 1px solid rgb(124 58 237 / 0.35);
+  background: rgb(21 128 61 / 0.16);
+  border: 1px solid rgb(21 128 61 / 0.35);
   color: var(--primary-light);
   display: flex;
   align-items: center;
@@ -1037,7 +1192,7 @@ footer.meloma-site-footer {
 
 /* FAQ */
 .meloma-landing .faq-item {
-  border-bottom: 1px solid rgb(124 58 237 / 0.14);
+  border-bottom: 1px solid rgb(21 128 61 / 0.18);
 }
 
 .meloma-landing .faq-question.is-open span:first-of-type {
@@ -1046,17 +1201,17 @@ footer.meloma-site-footer {
 
 .meloma-landing .faq-cta-card {
   background: var(--bg-card);
-  border: 1px solid rgb(124 58 237 / 0.35);
+  border: 1px solid rgb(21 128 61 / 0.35);
   border-radius: 16px;
-  box-shadow: 0 0 32px rgb(124 58 237 / 0.12);
+  box-shadow: 0 0 32px rgb(21 128 61 / 0.15);
 }
 
 /* Premium & gestão — card central */
 .meloma-landing .meloma-premium-block-card {
   background: var(--bg-card);
-  border: 1px solid rgb(124 58 237 / 0.4);
+  border: 1px solid rgb(21 128 61 / 0.4);
   border-radius: 16px;
-  box-shadow: 0 0 40px rgb(124 58 237 / 0.18);
+  box-shadow: 0 0 40px rgb(21 128 61 / 0.2);
 }
 
 .meloma-landing .meloma-premium-block-card .btn-outline,
@@ -1073,7 +1228,7 @@ footer.meloma-site-footer {
 
 .meloma-landing .meloma-premium-block-card .btn-outline:hover {
   border-color: var(--primary);
-  background: rgb(124 58 237 / 0.1);
+  background: rgb(21 128 61 / 0.12);
 }
 
 /* Secções landing — títulos */
@@ -1091,6 +1246,11 @@ footer.meloma-site-footer {
 .meloma-guides-page {
   min-height: 100vh;
   background: var(--bg-base);
+  background-image:
+    radial-gradient(circle at 10% 0%, rgb(21 128 61 / 0.12) 0%, transparent 38%),
+    radial-gradient(circle at 85% 90%, rgb(0 212 170 / 0.08) 0%, transparent 36%);
+  background-size: 140% 140%, 140% 140%;
+  animation: meloma-site-gradient-float 34s ease-in-out infinite;
   color: var(--text-primary);
 }
 
@@ -1127,6 +1287,11 @@ footer.meloma-site-footer {
 .meloma-guide-detail-main {
   min-height: 100vh;
   background: var(--bg-base);
+  background-image:
+    radial-gradient(circle at 15% 10%, rgb(21 128 61 / 0.12) 0%, transparent 38%),
+    radial-gradient(circle at 86% 84%, rgb(0 212 170 / 0.08) 0%, transparent 36%);
+  background-size: 140% 140%, 140% 140%;
+  animation: meloma-site-gradient-float 34s ease-in-out infinite;
 }
 
 .meloma-guide-detail-article {
@@ -1167,15 +1332,15 @@ footer.meloma-site-footer {
 
 .meloma-plan-card:hover {
   transform: translateY(-4px);
-  border-color: rgb(124 58 237 / 0.35);
+  border-color: rgb(21 128 61 / 0.35);
 }
 
 .meloma-plan-card--premium {
-  border: 1px solid rgb(167 139 250 / 0.65);
+  border: 1px solid rgb(74 222 128 / 0.55);
   box-shadow:
-    0 0 48px rgb(124 58 237 / 0.35),
+    0 0 48px rgb(21 128 61 / 0.35),
     inset 0 1px 0 rgb(255 255 255 / 0.04);
-  background: linear-gradient(165deg, rgb(59 7 100 / 0.35), var(--bg-card));
+  background: linear-gradient(165deg, rgb(6 78 59 / 0.35), var(--bg-card));
 }
 
 .meloma-plan-ribbon {
@@ -1200,7 +1365,7 @@ footer.meloma-site-footer {
   background: var(--bg-base);
   background-image: radial-gradient(
     ellipse 70% 55% at 50% 35%,
-    rgb(124 58 237 / 0.14),
+    rgb(21 128 61 / 0.16),
     transparent 62%
   );
 }
@@ -1221,7 +1386,7 @@ footer.meloma-site-footer {
   margin-inline: auto;
   padding: 2rem;
   border-radius: 20px;
-  border: 1px solid rgb(124 58 237 / 0.35);
+  border: 1px solid rgb(21 128 61 / 0.35);
   background: var(--bg-card);
   box-shadow: 0 24px 60px rgb(0 0 0 / 0.45);
 }
@@ -1254,7 +1419,7 @@ footer.meloma-site-footer {
 .meloma-premium-tab.is-active {
   background: var(--primary);
   color: #fff;
-  box-shadow: 0 0 18px rgb(124 58 237 / 0.35);
+  box-shadow: 0 0 18px rgb(21 128 61 / 0.35);
 }
 
 .meloma-premium-tab:not(.is-active):hover {
@@ -1285,7 +1450,7 @@ footer.meloma-site-footer {
 
 .meloma-premium-input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgb(124 58 237 / 0.22);
+  box-shadow: 0 0 0 3px rgb(21 128 61 / 0.24);
 }
 
 .meloma-premium-submit {
@@ -1299,7 +1464,7 @@ footer.meloma-site-footer {
   color: #fff;
   background: var(--primary);
   cursor: pointer;
-  box-shadow: 0 0 22px rgb(124 58 237 / 0.38);
+  box-shadow: 0 0 22px rgb(21 128 61 / 0.38);
   transition:
     filter 0.2s ease,
     box-shadow 0.2s ease;
@@ -1307,7 +1472,7 @@ footer.meloma-site-footer {
 
 .meloma-premium-submit:hover:not(:disabled) {
   filter: brightness(1.12);
-  box-shadow: 0 0 30px rgb(124 58 237 / 0.5);
+  box-shadow: 0 0 30px rgb(21 128 61 / 0.5);
 }
 
 .meloma-premium-submit:disabled {

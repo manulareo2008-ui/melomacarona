@@ -3,9 +3,9 @@
       --primary:        #3B82F6;
       --primary-dark:   #2563EB;
       --primary-light:  #60A5FA;
-      --secondary:      #8B5CF6;
-      --secondary-dark: #7C3AED;
-      --secondary-light:#A78BFA;
+      --secondary:      #166534;
+      --secondary-dark: #14532D;
+      --secondary-light:#4ADE80;
       --accent:         #10B981;
       --accent-dark:    #059669;
 
@@ -34,7 +34,7 @@
       --shadow-md:  0 4px 16px rgba(0,0,0,0.4);
       --shadow-lg:  0 8px 32px rgba(0,0,0,0.5);
       --shadow-glow-blue:   0 0 32px rgba(59,130,246,0.5), 0 0 64px rgba(59,130,246,0.2);
-      --shadow-glow-purple: 0 0 32px rgba(139,92,246,0.5), 0 0 64px rgba(139,92,246,0.2);
+      --shadow-glow-purple: 0 0 32px rgba(21,128,61,0.5), 0 0 64px rgba(21,128,61,0.2);
 
       --font: 'Inter', system-ui, -apple-system, sans-serif;
 

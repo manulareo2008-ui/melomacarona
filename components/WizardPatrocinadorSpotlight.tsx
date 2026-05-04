@@ -54,8 +54,8 @@ export function WizardPatrocinadorSpotlight({
   };
 
   return (
-    <div className="relative flex min-h-[min(85vh,720px)] flex-col rounded-3xl border border-violet-500/35 bg-gradient-to-b from-slate-950 via-violet-950/20 to-slate-950 px-4 py-8 sm:px-8">
-      <p className="mx-auto max-w-xl text-center text-xs font-medium uppercase tracking-[0.2em] text-violet-300/90">
+    <div className="relative flex min-h-[min(85vh,720px)] flex-col rounded-3xl border border-emerald-500/35 bg-gradient-to-b from-slate-950 via-emerald-950/20 to-slate-950 px-4 py-8 sm:px-8">
+      <p className="mx-auto max-w-xl text-center text-xs font-medium uppercase tracking-[0.2em] text-emerald-300/90">
         Parceiro na sua jornada
       </p>
       <h2 className="mx-auto mt-3 max-w-2xl text-center text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
@@ -65,7 +65,7 @@ export function WizardPatrocinadorSpotlight({
       <p className="mx-auto mt-3 max-w-xl text-center text-sm leading-relaxed text-slate-400">
         Suas recomendações já foram preparadas. A seguir você verá o catálogo completo; por aqui destacamos{" "}
         {patrocinadores.length === 1 ? "o parceiro alinhado" : "os parceiros alinhados"} à sua área{" "}
-        <span className="font-semibold text-violet-200">{areaLabel}</span>.
+        <span className="font-semibold text-emerald-200">{areaLabel}</span>.
       </p>
 
       {primaryUrl && (
@@ -73,7 +73,7 @@ export function WizardPatrocinadorSpotlight({
           <button
             type="button"
             onClick={openPrimaryLearnMore}
-            className="w-full rounded-2xl border border-violet-400/40 bg-violet-600/20 px-4 py-3 text-center text-sm font-semibold text-violet-100 transition hover:bg-violet-600/30"
+            className="w-full rounded-2xl border border-emerald-400/40 bg-emerald-600/20 px-4 py-3 text-center text-sm font-semibold text-emerald-100 transition hover:bg-emerald-600/30"
           >
             Saber mais sobre os cursos relacionados a minha área na instituição parceira
           </button>
@@ -98,7 +98,7 @@ export function WizardPatrocinadorSpotlight({
                   />
                 ) : (
                   <div
-                    className="flex h-24 w-24 items-center justify-center rounded-2xl bg-violet-600 text-3xl font-bold text-white sm:h-28 sm:w-28 sm:text-4xl"
+                    className="flex h-24 w-24 items-center justify-center rounded-2xl bg-emerald-600 text-3xl font-bold text-white sm:h-28 sm:w-28 sm:text-4xl"
                     aria-hidden
                   >
                     {p.nome.trim().charAt(0).toUpperCase()}
@@ -109,7 +109,7 @@ export function WizardPatrocinadorSpotlight({
                     href={deepUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-[2.75rem] items-center justify-center rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-violet-900/40 transition hover:from-violet-500 hover:to-indigo-500"
+                    className="inline-flex min-h-[2.75rem] items-center justify-center rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-900/40 transition hover:from-emerald-500 hover:to-green-500"
                   >
                     Acessar site — {areaLabel}
                   </a>
@@ -119,7 +119,7 @@ export function WizardPatrocinadorSpotlight({
                 )}
               </div>
               <h3 className="mt-6 text-xl font-bold text-white">{p.nome}</h3>
-              <span className="mt-2 inline-flex rounded-full border border-violet-500/35 bg-violet-500/15 px-3 py-1 text-xs font-medium text-violet-200">
+              <span className="mt-2 inline-flex rounded-full border border-emerald-500/35 bg-emerald-500/15 px-3 py-1 text-xs font-medium text-emerald-200">
                 {TIPO_LABELS[p.tipo] ?? p.tipo}
               </span>
               {(p.areas_foco?.length ?? 0) > 0 && (
@@ -145,7 +145,7 @@ export function WizardPatrocinadorSpotlight({
         <button
           type="button"
           onClick={onContinueToCourses}
-          className="pointer-events-auto inline-flex min-h-[2.75rem] items-center justify-center rounded-full border border-slate-400/60 bg-slate-900/95 px-5 py-2.5 text-sm font-semibold text-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.45)] backdrop-blur-sm transition hover:border-violet-400/50 hover:bg-slate-800"
+          className="pointer-events-auto inline-flex min-h-[2.75rem] items-center justify-center rounded-full border border-slate-400/60 bg-slate-900/95 px-5 py-2.5 text-sm font-semibold text-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.45)] backdrop-blur-sm transition hover:border-emerald-400/50 hover:bg-slate-800"
         >
           Ir aos cursos convencionais
         </button>

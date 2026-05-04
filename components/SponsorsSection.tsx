@@ -23,12 +23,12 @@ const AREA_LABELS: Record<string, string> = {
 };
 
 const GRADIENT_BACKDROPS = [
-  "from-violet-600 to-indigo-600",
+  "from-emerald-600 to-green-600",
   "from-amber-500 to-orange-600",
   "from-sky-500 to-cyan-600",
   "from-emerald-600 to-teal-700",
-  "from-fuchsia-600 to-pink-600",
-  "from-rose-500 to-red-600",
+  "from-teal-600 to-cyan-600",
+  "from-lime-500 to-green-700",
 ] as const;
 
 export type UserRegionMock = {
@@ -219,11 +219,11 @@ export function SponsorsSection() {
     >
       <div className="container mx-auto max-w-6xl px-4">
         <div className="mb-10 text-center">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-300/90">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-300/90">
             Rede credenciada
           </p>
           <h2 id={titleId} className="text-3xl font-bold tracking-tight text-white md:text-4xl">
-            Instituições <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-violet-300">parceiras</span>
+            Instituições <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-300">parceiras</span>
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-400 md:text-base">
             Parceiros ativos cadastrados na área administrativa. Toque no logo para ver áreas de foco, cobertura e sugestões alinhadas ao seu quiz.
@@ -233,7 +233,7 @@ export function SponsorsSection() {
             <div>
               <span className="font-medium text-slate-300">Sua região (opcional): </span>
               {userRegion ? (
-                <span className="text-indigo-200">{userRegion}</span>
+                <span className="text-emerald-200">{userRegion}</span>
               ) : (
                 <span className="italic text-slate-500">
                   não definida — todos aparecem com o mesmo destaque visual
@@ -295,7 +295,7 @@ export function SponsorsSection() {
                     onClick={() => setSelectedId(sponsor.id)}
                     className={`group relative flex min-w-[140px] max-w-[160px] shrink-0 snap-center flex-col items-center gap-3 rounded-2xl border p-4 text-center transition-colors md:min-w-[168px] md:max-w-[180px] md:p-5 ${
                       inRegion
-                        ? "border-indigo-400/40 bg-gradient-to-b from-indigo-950/50 to-slate-900/80 shadow-lg shadow-indigo-900/20 ring-1 ring-indigo-400/30"
+                        ? "border-emerald-400/40 bg-gradient-to-b from-emerald-950/45 to-slate-900/80 shadow-lg shadow-emerald-900/20 ring-1 ring-emerald-400/30"
                         : "border-white/10 bg-slate-900/40 opacity-80 hover:opacity-100"
                     }`}
                     aria-label={`Abrir detalhes de ${sponsor.nome}`}
@@ -306,7 +306,7 @@ export function SponsorsSection() {
                       </span>
                     )}
                     {inRegion && userRegion && (
-                      <span className="absolute -top-1 right-1 rounded-full bg-indigo-600/90 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-white">
+                      <span className="absolute -top-1 right-1 rounded-full bg-emerald-600/90 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-white">
                         Na sua área
                       </span>
                     )}
@@ -405,14 +405,14 @@ export function SponsorsSection() {
 
               <div className="overflow-y-auto overscroll-contain px-5 py-4">
                 <section className="mb-6">
-                  <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-indigo-300">
+                  <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-emerald-300">
                     Sobre o parceiro
                   </h4>
                   <p className="text-sm leading-relaxed text-slate-300">{buildSummary(selected)}</p>
                 </section>
 
                 <section className="mb-6">
-                  <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-indigo-300">
+                  <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-emerald-300">
                     Áreas de foco (cadastro)
                   </h4>
                   {focusAreaLabels(selected).length > 0 ? (
@@ -439,7 +439,7 @@ export function SponsorsSection() {
                         href={selected.site_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-900/40 transition hover:from-indigo-500 hover:to-violet-500"
+                        className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/40 transition hover:from-emerald-500 hover:to-green-500"
                       >
                         Site oficial →
                       </a>
@@ -447,7 +447,7 @@ export function SponsorsSection() {
                         href={selected.site_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center rounded-xl border border-indigo-400/40 bg-indigo-950/40 px-4 py-2.5 text-sm font-medium text-indigo-100 transition hover:bg-indigo-900/50"
+                        className="inline-flex items-center justify-center rounded-xl border border-emerald-400/40 bg-emerald-950/40 px-4 py-2.5 text-sm font-medium text-emerald-100 transition hover:bg-emerald-900/50"
                       >
                         Abrir em nova aba
                       </a>
@@ -457,14 +457,14 @@ export function SponsorsSection() {
                   )}
                 </section>
 
-                <section className="rounded-xl border border-violet-500/25 bg-violet-950/20 p-4">
-                  <h4 className="mb-1 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-violet-200">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-violet-400" />
+                <section className="rounded-xl border border-emerald-500/25 bg-emerald-950/20 p-4">
+                  <h4 className="mb-1 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-200">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" />
                     Alinhamento com seu quiz vocacional
                   </h4>
                   <p className="mb-3 text-[11px] leading-relaxed text-slate-400">
                     Cruzamos as áreas de foco do parceiro com o resultado simulado em{" "}
-                    <code className="rounded bg-black/30 px-1 text-violet-200/90">{QUIZ_MOCK_STORAGE_KEY}</code> (ou
+                    <code className="rounded bg-black/30 px-1 text-emerald-200/90">{QUIZ_MOCK_STORAGE_KEY}</code> (ou
                     integração futura com o quiz real).
                   </p>
                   {!quizMock?.area?.trim() ? (
@@ -474,14 +474,14 @@ export function SponsorsSection() {
                         {`localStorage.setItem("${QUIZ_MOCK_STORAGE_KEY}", JSON.stringify({ area: "technology" }))`}
                       </code>
                       <span className="mt-2 block">
-                        <Link href="/quiz?mode=vocacional" className="font-medium text-indigo-300 underline-offset-2 hover:underline">
+                        <Link href="/quiz?mode=vocacional" className="font-medium text-emerald-300 underline-offset-2 hover:underline">
                           Abrir teste vocacional
                         </Link>
                       </span>
                     </div>
                   ) : (
-                    <p className="mb-3 text-[11px] text-violet-200/90">
-                      Área de interesse no mock: <code className="text-violet-100">{quizMock.area}</code>
+                    <p className="mb-3 text-[11px] text-emerald-200/90">
+                      Área de interesse no mock: <code className="text-emerald-100">{quizMock.area}</code>
                       {quizMock.perfis?.length ? ` · Perfis: ${quizMock.perfis.join(", ")}` : ""}
                     </p>
                   )}

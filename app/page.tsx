@@ -17,6 +17,7 @@ import {
 } from "@/components/MelomaIcons";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteFooter } from "@/components/SiteFooter";
+import { MelomaVideoHero } from "@/components/MelomaVideoHero";
 import { SponsorsSection } from "@/components/SponsorsSection";
 
 const FAQ_ITEMS = [
@@ -178,64 +179,7 @@ export default function Home() {
       </div>
 
       <div id="section-home">
-        <section className="hero meloma-hero-v2">
-          <div className="meloma-hero-bg-layers" aria-hidden="true">
-            <div className="meloma-hero-bg-gradient" />
-            <div className="meloma-hero-bg-dots" />
-          </div>
-
-          <div className="container meloma-hero-shell">
-            <div className="meloma-hero-col-main">
-              <div className="hero-badge meloma-hero-reveal meloma-hero-reveal--1">
-                <span className="dot" />
-                Plataforma com IA de Recomendação
-              </div>
-
-              <h1 className="hero-title meloma-hero-reveal meloma-hero-reveal--2">
-                Encontre o curso
-                <br />
-                <span className="highlight">perfeito para você</span>
-              </h1>
-
-              <div className="hero-cta-wrap meloma-hero-reveal meloma-hero-reveal--4">
-                <Link href="/quiz" className="btn-hero">
-                  Descobrir meus cursos
-                  <span className="arrow">→</span>
-                </Link>
-                <Link
-                  href="/guias"
-                  className="hero-secondary-link"
-                  onClick={closeMobileMenu}
-                >
-                  <span>Explorar guias</span>
-                </Link>
-              </div>
-            </div>
-
-            <div className="meloma-hero-col-aside">
-              <p className="hero-subtitle meloma-hero-reveal meloma-hero-reveal--3">
-                Nossa IA analisa seu perfil, interesses e objetivos para recomendar
-                os cursos ideais. Motor de recomendação, teste vocacional e fluxo
-                completo de matrícula do sistema atual — com visual renovado.
-              </p>
-
-              <div className="hero-stats meloma-hero-reveal meloma-hero-reveal--5">
-                <div className="hero-stat">
-                  <div className="hero-stat-value">IA Personalizada</div>
-                  <div className="hero-stat-label">recomendações precisas</div>
-                </div>
-                <div className="hero-stat">
-                  <div className="hero-stat-value">Gratuito</div>
-                  <div className="hero-stat-label">para começar</div>
-                </div>
-                <div className="hero-stat">
-                  <div className="hero-stat-value">Teste vocacional</div>
-                  <div className="hero-stat-label">perfil e recomendações no mesmo fluxo</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <MelomaVideoHero />
 
         <ScrollReveal className="section-scroll-wrap">
           <section className="section" id="como-funciona">

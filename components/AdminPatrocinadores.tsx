@@ -19,11 +19,11 @@ const AREA_LABELS: Record<string, string> = {
 };
 
 const AREA_COLORS: Record<string, string> = {
-  technology: "bg-blue-500/20 text-blue-300 border-blue-500/30",
+  technology: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
   health: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
   humanities: "bg-amber-500/20 text-amber-300 border-amber-500/30",
   arts_design: "bg-pink-500/20 text-pink-300 border-pink-500/30",
-  business_admin: "bg-violet-500/20 text-violet-300 border-violet-500/30",
+  business_admin: "bg-green-500/20 text-green-300 border-green-500/30",
   engineering: "bg-orange-500/20 text-orange-300 border-orange-500/30",
 };
 
@@ -64,7 +64,7 @@ const cardShell =
   "rounded-2xl border border-zinc-800 bg-zinc-900/80 p-5 shadow-sm";
 
 const btnPrimary =
-  "inline-flex items-center justify-center rounded-full bg-violet-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-violet-500";
+  "inline-flex items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-500";
 const btnSecondary =
   "inline-flex items-center justify-center rounded-full bg-zinc-800 px-4 py-2 text-sm font-medium text-zinc-300 transition hover:bg-zinc-700";
 
@@ -451,7 +451,7 @@ export function AdminPatrocinadores() {
                       type="checkbox"
                       checked={areasSel[area]}
                       onChange={() => toggleArea(area)}
-                      className="rounded border-zinc-600 text-violet-600"
+                      className="rounded border-zinc-600 text-emerald-600"
                     />
                     {AREA_LABELS[area] ?? area}
                   </label>
@@ -516,7 +516,7 @@ export function AdminPatrocinadores() {
                     {p.nome}
                   </h3>
                   <div className="mt-2 flex flex-wrap items-center gap-2">
-                    <span className="inline-flex rounded-full border border-violet-500/30 bg-violet-500/20 px-2 py-0.5 text-xs text-violet-300">
+                    <span className="inline-flex rounded-full border border-emerald-500/30 bg-emerald-500/20 px-2 py-0.5 text-xs text-emerald-300">
                       {TIPO_LABELS[p.tipo] ?? p.tipo}
                     </span>
                     <span className="inline-flex rounded-full border border-emerald-500/35 bg-emerald-500/15 px-2 py-0.5 text-xs text-emerald-300">
@@ -529,7 +529,7 @@ export function AdminPatrocinadores() {
                         href={p.site_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-violet-400 underline-offset-2 hover:text-violet-300 hover:underline"
+                        className="text-emerald-400 underline-offset-2 hover:text-emerald-300 hover:underline"
                       >
                         {p.site_url}
                       </a>
