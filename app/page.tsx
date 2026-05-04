@@ -17,6 +17,7 @@ import {
 } from "@/components/MelomaIcons";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteFooter } from "@/components/SiteFooter";
+import { SponsorsSection } from "@/components/SponsorsSection";
 
 const FAQ_ITEMS = [
   {
@@ -112,6 +113,9 @@ export default function Home() {
             <a href="#guias" className="nav-link">
               Guias
             </a>
+            <a href="#parceiros" className="nav-link">
+              Parceiros
+            </a>
             <a href="#duvidas" className="nav-link">
               Dúvidas
             </a>
@@ -147,6 +151,9 @@ export default function Home() {
         </Link>
         <a href="#guias" className="nav-link" onClick={closeMobileMenu}>
           Guias
+        </a>
+        <a href="#parceiros" className="nav-link" onClick={closeMobileMenu}>
+          Parceiros
         </a>
         <a href="#duvidas" className="nav-link" onClick={closeMobileMenu}>
           Dúvidas
@@ -200,8 +207,7 @@ export default function Home() {
                   className="hero-secondary-link"
                   onClick={closeMobileMenu}
                 >
-                  ou{" "}
-                  <span>explorar guias</span>
+                  <span>Explorar guias</span>
                 </Link>
               </div>
             </div>
@@ -223,8 +229,8 @@ export default function Home() {
                   <div className="hero-stat-label">para começar</div>
                 </div>
                 <div className="hero-stat">
-                  <div className="hero-stat-value">4.9★</div>
-                  <div className="hero-stat-label">avaliação média</div>
+                  <div className="hero-stat-value">Teste vocacional</div>
+                  <div className="hero-stat-label">perfil e recomendações no mesmo fluxo</div>
                 </div>
               </div>
             </div>
@@ -379,6 +385,10 @@ export default function Home() {
               </div>
             </div>
           </section>
+        </ScrollReveal>
+
+        <ScrollReveal className="section-scroll-wrap">
+          <SponsorsSection />
         </ScrollReveal>
 
         <ScrollReveal className="section-scroll-wrap">

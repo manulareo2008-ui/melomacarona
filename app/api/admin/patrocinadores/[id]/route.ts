@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { isAdminSessionValid } from "@/lib/admin-auth";
 import { GENERAL_AREAS } from "@/lib/domain";
+import { linksPorAreaFieldSchema } from "@/lib/patrocinadorZod";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 const GENERAL_AREA_SET = new Set<string>(GENERAL_AREAS);
@@ -37,6 +38,7 @@ const patrocinadorPatchSchema = z
       .union([z.literal(""), z.null(), z.string().email()])
       .optional(),
     ativo: z.boolean().optional(),
+    links_por_area: linksPorAreaFieldSchema.optional(),
   })
   .strict();
 
@@ -146,6 +148,9 @@ export async function PATCH(request: Request, context: RouteContext) {
     updates.contato_email = normalizeEmailPatch(p.contato_email) ?? null;
   }
   if (p.ativo !== undefined) updates.ativo = p.ativo;
+  if (p.links_por_area !== undefined) {
+    updates.links_por_area = p.links_por_area ?? {};
+  }
 
   if (Object.keys(updates).length === 0) {
     return NextResponse.json({ ok: false, error: "Nenhum campo para atualizar" }, { status: 400 });

@@ -46,6 +46,7 @@ export type PatrocinadorRow = {
   contato_email: string | null;
   ativo: boolean | null;
   criado_em: string;
+  links_por_area?: Record<string, string> | null;
 };
 
 function splitCommaList(raw: string): string[] {
@@ -92,6 +93,7 @@ export function AdminPatrocinadores() {
   );
   const [contatoNome, setContatoNome] = useState("");
   const [contatoEmail, setContatoEmail] = useState("");
+  const [linksPorAreaJson, setLinksPorAreaJson] = useState("");
 
   const loadLista = useCallback(async () => {
     setError(null);
@@ -140,6 +142,7 @@ export function AdminPatrocinadores() {
     );
     setContatoNome("");
     setContatoEmail("");
+    setLinksPorAreaJson("");
     setFormError(null);
     setEditingId(null);
   }
@@ -171,6 +174,11 @@ export function AdminPatrocinadores() {
     setAreasSel(nextAreas);
     setContatoNome(p.contato_nome ?? "");
     setContatoEmail(p.contato_email ?? "");
+    setLinksPorAreaJson(
+      p.links_por_area && Object.keys(p.links_por_area).length > 0
+        ? JSON.stringify(p.links_por_area, null, 2)
+        : ""
+    );
     setFormError(null);
     setEditingId(p.id);
     setFormOpen(true);
@@ -180,12 +188,41 @@ export function AdminPatrocinadores() {
     setAreasSel((prev) => ({ ...prev, [area]: !prev[area] }));
   }
 
+  function parseLinksPorAreaField():
+    | { ok: true; value: Record<string, string> | undefined }
+    | { ok: false; message: string } {
+    const raw = linksPorAreaJson.trim();
+    if (!raw) return { ok: true, value: undefined };
+    try {
+      const parsed = JSON.parse(raw) as unknown;
+      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+        return { ok: false, message: "Links por área: JSON deve ser um objeto." };
+      }
+      const out: Record<string, string> = {};
+      for (const [k, v] of Object.entries(parsed as Record<string, unknown>)) {
+        if (!GENERAL_AREAS.includes(k as GeneralArea)) continue;
+        if (typeof v !== "string" || !v.trim()) continue;
+        out[k] = v.trim();
+      }
+      return { ok: true, value: Object.keys(out).length > 0 ? out : undefined };
+    } catch {
+      return { ok: false, message: "Links por área: JSON inválido." };
+    }
+  }
+
   async function handleSalvar() {
     setSaving(true);
     setFormError(null);
     const cidades_cobertura = splitCommaList(cidadesText);
     const estados_cobertura = splitCommaList(estadosText);
     const areas_foco = GENERAL_AREAS.filter((a) => areasSel[a]);
+    const linksParsed = parseLinksPorAreaField();
+    if (!linksParsed.ok) {
+      setFormError(linksParsed.message);
+      setSaving(false);
+      return;
+    }
+    const links_por_area = linksParsed.value;
 
     const payloadCreate = {
       nome: nome.trim(),
@@ -197,6 +234,7 @@ export function AdminPatrocinadores() {
       areas_foco,
       contato_nome: contatoNome.trim() || undefined,
       contato_email: contatoEmail.trim() || undefined,
+      ...(links_por_area ? { links_por_area } : {}),
     };
 
     const payloadPatch = {
@@ -209,6 +247,7 @@ export function AdminPatrocinadores() {
       areas_foco,
       contato_nome: contatoNome.trim() === "" ? null : contatoNome.trim(),
       contato_email: contatoEmail.trim() === "" ? null : contatoEmail.trim(),
+      links_por_area: links_por_area ?? {},
     };
 
     try {
@@ -248,7 +287,9 @@ export function AdminPatrocinadores() {
 
   async function handleDesativar(p: PatrocinadorRow) {
     if (
-      !window.confirm(`Desativar ${p.nome}?`)
+      !window.confirm(
+        `Remover "${p.nome}" da lista de patrocinadores ativos? Ele deixará de aparecer no painel e nas recomendações (não será possível reativar por aqui).`
+      )
     ) {
       return;
     }
@@ -265,25 +306,6 @@ export function AdminPatrocinadores() {
       await loadLista();
     } catch {
       setError("Falha de rede ao desativar.");
-    }
-  }
-
-  async function handleReativar(p: PatrocinadorRow) {
-    try {
-      const res = await fetch(`/api/admin/patrocinadores/${p.id}`, {
-        method: "PATCH",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ativo: true }),
-      });
-      const json = (await res.json()) as { ok?: boolean };
-      if (!res.ok || !json.ok) {
-        setError("Não foi possível reativar.");
-        return;
-      }
-      await loadLista();
-    } catch {
-      setError("Falha de rede ao reativar.");
     }
   }
 
@@ -401,6 +423,23 @@ export function AdminPatrocinadores() {
               />
             </div>
             <div className="sm:col-span-2">
+              <label htmlFor="pat-links-area" className={labelClass}>
+                Links por área no site (JSON opcional)
+              </label>
+              <textarea
+                id="pat-links-area"
+                value={linksPorAreaJson}
+                onChange={(e) => setLinksPorAreaJson(e.target.value)}
+                rows={5}
+                placeholder={`{\n  "technology": "https://exemplo.edu.br/cursos/tecnologia",\n  "health": "https://exemplo.edu.br/saude"\n}`}
+                className={`${inputClass} font-mono text-xs`}
+              />
+              <p className="mt-1 text-xs text-zinc-500">
+                Chaves: {GENERAL_AREAS.join(", ")}. Usado ao redirecionar o aluno à seção do site correspondente à
+                área escolhida.
+              </p>
+            </div>
+            <div className="sm:col-span-2">
               <span className={labelClass}>Áreas de foco</span>
               <div className="grid gap-2 sm:grid-cols-2">
                 {GENERAL_AREAS.map((area) => (
@@ -480,15 +519,9 @@ export function AdminPatrocinadores() {
                     <span className="inline-flex rounded-full border border-violet-500/30 bg-violet-500/20 px-2 py-0.5 text-xs text-violet-300">
                       {TIPO_LABELS[p.tipo] ?? p.tipo}
                     </span>
-                    {p.ativo ? (
-                      <span className="inline-flex rounded-full border border-emerald-500/35 bg-emerald-500/15 px-2 py-0.5 text-xs text-emerald-300">
-                        Ativo
-                      </span>
-                    ) : (
-                      <span className="inline-flex rounded-full border border-red-500/35 bg-red-500/15 px-2 py-0.5 text-xs text-red-300">
-                        Inativo
-                      </span>
-                    )}
+                    <span className="inline-flex rounded-full border border-emerald-500/35 bg-emerald-500/15 px-2 py-0.5 text-xs text-emerald-300">
+                      Ativo
+                    </span>
                   </div>
                   {p.site_url && (
                     <p className="mt-2 text-sm">
@@ -559,23 +592,13 @@ export function AdminPatrocinadores() {
                   >
                     Editar
                   </button>
-                  {p.ativo ? (
-                    <button
-                      type="button"
-                      onClick={() => void handleDesativar(p)}
-                      className="rounded-full px-3 py-1.5 text-sm text-red-400 hover:text-red-300"
-                    >
-                      Desativar
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => void handleReativar(p)}
-                      className={`${btnSecondary} text-sm`}
-                    >
-                      Reativar
-                    </button>
-                  )}
+                  <button
+                    type="button"
+                    onClick={() => void handleDesativar(p)}
+                    className="rounded-full px-3 py-1.5 text-sm text-red-400 hover:text-red-300"
+                  >
+                    Remover da lista
+                  </button>
                 </div>
               </div>
             </li>

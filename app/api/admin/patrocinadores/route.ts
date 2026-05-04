@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { isAdminSessionValid } from "@/lib/admin-auth";
 import { GENERAL_AREAS } from "@/lib/domain";
+import { linksPorAreaFieldSchema } from "@/lib/patrocinadorZod";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 const GENERAL_AREA_SET = new Set<string>(GENERAL_AREAS);
@@ -35,6 +36,7 @@ const patrocinadorCreateSchema = z.object({
   contato_nome: z.string().trim().optional(),
   contato_email: z.union([z.literal(""), z.string().email()]).optional(),
   ativo: z.boolean().optional().default(true),
+  links_por_area: linksPorAreaFieldSchema.optional(),
 });
 
 function jsonUnauthorized() {
@@ -66,6 +68,7 @@ export async function GET() {
   const { data, error } = await supabase
     .from("patrocinadores")
     .select("*")
+    .eq("ativo", true)
     .order("criado_em", { ascending: false });
 
   if (error) {
@@ -106,6 +109,7 @@ export async function POST(request: Request) {
     contato_nome: input.contato_nome?.trim() || null,
     contato_email: normalizeEmail(input.contato_email) ?? null,
     ativo: input.ativo,
+    links_por_area: input.links_por_area ?? {},
   };
 
   let supabase: ReturnType<typeof createServerSupabaseClient>;

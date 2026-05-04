@@ -43,65 +43,44 @@ const requestSchema = z.object({
   texto_livre: z.string().trim().default(""),
 });
 
-const llmResponseSchema = z.object({
-  recomendacoes: z
-    .array(
-      z.object({
-        curso_id: z.string().min(1),
-        nome_curso: z.string().min(1),
-        score_afinidade: z.number().finite().min(0).max(100),
-        pitch_venda: z.string().min(1),
-      })
-    )
-    .min(1)
-    .max(RECOMMENDATION_COUNT),
-});
-
-function extractJsonObject(raw: string): string {
-  const trimmed = raw.trim();
-  if (trimmed.startsWith("{") && trimmed.endsWith("}")) return trimmed;
-
-  const withoutCodeFence = trimmed
-    .replace(/^```json\s*/i, "")
-    .replace(/^```\s*/i, "")
-    .replace(/\s*```$/, "")
-    .trim();
-
-  const start = withoutCodeFence.indexOf("{");
-  const end = withoutCodeFence.lastIndexOf("}");
-  if (start === -1 || end === -1 || end <= start) {
-    throw new Error("Resposta da IA não contém JSON válido.");
-  }
-  return withoutCodeFence.slice(start, end + 1);
+function streamingHeaders(provider: ProviderUsed, totalCourses: number): HeadersInit {
+  return {
+    "Content-Type": "text/plain; charset=utf-8",
+    "Cache-Control": "no-cache",
+    Connection: "keep-alive",
+    "X-Recommendation-Provider": provider,
+    "X-Courses-Pre-Filtered": String(totalCourses),
+  };
 }
 
-function parseAndValidateLlmResponse(raw: string): { recomendacoes: LlmRecommendation[] } {
-  const jsonText = extractJsonObject(raw);
-  const parsed = llmResponseSchema.parse(JSON.parse(jsonText));
-  const recomendacoes = parsed.recomendacoes
-    .slice(0, RECOMMENDATION_COUNT)
-    .map((item) => ({
-      curso_id: item.curso_id,
-      nome_curso: item.nome_curso,
-      score_afinidade: Math.round(item.score_afinidade),
-      pitch_venda: item.pitch_venda.trim(),
-    }));
-
-  return { recomendacoes };
+function buildTextStreamResponse(
+  source: ReadableStream<Uint8Array>,
+  provider: ProviderUsed,
+  totalCourses: number
+): Response {
+  return new Response(source, {
+    status: 200,
+    headers: streamingHeaders(provider, totalCourses),
+  });
 }
 
-async function generateWithOpenAi(userPrompt: string, signal: AbortSignal): Promise<string> {
+async function openAiChatCompletionStream(
+  userPrompt: string,
+  signal: AbortSignal
+): Promise<ReadableStream<Uint8Array>> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     throw new Error("OPENAI_API_KEY não configurada.");
   }
 
   const client = new OpenAI({ apiKey });
-  const response = await client.responses.create(
+  const model = process.env.OPENAI_MODEL ?? "gpt-4.1-mini";
+  const stream = await client.chat.completions.create(
     {
-      model: process.env.OPENAI_MODEL ?? "gpt-4.1-mini",
+      model,
       temperature: 0.2,
-      input: [
+      stream: true,
+      messages: [
         { role: "system", content: SYSTEM_PROMPT },
         { role: "user", content: userPrompt },
       ],
@@ -109,23 +88,65 @@ async function generateWithOpenAi(userPrompt: string, signal: AbortSignal): Prom
     { signal }
   );
 
-  return response.output_text ?? "";
+  const encoder = new TextEncoder();
+  return new ReadableStream({
+    async start(controller) {
+      try {
+        for await (const chunk of stream) {
+          const content = chunk.choices[0]?.delta?.content ?? "";
+          if (content) controller.enqueue(encoder.encode(content));
+        }
+        controller.close();
+      } catch (err) {
+        controller.error(err);
+      }
+    },
+  });
 }
 
-async function generateWithGemini(userPrompt: string): Promise<string> {
+async function geminiContentStream(
+  userPrompt: string,
+  signal: AbortSignal
+): Promise<ReadableStream<Uint8Array>> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     throw new Error("GEMINI_API_KEY não configurada.");
   }
 
-  const model = process.env.GEMINI_MODEL ?? "gemini-1.5-pro";
+  const modelName = process.env.GEMINI_MODEL ?? "gemini-1.5-pro";
   const client = new GoogleGenerativeAI(apiKey);
-  const geminiModel = client.getGenerativeModel({ model });
-  const response = await geminiModel.generateContent([
-    { text: SYSTEM_PROMPT },
-    { text: userPrompt },
-  ]);
-  return response.response.text();
+  const geminiModel = client.getGenerativeModel({ model: modelName });
+  const { stream } = await geminiModel.generateContentStream(
+    [{ text: SYSTEM_PROMPT }, { text: userPrompt }],
+    { signal }
+  );
+
+  const encoder = new TextEncoder();
+  return new ReadableStream({
+    async start(controller) {
+      try {
+        for await (const chunk of stream) {
+          const text = chunk.text();
+          if (text) controller.enqueue(encoder.encode(text));
+        }
+        controller.close();
+      } catch (err) {
+        controller.error(err);
+      }
+    },
+  });
+}
+
+function stringAsChunkedStream(text: string, chunkSize = 512): ReadableStream<Uint8Array> {
+  const encoder = new TextEncoder();
+  return new ReadableStream({
+    async start(controller) {
+      for (let i = 0; i < text.length; i += chunkSize) {
+        controller.enqueue(encoder.encode(text.slice(i, i + chunkSize)));
+      }
+      controller.close();
+    },
+  });
 }
 
 function normalizeText(value: string): string {
@@ -250,50 +271,34 @@ export async function POST(request: Request) {
     const timeout = setTimeout(() => controller.abort(), LLM_TIMEOUT_MS);
 
     try {
-      let result: { recomendacoes: LlmRecommendation[] } | null = null;
-      let providerUsed: ProviderUsed = "local";
-
       const hasOpenAi = Boolean(process.env.OPENAI_API_KEY);
       const hasGemini = Boolean(process.env.GEMINI_API_KEY);
 
       if (hasOpenAi) {
         try {
-          const llmRaw = await generateWithOpenAi(userPrompt, controller.signal);
-          result = parseAndValidateLlmResponse(llmRaw);
-          providerUsed = "openai";
+          const readable = await openAiChatCompletionStream(userPrompt, controller.signal);
+          return buildTextStreamResponse(readable, "openai", courses.length);
         } catch (openAiError) {
           console.warn("OpenAI falhou, tentando Gemini fallback...", openAiError);
         }
       }
 
-      if (!result && hasGemini) {
+      if (hasGemini) {
         try {
-          const llmRaw = await generateWithGemini(userPrompt);
-          result = parseAndValidateLlmResponse(llmRaw);
-          providerUsed = "gemini";
+          const readable = await geminiContentStream(userPrompt, controller.signal);
+          return buildTextStreamResponse(readable, "gemini", courses.length);
         } catch (geminiError) {
           console.warn("Gemini falhou, usando fallback local...", geminiError);
         }
       }
 
-      if (!result) {
-        result = localFallbackRecommendations(
-          { area, nicho, budget, modalidade, texto_livre },
-          courses
-        );
-        providerUsed = "local";
-      }
-
-      return NextResponse.json(
-        {
-          ...result,
-          metadata: {
-            total_cursos_pre_filtrados: courses.length,
-            provider: providerUsed,
-          },
-        },
-        { status: 200 }
+      const local = localFallbackRecommendations(
+        { area, nicho, budget, modalidade, texto_livre },
+        courses
       );
+      const jsonBody = JSON.stringify({ recomendacoes: local.recomendacoes });
+      const readable = stringAsChunkedStream(jsonBody);
+      return buildTextStreamResponse(readable, "local", courses.length);
     } finally {
       clearTimeout(timeout);
     }

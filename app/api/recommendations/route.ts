@@ -19,6 +19,19 @@ type RankedCourse = {
   pitch_venda: string;
 };
 
+function jsonAsChunkedPlainTextStream(jsonText: string, chunkSize = 256): ReadableStream<Uint8Array> {
+  const encoder = new TextEncoder();
+  return new ReadableStream({
+    async start(controller) {
+      for (let i = 0; i < jsonText.length; i += chunkSize) {
+        controller.enqueue(encoder.encode(jsonText.slice(i, i + chunkSize)));
+        await new Promise((r) => setTimeout(r, 0));
+      }
+      controller.close();
+    },
+  });
+}
+
 function normalizeText(value: string): string {
   return value
     .normalize("NFD")
@@ -238,11 +251,21 @@ export async function POST(request: Request) {
 
     await saveRecommendationLog(input, recomendacoes, provider, userId);
 
-    return NextResponse.json({
+    const payload = {
       recomendacoes,
       metadata: {
         provider,
         total_cursos_pre_filtrados: preFiltered.length,
+      },
+    };
+    const jsonText = JSON.stringify(payload);
+
+    return new Response(jsonAsChunkedPlainTextStream(jsonText), {
+      status: 200,
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
       },
     });
   } catch (error) {

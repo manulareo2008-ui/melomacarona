@@ -16,10 +16,7 @@ import {
   PRICE_OPTIONS,
 } from "@/lib/courseData";
 import { CourseResultCard } from "@/components/CourseResultCard";
-import {
-  SponsorBanner,
-  type SponsorBannerProps,
-} from "@/components/SponsorBanner";
+import { WizardPatrocinadorSpotlight } from "@/components/WizardPatrocinadorSpotlight";
 import { RTL_LANGUAGES, type SupportedLanguage } from "@/lib/i18n";
 import { translateCourseMockTextByCourseId } from "@/lib/courseTextTranslations";
 import { trackEvent } from "@/lib/analytics";
@@ -57,6 +54,11 @@ import {
   type ExternalCourseRecommendation,
 } from "@/lib/courseRecommendationApi";
 import {
+  buildWizardCoursePool,
+  filterPatrocinadoresForWizard,
+  type WizardPatrocinadorRow,
+} from "@/lib/wizardSponsorFilter";
+import {
   buildVocationalExplanation,
   calculateRiasecScores,
   getTopRiasecProfiles,
@@ -74,6 +76,8 @@ const MODALITIES: Modality[] = ["Presencial", "Online", "Híbrido"];
 
 type WizardStep = 1 | 2 | 3 | 4 | 5;
 type KnowledgeLevel = "iniciante" | "intermediario" | "avancado";
+
+type SponsorInterstitial = "pending" | "show" | "dismissed";
 
 const LANGUAGE_OPTIONS: SupportedLanguage[] = [
   "pt-BR",
@@ -231,9 +235,11 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
   const [userState, setUserState] = useState("");
   const [userCity, setUserCity] = useState("");
   const [publicoAlvo, setPublicoAlvo] = useState<"jovem" | "adulto" | "">("");
-  const [matchedSponsors, setMatchedSponsors] = useState<
-    SponsorBannerProps["patrocinadores"]
+  const [allPatrocinadoresStep5, setAllPatrocinadoresStep5] = useState<
+    WizardPatrocinadorRow[]
   >([]);
+  const [sponsorInterstitial, setSponsorInterstitial] =
+    useState<SponsorInterstitial>("pending");
   const [formError, setFormError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
@@ -245,6 +251,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     Record<string, { score: number; pitch: string }>
   >({});
   const [isLoadingRecommendations, setIsLoadingRecommendations] = useState(false);
+  const [recommendationStreamText, setRecommendationStreamText] = useState("");
   const [vocationalAnswers, setVocationalAnswers] = useState<Record<string, number>>({});
   const [vocationalResult, setVocationalResult] = useState<{
     area: GeneralArea;
@@ -275,25 +282,29 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
       .slice(0, 6);
   }, [area, customNiche, exactMatches, modality, priceRange, subChoice]);
 
-  const comparisonGroups = useMemo(() => {
-    const all = [...exactMatches, ...similarMatches];
-    const topIds = [...externalRecommendations]
-      .sort((a, b) => b.score_afinidade - a.score_afinidade)
-      .slice(0, 3)
-      .map((item) => item.id);
-    const topRecommended = topIds
-      .map((id) => all.find((course) => course.id === id))
-      .filter((course): course is InternationalCourse => Boolean(course));
-
-    const budgetFriendly = all
-      .filter((course) => course.priceBrl <= 100)
-      .slice(0, 3);
-
-    return {
-      topRecommended,
-      budgetFriendly,
-    };
-  }, [exactMatches, similarMatches, externalRecommendations]);
+  const wizardVisiblePatrocinadores = useMemo(() => {
+    const coursePool = buildWizardCoursePool(
+      exactMatches,
+      externalRecommendations,
+      similarMatches
+    );
+    return filterPatrocinadoresForWizard(allPatrocinadoresStep5, {
+      userState,
+      userCity,
+      userArea: area as GeneralArea | "",
+      isLoadingRecommendations,
+      coursePool,
+    });
+  }, [
+    allPatrocinadoresStep5,
+    userState,
+    userCity,
+    area,
+    isLoadingRecommendations,
+    exactMatches,
+    externalRecommendations,
+    similarMatches,
+  ]);
 
   const catalogById = useMemo(() => {
     const m: Record<string, InternationalCourse> = {};
@@ -302,6 +313,27 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     }
     return m;
   }, [exactMatches, similarMatches]);
+
+  useEffect(() => {
+    if (wizardStep !== 5) return;
+    if (isLoadingRecommendations) {
+      setSponsorInterstitial("pending");
+      return;
+    }
+    if (recommendationError) {
+      setSponsorInterstitial("dismissed");
+      return;
+    }
+    setSponsorInterstitial((prev) => {
+      if (prev === "dismissed") return prev;
+      return wizardVisiblePatrocinadores.length > 0 ? "show" : "dismissed";
+    });
+  }, [
+    wizardStep,
+    isLoadingRecommendations,
+    recommendationError,
+    wizardVisiblePatrocinadores.length,
+  ]);
 
   const selectedCourse = selectedCourseId
     ? catalogById[selectedCourseId] ?? getCourseById(selectedCourseId)
@@ -568,7 +600,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     setUserState("");
     setUserCity("");
     setPublicoAlvo("");
-    setMatchedSponsors([]);
+    setAllPatrocinadoresStep5([]);
     setRecommendedCourses([]);
     setExternalRecommendations([]);
     setRecommendationInsights({});
@@ -889,54 +921,44 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     const controller = new AbortController();
     const sponsorAbort = new AbortController();
     setIsLoadingRecommendations(true);
+    setRecommendationStreamText("");
     setRecommendationError("");
     setRecommendedCourses([]);
     setExternalRecommendations([]);
     setRecommendationInsights({});
     setRecommendationProvider("unknown");
-    setMatchedSponsors([]);
+    setAllPatrocinadoresStep5([]);
 
-    const cityTrim = userCity.trim();
-    const stateTrim = userState.trim();
-    if (cityTrim || stateTrim) {
-      const sponsorParams = new URLSearchParams();
-      if (cityTrim) sponsorParams.set("cidade", cityTrim);
-      if (stateTrim) sponsorParams.set("estado", stateTrim);
-      if (area) sponsorParams.set("area", area);
-      void fetch(`/api/patrocinadores/match?${sponsorParams.toString()}`, {
-        signal: sponsorAbort.signal,
+    void fetch("/api/patrocinadores/match", { signal: sponsorAbort.signal })
+      .then((r) => r.json())
+      .then((data: { ok?: boolean; patrocinadores?: WizardPatrocinadorRow[] }) => {
+        if (data.ok && Array.isArray(data.patrocinadores)) {
+          setAllPatrocinadoresStep5(data.patrocinadores);
+        }
       })
-        .then((r) => r.json())
-        .then(
-          (data: {
-            ok?: boolean;
-            patrocinadores?: SponsorBannerProps["patrocinadores"];
-          }) => {
-            if (
-              data.ok &&
-              data.patrocinadores &&
-              data.patrocinadores.length > 0
-            ) {
-              setMatchedSponsors(data.patrocinadores);
-            }
-          }
-        )
-        .catch(() => {});
-    }
+      .catch(() => {});
 
     async function fetchRecommendations() {
       try {
-        const payload = await fetchCourseRecommendations({
-          nome: name.trim(),
-          idade: Number.parseInt(age, 10),
-          area: area as GeneralArea,
-          nicho: subNicheLabel,
-          budget: budgetBrl,
-          modalidade: modalityValue,
-          nivel_conhecimento: knowledgeLevel || "iniciante",
-          objetivos: objectives.trim(),
-          texto_livre: subChoice === OUTRA_ESPECIFICA ? customNiche.trim() : "",
-        });
+        const payload = await fetchCourseRecommendations(
+          {
+            nome: name.trim(),
+            idade: Number.parseInt(age, 10),
+            area: area as GeneralArea,
+            nicho: subNicheLabel,
+            budget: budgetBrl,
+            modalidade: modalityValue,
+            nivel_conhecimento: knowledgeLevel || "iniciante",
+            objetivos: objectives.trim(),
+            texto_livre: subChoice === OUTRA_ESPECIFICA ? customNiche.trim() : "",
+          },
+          {
+            onStreamText: (accumulated) => {
+              if (controller.signal.aborted) return;
+              setRecommendationStreamText(accumulated);
+            },
+          }
+        );
 
         const recommendations: ExternalCourseRecommendation[] = payload.recomendacoes;
         setExternalRecommendations(recommendations);
@@ -978,6 +1000,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
       } finally {
         if (!controller.signal.aborted) {
           setIsLoadingRecommendations(false);
+          setRecommendationStreamText("");
         }
       }
     }
@@ -1859,6 +1882,20 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
               key="s4-results"
               aria-labelledby="results-title"
             >
+              {sponsorInterstitial === "show" &&
+                wizardVisiblePatrocinadores.length > 0 &&
+                area && (
+                  <WizardPatrocinadorSpotlight
+                    patrocinadores={wizardVisiblePatrocinadores}
+                    userArea={area as GeneralArea}
+                    areaLabel={t(`categories.${area}.label`, { defaultValue: area })}
+                    onContinueToCourses={() => setSponsorInterstitial("dismissed")}
+                  />
+                )}
+
+              {(sponsorInterstitial !== "show" ||
+                wizardVisiblePatrocinadores.length === 0) && (
+                <>
               <div className={`${panelClass} mb-6 max-w-2xl mx-auto`}>
                 <h2
                   id="results-title"
@@ -1913,79 +1950,33 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                 </div>
               </div>
 
-              {matchedSponsors.length > 0 && userCity.trim() && (
-                <div className="mb-6 w-full max-w-5xl">
-                  <SponsorBanner
-                    patrocinadores={matchedSponsors}
-                    cidade={userCity}
-                    estado={userState}
-                  />
-                </div>
-              )}
-
-              {(comparisonGroups.topRecommended.length > 0 ||
-                comparisonGroups.budgetFriendly.length > 0) && (
-                <section className="mb-8 space-y-4">
-                  <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-slate-400">
-                    {t("results.quickComparisons")}
-                  </h3>
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div className="rounded-3xl border border-slate-500/35 bg-slate-950/55 p-5 shadow-[0_10px_30px_-12px_rgba(37,99,235,0.3)]">
-                      <p className="text-lg font-bold leading-tight text-slate-100 sm:text-xl">
-                        {t("results.topRecommendedNow")}
-                      </p>
-                      <ul className="mt-3 space-y-2.5 text-sm">
-                        {comparisonGroups.topRecommended.map((course) => (
-                          <li
-                            key={`top-${course.id}`}
-                            className="flex items-center justify-between gap-3 rounded-xl border border-slate-500/35 bg-slate-900/65 px-3 py-2.5"
-                          >
-                            <span className="min-w-0 flex-1 truncate text-base font-semibold leading-snug text-slate-100">
-                              {localizedCourseName(course)}
-                            </span>
-                            <button
-                              type="button"
-                              className="shrink-0 inline-flex min-h-[2.5rem] items-center justify-center rounded-full bg-blue-600 px-4 py-2 text-xs font-bold text-white shadow-md shadow-blue-600/30 transition hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-400"
-                              onClick={() => openDetails(course.id)}
-                            >
-                              {t("results.viewOffer")}
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="rounded-3xl border border-slate-500/35 bg-slate-950/55 p-5 shadow-[0_10px_30px_-12px_rgba(37,99,235,0.3)]">
-                      <p className="text-lg font-bold leading-tight text-slate-100 sm:text-xl">
-                        {t("results.opportunitiesUnder100")}
-                      </p>
-                      <ul className="mt-3 space-y-2.5 text-sm">
-                        {comparisonGroups.budgetFriendly.map((course) => (
-                          <li
-                            key={`budget-${course.id}`}
-                            className="flex items-center justify-between gap-3 rounded-xl border border-slate-500/35 bg-slate-900/65 px-3 py-2.5"
-                          >
-                            <span className="min-w-0 flex-1 truncate text-base font-semibold leading-snug text-slate-100">
-                              {localizedCourseName(course)}
-                            </span>
-                            <button
-                              type="button"
-                              className="shrink-0 inline-flex min-h-[2.5rem] items-center justify-center rounded-full bg-blue-600 px-4 py-2 text-xs font-bold text-white shadow-md shadow-blue-600/30 transition hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-400"
-                              onClick={() => openDetails(course.id)}
-                            >
-                              {t("results.viewOffer")}
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </section>
-              )}
-
               {isLoadingRecommendations && (
-                <p className="mb-6 text-center text-sm text-zinc-400 dark:text-zinc-400">
-                  {t("results.loadingRecommendations")}
-                </p>
+                <div
+                  className="mb-6 mx-auto w-full max-w-3xl"
+                  aria-busy="true"
+                  aria-live="polite"
+                >
+                  <p className="mb-2 text-center text-sm font-medium text-zinc-400 dark:text-zinc-400">
+                    {t("results.loadingRecommendations")}
+                  </p>
+                  <div className="relative overflow-hidden rounded-xl border border-zinc-600/40 bg-zinc-950/70 p-3 shadow-inner dark:border-zinc-600/40">
+                    <pre className="max-h-52 overflow-y-auto whitespace-pre-wrap break-words font-mono text-[11px] leading-relaxed text-zinc-300 dark:text-zinc-300">
+                      {recommendationStreamText ? (
+                        <>
+                          {recommendationStreamText}
+                          <span
+                            className="ml-0.5 inline-block h-3.5 w-1 animate-pulse rounded-sm bg-blue-400 align-middle"
+                            aria-hidden
+                          />
+                        </>
+                      ) : (
+                        <span className="text-zinc-500 italic">
+                          Aguardando resposta da IA…
+                        </span>
+                      )}
+                    </pre>
+                  </div>
+                </div>
               )}
 
               {!isLoadingRecommendations &&
@@ -2081,6 +2072,8 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                     ))}
                   </ul>
                 </section>
+              )}
+                </>
               )}
             </section>
           )}

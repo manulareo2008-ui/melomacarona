@@ -65,8 +65,14 @@ const semanticScore = (
   return Math.round((overlap / userTokens.size) * 100);
 };
 
+export type FetchCourseRecommendationsOptions = {
+  /** Chamado a cada chunk recebido (corpo acumulado em texto). Útil para preview em streaming. */
+  onStreamText?: (accumulatedText: string) => void;
+};
+
 export const fetchCourseRecommendations = async (
-  userProfile: UserProfile
+  userProfile: UserProfile,
+  options?: FetchCourseRecommendationsOptions
 ): Promise<RecommendationApiResult> => {
   try {
     let accessToken: string | undefined;
@@ -98,6 +104,21 @@ export const fetchCourseRecommendations = async (
     });
 
     if (response.ok) {
+      const contentType = response.headers.get("content-type") ?? "";
+      if (contentType.includes("text/plain") && response.body) {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let accumulated = "";
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          accumulated += decoder.decode(value, { stream: true });
+          options?.onStreamText?.(accumulated);
+        }
+        accumulated += decoder.decode();
+        options?.onStreamText?.(accumulated);
+        return JSON.parse(accumulated) as RecommendationApiResult;
+      }
       return (await response.json()) as RecommendationApiResult;
     }
   } catch (error) {
