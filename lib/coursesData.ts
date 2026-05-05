@@ -1,4 +1,4 @@
-import type { GeneralArea, Modality } from "./domain";
+﻿import type { GeneralArea, Modality } from "./domain";
 
 /**
  * Base mock inspirada em ofertas reais de plataformas internacionais (nomes
@@ -24,6 +24,8 @@ export type InternationalCourse = {
   prerequisites: string[];
   /** Página de matrícula / detalhes oficiais (abre em nova aba). */
   registrationUrl: string;
+  /** Link de afiliado; quando preenchido, substitui registrationUrl como destino de clique. */
+  affiliateLink?: string;
   /** Se true, exibe aviso "Internacional" na ficha. */
   isInternational: boolean;
   /** Rótulo curto: ex. "EUA", "Brasil" (apoiar badge/ícone). */
@@ -769,210 +771,249 @@ const COURSE_CATALOG_RAW: Array<
 
 const COURSE_ENROLLMENT: Record<
   string,
-  { registrationUrl: string; isInternational: boolean; originCountry: string }
+  { registrationUrl: string; isInternational: boolean; originCountry: string; affiliateLink?: string }
 > = {
   "coursera-google-ux": {
     registrationUrl:
       "https://www.coursera.org/professional-certificates/google-ux-design",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "udemy-figma-2024": {
     registrationUrl: "https://www.udemy.com/course/figma-uxui/",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "edx-harvard-cs50": {
     registrationUrl: "https://www.edx.org/course/introduction-computer-science-harvardx-cs50x",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-ibm-datascience": {
     registrationUrl:
       "https://www.coursera.org/professional-certificates/ibm-data-science",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "udemy-terraform-aws": {
     registrationUrl: "https://www.udemy.com/course/terraform-aws-devops/",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-duke-java": {
     registrationUrl: "https://www.coursera.org/specializations/java-programming",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "meta-front-end": {
     registrationUrl:
       "https://www.coursera.org/professional-certificates/meta-front-end-developer",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "mit-cloud-linux": {
     registrationUrl: "https://www.coursera.org/learn/linux-tools-for-developers",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "stanford-ml-2024": {
     registrationUrl: "https://cs229.stanford.edu/",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "harvard-extension-ux": {
     registrationUrl: "https://extension.harvard.edu/academics/programs/",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-michigan-python": {
     registrationUrl: "https://www.coursera.org/specializations/python",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "edx-ibm-cyber": {
     registrationUrl: "https://www.edx.org/learn/cybersecurity",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "udemy-photoshop-ux": {
     registrationUrl: "https://www.udemy.com/course/photoshop-web-design-uxui/",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-jhu-covid": {
     registrationUrl:
       "https://www.coursera.org/specializations/biostatistics-public-health",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "edx-harvard-healthcare": {
     registrationUrl: "https://www.edx.org/learn/public-health",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-umich-nurs": {
     registrationUrl: "https://www.coursera.org/learn/vital-signs",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "usp-medicina-intro": {
     registrationUrl: "https://uspdigital.usp.br/mooc/mooc",
     isInternational: false,
     originCountry: "Brasil",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-yale-wellness": {
     registrationUrl: "https://www.coursera.org/learn/the-science-of-well-being",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "udemy-meditation": {
     registrationUrl: "https://www.udemy.com/course/mindfulness-meditation-stress-management/",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-ucla-public-speaking": {
     registrationUrl: "https://www.coursera.org/specializations/public-speaking",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-psych": {
     registrationUrl: "https://www.coursera.org/learn/introduction-psychology",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-justice": {
     registrationUrl: "https://www.edx.org/course/justice-2",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-animacion": {
     registrationUrl: "https://www.coursera.org/specializations/game-design",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "udemy-grafic": {
     registrationUrl: "https://www.udemy.com/course/brand-identity-and-logo-design-process/",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-michigan-photovideo": {
     registrationUrl:
       "https://www.coursera.org/specializations/photography-basics",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "edx-rit-film": {
     registrationUrl: "https://www.edx.org/learn/film",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-berklee-song": {
     registrationUrl: "https://www.coursera.org/learn/songwriting-lyrics",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "udemy-music-prod": {
     registrationUrl: "https://www.udemy.com/course/ableton-live/",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-google-mktg": {
     registrationUrl:
       "https://www.coursera.org/professional-certificates/google-digital-marketing-ecommerce",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "wharton-mktg": {
     registrationUrl:
       "https://www.edx.org/learn/business-administration/the-wharton-school-of-the-university-of-pennsylvania-marketing-analytics-data-tools-and-techniques",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "edx-imb-fin": {
     registrationUrl: "https://www.edx.org/learn/finance",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-wharton-ent": {
     registrationUrl:
       "https://www.coursera.org/specializations/business-entrepreneurship",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "mit-startup": {
     registrationUrl: "https://entrepreneurship.mit.edu/",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-struct-eng": {
     registrationUrl: "https://www.coursera.org/learn/mechanics-of-materials-1",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "polimi-sustainable-build": {
     registrationUrl: "https://www.edx.org/learn/renewable-energy",
     isInternational: true,
     originCountry: "Itália",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-robotics-eng": {
     registrationUrl: "https://www.coursera.org/specializations/modernrobotics",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-lean-ops": {
     registrationUrl: "https://www.coursera.org/learn/wharton-operations",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "coursera-ucsd-geoenergy": {
     registrationUrl: "https://www.coursera.org/learn/renewable-energy",
     isInternational: true,
     originCountry: "EUA",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
   "udemy-eng-budget": {
     registrationUrl: "https://www.udemy.com/course/construction-management-estimating/",
     isInternational: false,
     originCountry: "Brasil",
+    // affiliateLink: "", // TODO: preencher com link de afiliado real
   },
 };
 

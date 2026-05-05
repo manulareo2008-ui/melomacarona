@@ -23,6 +23,7 @@ export type SupabaseCourse = {
   duracao: string | null;
   prerequisitos: string[] | null;
   url_destino: string;
+  affiliate_link: string | null;
   url_status: string | null;
   url_verificado_em: string | null;
   tags: string[] | null;
@@ -68,6 +69,7 @@ function fromInternationalCourse(course: InternationalCourse): SupabaseCourse {
     duracao: course.duration,
     prerequisitos: course.prerequisites,
     url_destino: course.registrationUrl,
+    affiliate_link: course.affiliateLink ?? null,
     url_status: "active",
     url_verificado_em: null,
     tags: course.tags,
@@ -106,6 +108,7 @@ export function toInternationalCourse(curso: SupabaseCourse): InternationalCours
     duration: curso.duracao ?? "",
     prerequisites: curso.prerequisitos ?? [],
     registrationUrl: curso.url_destino,
+    affiliateLink: curso.affiliate_link ?? undefined,
     isInternational: Boolean(curso.internacional),
     originCountry: curso.pais_origem ?? "Brasil",
     tags: curso.tags ?? [],
