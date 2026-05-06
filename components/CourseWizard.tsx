@@ -34,12 +34,10 @@ import {
   languageMenuItemIdle,
   languageTrigger,
   mainMotion,
-  panelClass,
+  panelClassQuiz,
   priceCardActive,
   priceCardIdle,
   primaryBtn,
-  progressFill,
-  progressTrack,
   secondaryBtn,
   segmentActive,
   segmentIdle,
@@ -53,6 +51,10 @@ import {
   fetchCourseRecommendations,
   type ExternalCourseRecommendation,
 } from "@/lib/courseRecommendationApi";
+import {
+  parseLandingQuizPreset,
+  type LandingQuizPreset,
+} from "@/lib/landing-quiz-preset";
 import {
   buildWizardCoursePool,
   filterPatrocinadoresForWizard,
@@ -159,9 +161,14 @@ const STORAGE_KEY = "course-wizard-app-state-v2";
 
 type CourseWizardProps = {
   vocationalFirst?: boolean;
+  /** Ex.: vindo da home — `/quiz?tema=programacao` */
+  presetTema?: string | null;
 };
 
-export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}) {
+export function CourseWizard({
+  vocationalFirst = false,
+  presetTema = null,
+}: CourseWizardProps = {}) {
   const { t, i18n } = useTranslation();
   const [appState, setAppState] = useState<AppState>({
     wizardStep: 1,
@@ -265,6 +272,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
     useState<RecommendationProvider>("unknown");
   const [redirectingNotice, setRedirectingNotice] = useState(false);
   const courseRedirectBcRef = useRef<BroadcastChannel | null>(null);
+  const landingPresetRef = useRef<LandingQuizPreset | null>(null);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const languageMenuRef = useRef<HTMLDivElement | null>(null);
   const exactMatches = recommendedCourses;
@@ -365,6 +373,17 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
   }, []);
 
   useEffect(() => {
+    const parsed = parseLandingQuizPreset(presetTema);
+    if (!parsed) return;
+    landingPresetRef.current = parsed;
+    setAppState((prev) => ({
+      ...prev,
+      careerFlow: "known",
+      area: parsed.area,
+    }));
+  }, [presetTema]);
+
+  useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
   }, [appState]);
 
@@ -455,7 +474,12 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
         setFormError("Descreva seus objetivos em pelo menos 3 caracteres.");
         return;
       }
-      setSubChoice("");
+      const fromLanding = landingPresetRef.current;
+      const appliedLandingNicho = Boolean(fromLanding);
+      if (fromLanding) {
+        setSubChoice(fromLanding.subChoice);
+        landingPresetRef.current = null;
+      }
       setCustomNiche("");
       setModality(null);
       setPriceRange(null);
@@ -465,7 +489,12 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
       setRecommendationError("");
       setRecommendationProvider("unknown");
       setWizardStep(3);
-      trackEvent("step_advanced", { from: 2, to: 3, area });
+      trackEvent("step_advanced", {
+        from: 2,
+        to: 3,
+        area,
+        preset_nicho: appliedLandingNicho,
+      });
       void persistLeadForFutureRecommendations();
     }
   }
@@ -1029,7 +1058,6 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
 
   const progressStep = detailOpen ? 6 : wizardStep;
   const progressMax = 6;
-  const progressRatio = progressStep / progressMax;
 
   const detailCourse =
     detailOpen && selectedCourse ? selectedCourse : null;
@@ -1122,7 +1150,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
   return (
     <div className={WIZARD_SHELL}>
       <div className={WIZARD_INNER}>
-        <header className="relative mb-10 text-center sm:mb-14">
+        <header className="relative mb-8 text-center sm:mb-10">
           <div
             ref={languageMenuRef}
             className="absolute end-0 top-0 z-[90]"
@@ -1164,22 +1192,77 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
               </div>
             )}
           </div>
-          <p className={kickerText}>
-            {t("progress.stepOf", { step: progressStep, total: progressMax })}
-          </p>
-          <div
-            className={progressTrack}
-            role="progressbar"
-            aria-valuenow={progressStep}
-            aria-valuemin={1}
-            aria-valuemax={progressMax}
-            aria-label={t("progress.ariaLabel")}
-          >
-            <div
-              className={progressFill}
-              style={{ width: `${progressRatio * 100}%` }}
-            />
-          </div>
+
+          {wizardStep < 5 && (
+            <nav
+              className="meloma-quiz-stepper mx-auto mt-2 max-w-lg px-2 pt-10 sm:pt-2"
+              aria-label="Etapas do questionário"
+            >
+              <div className="flex items-center justify-center gap-1 sm:gap-3">
+                {(
+                  [
+                    { ws: 1 as WizardStep, label: "Perfil" },
+                    { ws: 2 as WizardStep, label: "Objetivos" },
+                    { ws: 3 as WizardStep, label: "Orçamento" },
+                    { ws: 4 as WizardStep, label: "Preferências" },
+                  ] as const
+                ).map((item, idx) => {
+                  const done = wizardStep > item.ws;
+                  const active = wizardStep === item.ws;
+                  const segmentDone = idx > 0 && wizardStep >= item.ws;
+                  return (
+                    <div key={item.ws} className="flex items-center">
+                      {idx > 0 && (
+                        <span
+                          aria-hidden
+                          className={`mx-0.5 hidden h-0.5 w-4 shrink-0 rounded-full sm:block sm:w-10 ${
+                            segmentDone ? "bg-[#20C997]" : "bg-[rgb(71_85_105/0.45)]"
+                          }`}
+                        />
+                      )}
+                      <div className="flex flex-col items-center gap-2">
+                        <span
+                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold transition ${
+                            done
+                              ? "bg-[#20C997] text-[#05070A]"
+                              : active
+                                ? "border-2 border-[#20C997] bg-[rgb(15_23_42/0.9)] text-[#20C997]"
+                                : "border border-[rgb(71_85_105/0.55)] bg-[rgb(15_23_42/0.7)] text-slate-500"
+                          }`}
+                        >
+                          {done ? "✓" : item.ws}
+                        </span>
+                        <span
+                          className={`hidden max-w-[4.5rem] text-center text-[10px] font-bold uppercase leading-tight tracking-wide text-slate-500 sm:block sm:text-[11px] ${
+                            active || done ? "text-[#20C997]" : ""
+                          }`}
+                        >
+                          {item.label}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="mt-3 flex justify-center gap-6 sm:hidden">
+                <span className="text-[11px] font-semibold text-[#20C997]">
+                  {wizardStep <= 1
+                    ? "Perfil"
+                    : wizardStep === 2
+                      ? "Objetivos"
+                      : wizardStep === 3
+                        ? "Orçamento"
+                        : "Preferências"}
+                </span>
+              </div>
+            </nav>
+          )}
+
+          {wizardStep >= 5 && (
+            <p className={`${kickerText} pt-10 sm:pt-2`}>
+              {t("progress.stepOf", { step: progressStep, total: progressMax })}
+            </p>
+          )}
         </header>
 
         <main
@@ -1188,7 +1271,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
         >
           {wizardStep === 1 && (
             <section
-              className={panelClass}
+              className={panelClassQuiz}
               key="s1"
               aria-labelledby="onboarding-title"
             >
@@ -1447,7 +1530,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
           )}
 
           {wizardStep === 2 && (
-            <section className={panelClass} key="s2-profile" aria-labelledby="vocational-title">
+            <section className={panelClassQuiz} key="s2-profile" aria-labelledby="vocational-title">
               <h2 id="vocational-title" className={heading2}>
                 {vocationalFirst ? "Teste vocacional" : "Descubra ou confirme sua direção"}
               </h2>
@@ -1618,7 +1701,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
 
           {wizardStep === 3 && area && (
             <section
-              className={panelClass}
+              className={panelClassQuiz}
               key="s2"
               aria-labelledby="refine-title"
             >
@@ -1730,7 +1813,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
 
           {wizardStep === 4 && area && (
             <section
-              className={panelClass}
+              className={panelClassQuiz}
               key="s3-mod"
               aria-labelledby="modality-title"
             >
@@ -1896,7 +1979,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
               {(sponsorInterstitial !== "show" ||
                 wizardVisiblePatrocinadores.length === 0) && (
                 <>
-              <div className={`${panelClass} mb-6 max-w-2xl mx-auto`}>
+              <div className={`${panelClassQuiz} mb-6 max-w-2xl mx-auto`}>
                 <h2
                   id="results-title"
                   className="text-center text-3xl font-extrabold leading-tight tracking-tight text-slate-100 sm:text-4xl"
@@ -1993,7 +2076,7 @@ export function CourseWizard({ vocationalFirst = false }: CourseWizardProps = {}
                     exactMatches.length === 0 &&
                     similarMatches.length === 0)) && (
                   <div
-                    className={`${panelClass} mb-6 mx-auto max-w-2xl text-center`}
+                    className={`${panelClassQuiz} mb-6 mx-auto max-w-2xl text-center`}
                   >
                     <h3 className="text-lg font-bold text-slate-100">
                       Sem cursos exatos para esses critérios

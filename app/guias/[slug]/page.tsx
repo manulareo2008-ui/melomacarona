@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { TrustNav } from "@/components/TrustNav";
+import { SiteFooter } from "@/components/SiteFooter";
 
 const guideContent: Record<
   string,
@@ -73,31 +75,35 @@ export default function GuideDetailPage({
   if (!guide) notFound();
 
   return (
-    <main className="meloma-guide-detail-main px-4 py-10 sm:px-6">
-      <article className="meloma-guide-detail-article mx-auto max-w-3xl">
-        <p className="meloma-label-caps text-[var(--text-muted)]">Guia prático</p>
-        <h1 className="meloma-heading-xl mt-3 text-3xl">{guide.title}</h1>
-        <p className="mt-4 text-[var(--text-muted)] leading-relaxed">{guide.intro}</p>
-        <ul className="mt-6 space-y-3 text-[var(--text-primary)]">
-          {guide.bullets.map((item) => (
-            <li
-              key={item}
-              className="rounded-xl border border-[var(--meloma-border)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-relaxed"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
+    <main className="meloma-landing min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)]">
+      <TrustNav />
+      <section className="container py-10">
+        <article className="mx-auto max-w-3xl plan-card">
+          <p className="section-eyebrow">Guia pratico</p>
+          <h1 className="section-title mt-3">{guide.title}</h1>
+          <p className="plan-desc mt-4">{guide.intro}</p>
+          <ul className="mt-6 space-y-3 text-[var(--text-primary)]">
+            {guide.bullets.map((item) => (
+              <li
+                key={item}
+                className="rounded-xl border border-[var(--border)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-relaxed"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
 
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link href="/quiz" className="meloma-btn-primary text-sm no-underline">
-            Fazer recomendação agora
-          </Link>
-          <Link href="/guias" className="meloma-btn-secondary text-sm no-underline">
-            Ver todos os guias
-          </Link>
-        </div>
-      </article>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/quiz" className="btn-plan btn-plan-primary text-sm no-underline">
+              Fazer recomendacao agora
+            </Link>
+            <Link href="/guias" className="btn-plan btn-plan-ghost text-sm no-underline">
+              Ver todos os guias
+            </Link>
+          </div>
+        </article>
+      </section>
+      <SiteFooter />
     </main>
   );
 }

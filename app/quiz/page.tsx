@@ -8,17 +8,28 @@ import { useSearchParams } from "next/navigation";
 function QuizPageContent() {
   const searchParams = useSearchParams();
   const vocationalFirst = searchParams.get("mode") === "vocacional";
+  const presetTema = searchParams.get("tema");
 
   return (
-    <main className="meloma-quiz-page">
+    <main className="meloma-quiz-page meloma-landing">
       <header className="meloma-quiz-header">
-        <Link href="/" className="meloma-quiz-back">
-          ← Voltar para a home
-        </Link>
+        <div className="container flex items-center justify-between">
+          <Link href="/" className="meloma-quiz-back">
+            ← Voltar para a home
+          </Link>
+          <p className="badge badge-blue hidden sm:inline-flex">
+            Navegador de Constelacoes
+          </p>
+        </div>
       </header>
 
       <section className="meloma-quiz-fullscreen">
-        <CourseWizard vocationalFirst={vocationalFirst} />
+        <div className="new-container w-full">
+          <CourseWizard
+            vocationalFirst={vocationalFirst}
+            presetTema={presetTema}
+          />
+        </div>
       </section>
     </main>
   );

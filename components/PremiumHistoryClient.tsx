@@ -116,7 +116,7 @@ export function PremiumHistoryClient() {
   }
 
   if (loading) {
-    return <p className="text-sm text-slate-300">Carregando histórico premium...</p>;
+    return <p className="text-sm text-[var(--text-secondary)]">Carregando historico premium...</p>;
   }
 
   if (error) {
@@ -126,38 +126,38 @@ export function PremiumHistoryClient() {
   return (
     <section className="space-y-5">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-slate-100">Histórico de recomendações IA</h2>
+        <h2 className="text-xl font-semibold text-[var(--text-primary)]">Historico de recomendacoes IA</h2>
         <button
           type="button"
           onClick={handleLogout}
-          className="new-btn new-btn-ghost"
+          className="btn-plan btn-plan-ghost"
         >
           Sair
         </button>
       </div>
 
       {items.length === 0 ? (
-        <p className="rounded-2xl border border-slate-500/35 bg-slate-950/70 p-4 text-sm text-slate-200">
-          Você ainda não possui recomendações salvas.
+        <p className="plan-card p-4 text-sm text-[var(--text-secondary)]">
+          Voce ainda nao possui recomendacoes salvas.
         </p>
       ) : (
         <ul className="space-y-4">
           {items.map((item) => (
             <li
               key={item.id}
-              className="new-card-rise rounded-2xl border border-slate-500/35 bg-slate-950/70 p-5"
+              className="new-card-rise plan-card p-5"
             >
-              <p className="text-xs uppercase tracking-[0.12em] text-slate-400">
+              <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">
                 {new Date(item.created_at).toLocaleString("pt-BR")} · {item.provider}
               </p>
-              <p className="mt-2 text-sm text-slate-100">
+              <p className="mt-2 text-sm text-[var(--text-primary)]">
                 <span className="font-semibold">Perfil:</span> {item.area} · {item.nicho} ·{" "}
                 {item.modalidade} · {item.nivel_conhecimento}
               </p>
-              <p className="mt-1 text-sm text-slate-100">
+              <p className="mt-1 text-sm text-[var(--text-primary)]">
                 <span className="font-semibold">Objetivos:</span> {item.objetivos}
               </p>
-              <p className="mt-1 text-sm text-slate-100">
+              <p className="mt-1 text-sm text-[var(--text-primary)]">
                 <span className="font-semibold">Orçamento:</span> R$ {item.budget}
               </p>
 
@@ -165,11 +165,11 @@ export function PremiumHistoryClient() {
                 {item.recommendations_payload?.slice(0, 5).map((rec) => (
                   <article
                     key={`${item.id}-${rec.id}`}
-                    className="rounded-xl border border-slate-500/35 bg-slate-900/65 p-3"
+                    className="rounded-xl border border-[var(--border)] bg-[var(--bg-surface)] p-3"
                   >
-                    <p className="text-sm font-semibold text-slate-100">{rec.nome}</p>
-                    <p className="text-xs text-emerald-300">Afinidade: {rec.score_afinidade}/100</p>
-                    <p className="mt-1 text-xs text-slate-100">{rec.pitch_venda}</p>
+                    <p className="text-sm font-semibold text-[var(--text-primary)]">{rec.nome}</p>
+                    <p className="text-xs text-[var(--primary-light)]">Afinidade: {rec.score_afinidade}/100</p>
+                    <p className="mt-1 text-xs text-[var(--text-secondary)]">{rec.pitch_venda}</p>
                   </article>
                 ))}
               </div>

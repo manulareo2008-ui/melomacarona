@@ -23,80 +23,78 @@ export default function PlanosPage() {
       <section className="container py-14 pb-10">
         <ScrollReveal>
           <div className="mx-auto max-w-2xl text-center">
-            <p className="meloma-badge-pill meloma-plan-header-badge">Transparência</p>
-            <h1 className="meloma-heading-xl mt-5 text-3xl sm:text-4xl">
-              Planos pensados para escalar com você
+            <p className="section-eyebrow">Transparencia</p>
+            <h1 className="section-title mt-3">
+              Planos pensados para escalar com voce
             </h1>
-            <p className="mt-5 text-[var(--text-muted)] leading-relaxed">
-              O núcleo do assistente permanece acessível; o Premium concentra histórico,
-              experiências estendidas e conteúdos que exigem conta.{" "}
+            <p className="section-subtitle mt-5 text-[var(--text-muted)] leading-relaxed">
+              O nucleo do assistente permanece acessivel; o Premium concentra historico,
+              experiencias estendidas e conteudos que exigem conta.{" "}
               <strong className="font-semibold text-[var(--text-primary)]">
-                Cobrança recorrente será integrada em breve
+                Cobranca recorrente sera integrada em breve
               </strong>{" "}
-              — por ora, o login premium usa a infraestrutura de conta já disponível.
+              - por ora, o login premium usa a infraestrutura de conta ja disponivel.
             </p>
           </div>
         </ScrollReveal>
 
-        <div className="meloma-plan-grid mx-auto mt-14 grid max-w-5xl gap-6 md:grid-cols-3">
+        <div className="pricing-grid mx-auto mt-14 max-w-5xl">
           <ScrollReveal delayMs={0}>
-            <article className="meloma-plan-card relative">
+            <article className="plan-card relative">
               <div className="mb-4 text-[var(--primary-light)]" aria-hidden>
                 <IconPlanFree />
               </div>
-              <h2 className="text-lg font-bold">Grátis</h2>
-              <p className="mt-3 flex-1 text-sm text-[var(--text-muted)] leading-relaxed">
-                Quiz completo, recomendações e acesso aos guias públicos.
+              <h2 className="feature-title text-lg">Gratis</h2>
+              <p className="plan-desc">
+                Quiz completo, recomendacoes e acesso aos guias publicos.
               </p>
-              <p className="meloma-plan-price mt-8">R$ 0</p>
+              <p className="plan-price-val mt-8">R$ 0</p>
               <Link
                 href="/quiz"
-                className="meloma-btn-primary mt-8 inline-flex justify-center text-sm no-underline"
+                className="btn-plan btn-plan-primary mt-8 inline-flex justify-center text-sm no-underline"
               >
-                Começar grátis
+                Comecar gratis
               </Link>
             </article>
           </ScrollReveal>
 
           <ScrollReveal delayMs={80}>
-            <article className="meloma-plan-card meloma-plan-card--premium relative pt-8">
-              <span className="meloma-plan-ribbon">Em breve</span>
+            <article className="plan-card featured relative pt-8">
+              <span className="plan-badge">Em breve</span>
               <div className="mb-4 text-[var(--primary-light)]" aria-hidden>
                 <IconPlanPremium />
               </div>
-              <h2 className="text-lg font-bold">Premium</h2>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-[var(--primary-light)] opacity-95">
-                Histórico de recomendações, área logada e evoluções do produto focadas em quem
-                leva a decisão de carreira a sério.
+              <h2 className="feature-title text-lg">Premium</h2>
+              <p className="plan-desc mt-3 text-[var(--primary-light)] opacity-95">
+                Historico de recomendacoes, area logada e evolucoes do produto focadas em quem
+                leva a decisao de carreira a serio.
               </p>
-              <p className="meloma-plan-price mt-8 text-xl">Valor em definição</p>
+              <p className="plan-price-val mt-8 text-xl">Valor em definicao</p>
               <Link
                 href="/premium/login"
-                className="meloma-btn-primary mt-6 inline-flex justify-center text-sm no-underline"
+                className="btn-plan btn-plan-primary mt-6 inline-flex justify-center text-sm no-underline"
               >
                 Entrar na área Premium
               </Link>
               <p className="mt-4 text-center text-xs text-[var(--text-muted)]">
-                Checkout com cartão será habilitado antes da virada comercial plena.
+                Checkout com cartao sera habilitado antes da virada comercial plena.
               </p>
             </article>
           </ScrollReveal>
 
           <ScrollReveal delayMs={160}>
-            <article className="meloma-plan-card relative">
+            <article className="plan-card relative">
               <div className="mb-4 text-[var(--primary-light)]" aria-hidden>
                 <IconPlanInstitution />
               </div>
-              <h2 className="text-lg font-bold">Instituições</h2>
-              <p className="mt-3 flex-1 text-sm text-[var(--text-muted)] leading-relaxed">
-                Licenças, campanhas com marca e relatórios agregados para equipes de captação.
+              <h2 className="feature-title text-lg">Instituicoes</h2>
+              <p className="plan-desc">
+                Licencas, campanhas com marca e relatorios agregados para equipes de captacao.
               </p>
-              <p className="mt-8 text-sm font-semibold text-[var(--text-muted)]">
-                Proposta sob medida
-              </p>
+              <p className="plan-name mt-8">Proposta sob medida</p>
               <Link
                 href="/parcerias"
-                className="meloma-btn-secondary mt-8 inline-flex justify-center text-sm no-underline"
+                className="btn-plan btn-plan-ghost mt-8 inline-flex justify-center text-sm no-underline"
               >
                 Ver parcerias
               </Link>

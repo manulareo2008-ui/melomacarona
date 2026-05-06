@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { TrustNav } from "@/components/TrustNav";
+import { SiteFooter } from "@/components/SiteFooter";
 
 export const metadata: Metadata = {
   title: "Guias de cursos",
@@ -49,49 +51,49 @@ const guides: {
 
 export default function GuidesPage() {
   return (
-    <main className="meloma-guides-page px-4 py-10 sm:px-6">
-      <ScrollReveal>
-        <header className="meloma-guides-header">
-          <p className="meloma-badge-pill meloma-plan-header-badge">
-            Guias de cursos
-          </p>
-          <h1 className="meloma-heading-xl mt-4 text-3xl sm:text-4xl">
-            Conteúdos para escolher melhor e comprar com segurança
-          </h1>
-          <p className="mt-4 max-w-2xl text-[var(--text-muted)]">
-            Explore guias prontos para comparar cursos por objetivo, preço e formato.
-          </p>
-        </header>
-      </ScrollReveal>
+    <main className="meloma-landing min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)]">
+      <TrustNav />
+      <section className="container py-10">
+        <ScrollReveal>
+          <header className="text-center">
+            <p className="section-eyebrow">Guias de cursos</p>
+            <h1 className="section-title mt-3">
+              Conteudos para escolher melhor e comprar com seguranca
+            </h1>
+            <p className="section-subtitle mt-4">
+              Explore guias prontos para comparar cursos por objetivo, preco e formato.
+            </p>
+          </header>
+        </ScrollReveal>
 
-      <section className="meloma-guides-grid grid gap-5">
-        {guides.map((guide, index) => (
-          <ScrollReveal key={guide.slug} delayMs={index * 70}>
-            <article className="meloma-guide-card">
-              <h2 className="text-xl font-bold text-[var(--text-primary)]">
-                {guide.title}
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">
-                {guide.description}
-              </p>
-              <div className="mt-5 flex flex-wrap gap-3">
-                <Link
-                  href={`/guias/${guide.slug}`}
-                  className="meloma-btn-primary text-sm no-underline"
-                >
-                  Ler guia
-                </Link>
-                <Link
-                  href="/quiz"
-                  className="meloma-btn-secondary text-sm no-underline"
-                >
-                  Testar recomendador
-                </Link>
-              </div>
-            </article>
-          </ScrollReveal>
-        ))}
+        <section className="mt-12 grid gap-5">
+          {guides.map((guide, index) => (
+            <ScrollReveal key={guide.slug} delayMs={index * 70}>
+              <article className="plan-card">
+                <h2 className="text-xl font-bold text-[var(--text-primary)]">
+                  {guide.title}
+                </h2>
+                <p className="plan-desc mt-3">{guide.description}</p>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <Link
+                    href={`/guias/${guide.slug}`}
+                    className="btn-plan btn-plan-primary text-sm no-underline"
+                  >
+                    Ler guia
+                  </Link>
+                  <Link
+                    href="/quiz"
+                    className="btn-plan btn-plan-ghost text-sm no-underline"
+                  >
+                    Testar recomendador
+                  </Link>
+                </div>
+              </article>
+            </ScrollReveal>
+          ))}
+        </section>
       </section>
+      <SiteFooter />
     </main>
   );
 }

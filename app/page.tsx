@@ -2,79 +2,91 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { ConstellationStarfield } from "@/components/ConstellationStarfield";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import {
-  IconCheckPurple,
+  IconArrowUpRight,
   IconFeatureAdmin,
   IconFeatureBrain,
   IconFeatureCart,
   IconFeatureGraduation,
   IconFeatureQuiz,
   IconFeatureShield,
+  IconPlusBold,
+  IconRocketSmall,
   IconSparkleBadge,
+  IconStarOutline,
   IconStepAI,
   IconStepLink,
   IconStepProfile,
 } from "@/components/MelomaIcons";
-import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteFooter } from "@/components/SiteFooter";
-import { MelomaVideoHero } from "@/components/MelomaVideoHero";
-import { SponsorsSection } from "@/components/SponsorsSection";
 
-const FAQ_ITEMS = [
+const HOW_IT_WORKS = [
   {
-    id: "faq-1",
-    question:
-      "Como utilizar o teste para orientar a escolha profissional com maior segurança?",
-    answer:
-      "O assistente integra os seus interesses, nível de conhecimento, objetivos de carreira e disponibilidade para indicar áreas e formações com maior aderência ao seu perfil. O objetivo é reduzir incerteza e oferecer uma base objetiva para a decisão, sem substituir o acompanhamento individualizado com educadores ou especialistas quando necessário.",
+    step: "01",
+    title: "Mapeie seu Perfil",
+    description:
+      "Responda perguntas rápidas sobre seus objetivos, nível de experiência, disponibilidade e orçamento.",
+    Icon: IconStepProfile,
   },
   {
-    id: "faq-2",
-    question: "Qual o momento mais adequado para realizar o teste vocacional?",
-    answer:
-      "Recomenda-se utilizar o teste sempre que houver dúvidas sobre direção de carreira, mudança de área ou revisão de metas. Poderá refazer o fluxo sempre que seus objetivos ou contexto profissional evoluírem, obtendo recomendações atualizadas conforme o novo perfil informado.",
+    step: "02",
+    title: "Ative o Motor",
+    description:
+      "Nosso algoritmo cruza cursos e trilhas para encontrar combinações alinhadas ao seu momento e preferências.",
+    Icon: IconStepAI,
   },
   {
-    id: "faq-3",
-    question:
-      "Existem formações que permitem ingressar mais rapidamente no mercado de trabalho?",
-    answer:
-      "O tempo até a atuação profissional depende da área escolhida, da sua bagagem prévia e da intensidade da formação. Em linhas gerais, trilhas com forte componente prático e construção de portfólio tendem a acelerar a empregabilidade. A plataforma prioriza cursos cuja aplicação esteja alinhada ao perfil e às metas declaradas por você.",
+    step: "03",
+    title: "Comece a Jornada",
+    description:
+      "Receba recomendações personalizadas com justificativas claras e links diretos para matrícula.",
+    Icon: IconStepLink,
+  },
+] as const;
+
+const CATEGORIES = [
+  {
+    name: "Programação",
+    slug: "programacao",
+    Icon: IconFeatureBrain,
+    iconClass: "fi-blue",
   },
   {
-    id: "faq-4",
-    question:
-      "Quais segmentos costumam apresentar maior potencial de remuneração?",
-    answer:
-      "Áreas como tecnologia, análise de dados, engenharia e funções estratégicas em negócios frequentemente exibem faixas salariais elevadas; contudo, a remuneração efetiva depende de mercado regional, senioridade e especialização. Recomenda-se ponderar potencial financeiro em conjunto com motivação e aptidão, critérios que o assistente considera ao montar sugestões.",
+    name: "Design",
+    slug: "design",
+    Icon: IconFeatureGraduation,
+    iconClass: "fi-purple",
   },
   {
-    id: "faq-5",
-    question:
-      "Quais tendências de mercado a plataforma considera ao recomendar trilhas?",
-    answer:
-      "Demandas ligadas a inteligência artificial aplicada, dados, segurança da informação, energia sustentável, produtos digitais e serviços de saúde e bem-estar permanecem em expansão. O motor de recomendação incorpora essas tendências como referência ao cruzar o seu perfil com oportunidades disponíveis no catálogo.",
+    name: "Dados & IA",
+    slug: "dados",
+    Icon: IconFeatureQuiz,
+    iconClass: "fi-green",
   },
   {
-    id: "faq-6",
-    question:
-      "É obrigatório possuir diploma universitário para aproveitar as recomendações?",
-    answer:
-      "Não. Você poderá iniciar por cursos livres e certificações profissionalizantes para consolidar competências e demonstrar resultado prático. Quando alinhado aos seus objetivos, a progressão para graduação, pós-graduação ou certificações avançadas poderá ser avaliada de forma complementar.",
+    name: "Negócios",
+    slug: "negocios",
+    Icon: IconFeatureCart,
+    iconClass: "fi-orange",
   },
   {
-    id: "faq-7",
-    question: "Qual a extensão do questionário e o tempo estimado de conclusão?",
-    answer:
-      "O questionário foi estruturado em etapas objetivas, com tempo estimado de poucos minutos para conclusão. São coletadas apenas as informações necessárias para personalizar recomendações, preservando clareza e agilidade na experiência.",
+    name: "Marketing",
+    slug: "marketing",
+    Icon: IconFeatureAdmin,
+    iconClass: "fi-pink",
+  },
+  {
+    name: "Produto",
+    slug: "produto",
+    Icon: IconFeatureShield,
+    iconClass: "fi-yellow",
   },
 ] as const;
 
 export default function Home() {
   const [navScrolled, setNavScrolled] = useState(false);
-  const [openFaqId, setOpenFaqId] = useState<(typeof FAQ_ITEMS)[number]["id"]>(
-    FAQ_ITEMS[0].id
-  );
   const navToggleRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -89,7 +101,7 @@ export default function Home() {
   };
 
   return (
-    <main className="meloma-landing">
+    <main className="meloma-landing" id="top">
       <input
         ref={navToggleRef}
         type="checkbox"
@@ -100,34 +112,28 @@ export default function Home() {
 
       <nav id="navbar" className={navScrolled ? "scrolled" : ""}>
         <div className="container nav-inner">
-          <Link href="/" className="nav-logo">
+          <Link href="/#top" className="nav-logo">
+            <span className="nav-logo-icon" aria-hidden>
+              <IconRocketSmall size={22} />
+            </span>
             Melomacarona
           </Link>
 
           <div className="nav-links">
-            <a href="#como-funciona" className="nav-link">
-              Como funciona
-            </a>
-            <Link href="/quiz" className="nav-link">
-              Quiz
+            <Link href="/#top" className="nav-link">
+              Início
             </Link>
-            <a href="#guias" className="nav-link">
-              Guias
+            <a href="#como-funciona" className="nav-link">
+              Descobrir
             </a>
-            <a href="#parceiros" className="nav-link">
-              Parceiros
-            </a>
-            <a href="#duvidas" className="nav-link">
-              Dúvidas
-            </a>
-            <Link href="/planos" className="nav-link">
-              Planos
+            <Link href="/parcerias" className="nav-link">
+              Parcerias
+            </Link>
+            <Link href="/contato" className="nav-link">
+              Contato
             </Link>
             <Link href="/premium/login" className="nav-btn nav-btn-ghost">
               Entrar
-            </Link>
-            <Link href="/quiz" className="nav-btn nav-btn-primary">
-              Começar
             </Link>
           </div>
 
@@ -140,27 +146,21 @@ export default function Home() {
       </nav>
 
       <div className="nav-mobile" id="nav-mobile">
+        <Link href="/#top" className="nav-link" onClick={closeMobileMenu}>
+          Início
+        </Link>
         <a
           href="#como-funciona"
           className="nav-link"
           onClick={closeMobileMenu}
         >
-          Como funciona
+          Descobrir
         </a>
-        <Link href="/quiz" className="nav-link" onClick={closeMobileMenu}>
-          Quiz
+        <Link href="/parcerias" className="nav-link" onClick={closeMobileMenu}>
+          Parcerias
         </Link>
-        <a href="#guias" className="nav-link" onClick={closeMobileMenu}>
-          Guias
-        </a>
-        <a href="#parceiros" className="nav-link" onClick={closeMobileMenu}>
-          Parceiros
-        </a>
-        <a href="#duvidas" className="nav-link" onClick={closeMobileMenu}>
-          Dúvidas
-        </a>
-        <Link href="/planos" className="nav-link" onClick={closeMobileMenu}>
-          Planos
+        <Link href="/contato" className="nav-link" onClick={closeMobileMenu}>
+          Contato
         </Link>
         <Link
           href="/premium/login"
@@ -169,17 +169,67 @@ export default function Home() {
         >
           Entrar
         </Link>
-        <Link
-          href="/quiz"
-          className="nav-btn nav-btn-primary"
-          onClick={closeMobileMenu}
-        >
-          Começar agora →
-        </Link>
       </div>
 
       <div id="section-home">
-        <MelomaVideoHero />
+        <section className="hero meloma-hero-v2">
+          <div className="hero-glow-1" />
+          <div className="hero-glow-2" />
+          <div className="hero-grid" />
+          <ConstellationStarfield className="meloma-starfield" />
+          <div className="container">
+            <div className="hero-content">
+              <div className="hero-badge meloma-hero-reveal meloma-hero-reveal--1">
+                <span className="hero-badge-icon" aria-hidden>
+                  <IconSparkleBadge size={14} />
+                </span>
+                Navegador de Constelações do Conhecimento
+              </div>
+              <h1 className="hero-title meloma-hero-reveal meloma-hero-reveal--2">
+                Descubra seu{" "}
+                <span className="hero-highlight-caminho">caminho</span> no
+                universo do <span className="highlight">aprendizado</span>
+              </h1>
+              <p className="hero-subtitle meloma-hero-reveal meloma-hero-reveal--3">
+                Responda algumas perguntas e deixe nossos algoritmos mapearem a{" "}
+                <strong>constelação perfeita</strong> de cursos e trilhas para
+                seus objetivos, orçamento e ritmo de vida.
+              </p>
+              <div className="hero-cta-wrap meloma-hero-reveal meloma-hero-reveal--4">
+                <Link href="/quiz" className="btn-hero" onClick={closeMobileMenu}>
+                  Iniciar Jornada
+                  <IconPlusBold size={22} />
+                </Link>
+                <Link
+                  href="/parcerias"
+                  className="hero-secondary-link"
+                  onClick={closeMobileMenu}
+                >
+                  <IconStarOutline size={18} />
+                  <span>Seja um Parceiro</span>
+                </Link>
+              </div>
+              <div className="hero-stats meloma-hero-reveal meloma-hero-reveal--5">
+                <div className="hero-stat">
+                  <div className="hero-stat-value">500+</div>
+                  <div className="hero-stat-label">Cursos mapeados</div>
+                </div>
+                <div className="hero-stat">
+                  <div className="hero-stat-value">12K+</div>
+                  <div className="hero-stat-label">Trilhas criadas</div>
+                </div>
+                <div className="hero-stat">
+                  <div className="hero-stat-value">45K+</div>
+                  <div className="hero-stat-label">Exploradores</div>
+                </div>
+                <div className="hero-stat">
+                  <div className="hero-stat-value">94%</div>
+                  <div className="hero-stat-label">Satisfação</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <ScrollReveal className="section-scroll-wrap">
           <section className="section" id="como-funciona">
@@ -187,152 +237,75 @@ export default function Home() {
               <div className="section-header text-center">
                 <div className="section-eyebrow">Como funciona</div>
                 <h2 className="section-title">
-                  Três passos até o <span className="gradient-text">curso certo</span>
+                  Três passos para mapear sua constelação de aprendizado
                 </h2>
                 <p className="section-subtitle">
-                  Nossa IA faz o trabalho pesado — você só precisa aprender.
+                  Um processo simples para encontrar as melhores opções para você.
                 </p>
               </div>
 
-              <div className="steps-grid meloma-home-steps">
-                <div className="step-card">
-                  <div className="step-number step-number-1">1</div>
-                  <div className="step-icon meloma-step-icon-svg" aria-hidden>
-                    <IconStepProfile size={32} />
-                  </div>
-                  <div className="step-title">Responda seu perfil</div>
-                  <p className="step-desc">
-                    Objetivos, área, nível e formato preferido — o mesmo fluxo
-                    completo que você já usa hoje.
-                  </p>
-                </div>
-                <div className="step-card">
-                  <div className="step-number step-number-2">2</div>
-                  <div className="step-icon meloma-step-icon-svg" aria-hidden>
-                    <IconStepAI size={32} />
-                  </div>
-                  <div className="step-title">IA recomenda</div>
-                  <p className="step-desc">
-                    Compatibilidade com nichos e cursos reais da base, com
-                    resultados alinhados ao seu perfil.
-                  </p>
-                </div>
-                <div className="step-card">
-                  <div className="step-number step-number-3">3</div>
-                  <div className="step-icon meloma-step-icon-svg" aria-hidden>
-                    <IconStepLink size={32} />
-                  </div>
-                  <div className="step-title">Acesse sem fricção</div>
-                  <p className="step-desc">
-                    Redirecionamento para URL válida com fallback de segurança.
-                  </p>
-                </div>
+              <div className="steps-grid meloma-steps-ref">
+                {HOW_IT_WORKS.map((item, index) => {
+                  const StepIcon = item.Icon;
+                  return (
+                    <div
+                      key={item.step}
+                      className="step-card meloma-step-card-ref"
+                    >
+                      <span className="step-watermark">{item.step}</span>
+                      <div
+                        className={`step-row-icon step-icon-tone-${index}`}
+                        aria-hidden
+                      >
+                        <StepIcon size={30} />
+                      </div>
+                      <div className="step-title">{item.title}</div>
+                      <p className="step-desc">{item.description}</p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </section>
         </ScrollReveal>
 
         <ScrollReveal className="section-scroll-wrap">
-          <section className="section section-alt">
+          <section className="section section-alt" id="categorias">
             <div className="container">
               <div className="section-header text-center">
-                <div className="section-eyebrow">Diferenciais</div>
+                <div className="section-eyebrow">Explore por categoria</div>
                 <h2 className="section-title">
-                  Por que a <span className="gradient-text">Melomacarona</span>?
+                  Constelações de conhecimento organizadas por área
                 </h2>
                 <p className="section-subtitle">
-                  Uma plataforma construída para você encontrar, não para você
-                  procurar.
+                  Conteúdos organizados para acelerar sua evolução profissional.
                 </p>
               </div>
 
-              <div className="features-grid">
-                <div className="feature-card">
-                  <div
-                    className="feature-icon-wrap fi-blue meloma-feature-icon-wrap"
-                    aria-hidden
-                  >
-                    <IconFeatureBrain size={28} />
-                  </div>
-                  <div className="feature-title">IA de Recomendação</div>
-                  <p className="feature-desc">
-                    Nosso modelo analisa seu perfil e recomenda cursos
-                    personalizados — sem você precisar saber exatamente o que
-                    quer.
-                  </p>
-                </div>
-                <div className="feature-card">
-                  <div
-                    className="feature-icon-wrap fi-purple meloma-feature-icon-wrap"
-                    aria-hidden
-                  >
-                    <IconFeatureGraduation size={28} />
-                  </div>
-                  <div className="feature-title">Trilhas e conteúdo</div>
-                  <p className="feature-desc">
-                    Guias e recursos premium permanecem disponíveis na área
-                    logada, com o mesmo acesso que você já conhece.
-                  </p>
-                </div>
-                <div className="feature-card">
-                  <div
-                    className="feature-icon-wrap fi-green meloma-feature-icon-wrap"
-                    aria-hidden
-                  >
-                    <IconFeatureCart size={28} />
-                  </div>
-                  <div className="feature-title">Matrícula clara</div>
-                  <p className="feature-desc">
-                    Fluxo de matrícula e redirecionamento pensado para reduzir
-                    cliques e dúvidas no caminho até o curso.
-                  </p>
-                </div>
-                <div className="feature-card">
-                  <div
-                    className="feature-icon-wrap fi-orange meloma-feature-icon-wrap"
-                    aria-hidden
-                  >
-                    <IconFeatureQuiz size={28} />
-                  </div>
-                  <div className="feature-title">Teste e quiz</div>
-                  <p className="feature-desc">
-                    Quiz de perfil e recomendações conectados à base real de
-                    cursos e nichos.
-                  </p>
-                </div>
-                <div className="feature-card">
-                  <div
-                    className="feature-icon-wrap fi-pink meloma-feature-icon-wrap"
-                    aria-hidden
-                  >
-                    <IconFeatureAdmin size={28} />
-                  </div>
-                  <div className="feature-title">Admin e histórico</div>
-                  <p className="feature-desc">
-                    Área administrativa e histórico seguem ativos para gestão e
-                    acompanhamento.
-                  </p>
-                </div>
-                <div className="feature-card">
-                  <div
-                    className="feature-icon-wrap fi-yellow meloma-feature-icon-wrap"
-                    aria-hidden
-                  >
-                    <IconFeatureShield size={28} />
-                  </div>
-                  <div className="feature-title">Segurança no acesso</div>
-                  <p className="feature-desc">
-                    Fallback de segurança nas URLs e fluxo validado para você
-                    confiar no próximo passo.
-                  </p>
-                </div>
+              <div className="features-grid meloma-categories-ref">
+                {CATEGORIES.map((category) => {
+                  const CatIcon = category.Icon;
+                  return (
+                    <Link
+                      key={category.name}
+                      href={`/quiz?tema=${category.slug}`}
+                      className="feature-card meloma-category-card-ref text-center"
+                    >
+                      <div
+                        className={`feature-icon-wrap ${category.iconClass} meloma-feature-icon-wrap`}
+                      >
+                        <CatIcon size={26} />
+                      </div>
+                      <div className="feature-title">{category.name}</div>
+                      <span className="meloma-cat-arrow" aria-hidden>
+                        <IconArrowUpRight size={18} />
+                      </span>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </section>
-        </ScrollReveal>
-
-        <ScrollReveal className="section-scroll-wrap">
-          <SponsorsSection />
         </ScrollReveal>
 
         <ScrollReveal className="section-scroll-wrap">
@@ -340,158 +313,21 @@ export default function Home() {
             <div className="container">
               <div className="vocational-inner">
                 <div className="vocational-left">
-                  <div className="badge badge-purple flex items-center gap-2" style={{ marginBottom: 20 }}>
-                    <IconSparkleBadge size={14} />
-                    Quiz e recomendação
+                  <div className="badge badge-purple" style={{ marginBottom: 20 }}>
+                    Pronto para descobrir sua constelação?
                   </div>
                   <h2 className="vocational-title">
-                    Pronto para o
-                    <br />
-                    <span className="gradient-text">teste guiado</span>?
+                    Leva menos de 2 minutos.
+                    <br />E pode mudar a direção da sua carreira.
                   </h2>
-                  <p className="vocational-desc">
-                    O mesmo assistente em etapas: interesses, formato e
-                    investimento, com recomendações alinhadas à sua realidade.
-                  </p>
-                  <div className="vocational-benefits">
-                    <div className="vocational-benefit">
-                      <div className="vb-icon" aria-hidden>
-                        <IconCheckPurple size={14} />
-                      </div>
-                      Perfil e preferências em poucos minutos
-                    </div>
-                    <div className="vocational-benefit">
-                      <div className="vb-icon" aria-hidden>
-                        <IconCheckPurple size={14} />
-                      </div>
-                      Sugestões compatíveis com a base de cursos
-                    </div>
-                    <div className="vocational-benefit">
-                      <div className="vb-icon" aria-hidden>
-                        <IconCheckPurple size={14} />
-                      </div>
-                      Continuidade até matrícula com URLs seguras
-                    </div>
-                  </div>
-                  <Link href="/quiz" className="btn-purple inline-flex items-center gap-2" onClick={closeMobileMenu}>
-                    <IconFeatureQuiz size={22} />
-                    Abrir questionário completo
+                  <Link href="/quiz" className="btn-purple" onClick={closeMobileMenu}>
+                    Criar Minha Constelação
+                    <IconRocketSmall size={20} />
                   </Link>
                 </div>
               </div>
             </div>
           </section>
-        </ScrollReveal>
-
-        <ScrollReveal className="section-scroll-wrap">
-          <section className="section" id="duvidas">
-            <div className="container">
-              <div className="faq-layout">
-              <div>
-                <div className="section-header" style={{ marginBottom: 24 }}>
-                  <h2 className="section-title">Principais dúvidas</h2>
-                </div>
-                <div className="faq-list" role="list">
-                  {FAQ_ITEMS.map((item) => {
-                    const isOpen = openFaqId === item.id;
-                    return (
-                      <article key={item.id} className="faq-item" role="listitem">
-                        <button
-                          type="button"
-                          className={`faq-question ${isOpen ? "is-open" : ""}`}
-                          onClick={() => setOpenFaqId(item.id)}
-                          aria-expanded={isOpen}
-                          aria-controls={`${item.id}-content`}
-                          id={`${item.id}-button`}
-                        >
-                          <span>{item.question}</span>
-                          <span className="faq-icon" aria-hidden>
-                            <span className="faq-chevron" />
-                          </span>
-                        </button>
-                        <div
-                          className={`faq-answer-panel ${isOpen ? "is-open" : ""}`}
-                          aria-hidden={!isOpen}
-                        >
-                          <div className="faq-answer-inner">
-                            <div
-                              id={`${item.id}-content`}
-                              className="faq-answer"
-                              role="region"
-                              aria-labelledby={`${item.id}-button`}
-                            >
-                              <p>{item.answer}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </article>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <aside className="faq-cta-card">
-                <h3>Deseja uma orientação objetiva para o próximo passo?</h3>
-                <p>
-                  Inicie o teste vocacional gratuito e receba sugestões de
-                  cursos alinhados ao seu perfil em poucos minutos — com a mesma
-                  qualidade de recomendação que valorizamos em toda a
-                  plataforma.
-                </p>
-                <Link href="/quiz?mode=vocacional" className="btn-purple">
-                  Iniciar teste vocacional
-                </Link>
-              </aside>
-              </div>
-            </div>
-          </section>
-        </ScrollReveal>
-
-        <ScrollReveal className="section-scroll-wrap">
-        <section id="guias" className="section section-alt">
-          <div className="container">
-            <div className="section-header text-center">
-              <div className="section-eyebrow">Premium &amp; gestão</div>
-              <h2 className="section-title">
-                Conteúdo, guias e <span className="gradient-text">admin</span>
-              </h2>
-              <p className="section-subtitle">
-                Guias estratégicos, histórico e área administrativa permanecem
-                ativos.
-              </p>
-            </div>
-
-            <div className="mx-auto max-w-3xl">
-              <div className="feature-card meloma-premium-block-card flex flex-col gap-6 p-8 md:flex-row md:items-center md:justify-between">
-                <div>
-                  <h3 className="feature-title text-lg">
-                    Conteúdo e trilhas premium
-                  </h3>
-                  <p className="feature-desc mt-2">
-                    Guias estratégicos, histórico e área administrativa
-                    permanecem ativos.
-                  </p>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  <Link
-                    href="/guias"
-                    className="btn-outline"
-                    onClick={closeMobileMenu}
-                  >
-                    Ver guias →
-                  </Link>
-                  <Link
-                    href="/admin/login"
-                    className="btn-outline"
-                    onClick={closeMobileMenu}
-                  >
-                    Admin →
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
         </ScrollReveal>
       </div>
 

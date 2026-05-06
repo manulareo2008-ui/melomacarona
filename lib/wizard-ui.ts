@@ -14,6 +14,10 @@ export const WIZARD_INNER =
 export const panelClass =
   "w-full max-w-3xl rounded-[28px] border border-slate-600/35 bg-slate-900/70 p-6 shadow-[0_20px_50px_-24px_rgba(22,163,74,0.45),0_0_0_1px_rgba(255,255,255,0.06)] backdrop-blur-md sm:p-10";
 
+/** Painel quiz — alinhado ao visual referência (constelação / teal). */
+export const panelClassQuiz =
+  "meloma-quiz-ref-panel w-full max-w-3xl rounded-2xl border border-[rgb(148_163_184/0.22)] bg-[rgb(15_23_42/0.72)] p-6 shadow-[0_24px_56px_rgb(2_6_23/0.45)] backdrop-blur-xl sm:p-10";
+
 export const primaryBtn =
   "group inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-600 via-green-600 to-teal-600 px-8 py-3.5 text-[15px] font-semibold text-white shadow-lg shadow-emerald-700/30 transition duration-200 ease-out hover:-translate-y-0.5 hover:brightness-110 hover:shadow-emerald-500/45 active:translate-y-0 active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 sm:w-auto sm:min-w-[220px]";
 
