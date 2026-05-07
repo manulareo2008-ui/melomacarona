@@ -1,91 +1,88 @@
 /**
- * Classes utilitárias do assistente (home / dashboard).
- * Referências: respiro e tipografia (Apple, Dropbox), CTAs sólidos (Stripe),
- * elevação e sombras suaves (Dribbble), micro-tempo (Framer).
+ * Classes utilitárias do assistente — Design System v2
+ * Paleta: Lima #C8FF4D + Teal #4DFFC8 sobre #080B10
  */
 
 export const WIZARD_SHELL =
-  "min-h-screen text-slate-100 antialiased selection:bg-emerald-500/25 selection:text-slate-100";
+  "min-h-screen text-[#F0F2F5] antialiased selection:bg-[rgba(200,255,77,0.2)] selection:text-[#F0F2F5]";
 
 export const WIZARD_INNER =
   "mx-auto flex min-h-screen max-w-6xl flex-col px-4 py-8 sm:px-8 sm:py-12";
 
-/** Painel principal — “glass” leve, sombra suave, cantos 24px+ */
 export const panelClass =
-  "w-full max-w-3xl rounded-[28px] border border-slate-600/35 bg-slate-900/70 p-6 shadow-[0_20px_50px_-24px_rgba(22,163,74,0.45),0_0_0_1px_rgba(255,255,255,0.06)] backdrop-blur-md sm:p-10";
+  "w-full max-w-3xl rounded-[24px] border border-[rgba(255,255,255,0.08)] bg-[#0D1117] p-6 shadow-[0_20px_60px_-24px_rgba(200,255,77,0.15),0_0_0_1px_rgba(255,255,255,0.04)] backdrop-blur-md sm:p-10";
 
-/** Painel quiz — alinhado ao visual referência (constelação / teal). */
 export const panelClassQuiz =
-  "meloma-quiz-ref-panel w-full max-w-3xl rounded-2xl border border-[rgb(148_163_184/0.22)] bg-[rgb(15_23_42/0.72)] p-6 shadow-[0_24px_56px_rgb(2_6_23/0.45)] backdrop-blur-xl sm:p-10";
+  "meloma-quiz-ref-panel w-full max-w-3xl rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[rgba(13,17,23,0.80)] p-6 shadow-[0_24px_56px_rgba(4,6,8,0.6)] backdrop-blur-xl sm:p-10";
 
 export const primaryBtn =
-  "group inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-600 via-green-600 to-teal-600 px-8 py-3.5 text-[15px] font-semibold text-white shadow-lg shadow-emerald-700/30 transition duration-200 ease-out hover:-translate-y-0.5 hover:brightness-110 hover:shadow-emerald-500/45 active:translate-y-0 active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 sm:w-auto sm:min-w-[220px]";
+  "group inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#C8FF4D] px-8 py-3.5 text-[15px] font-semibold text-[#080B10] shadow-[0_0_24px_rgba(200,255,77,0.25)] transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#d4ff6a] hover:shadow-[0_0_36px_rgba(200,255,77,0.40)] active:translate-y-0 active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C8FF4D]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080B10] sm:w-auto sm:min-w-[220px]";
 
 export const secondaryBtn =
-  "inline-flex items-center justify-center rounded-full border border-slate-500/40 bg-slate-900/65 px-6 py-2.5 text-sm font-medium text-slate-100 shadow-sm transition duration-200 ease-out hover:-translate-y-px hover:border-slate-300/40 hover:bg-slate-800/80 active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/60";
+  "inline-flex items-center justify-center rounded-full border border-[rgba(255,255,255,0.10)] bg-[rgba(255,255,255,0.04)] px-6 py-2.5 text-sm font-medium text-[#8A96A8] shadow-sm transition duration-200 ease-out hover:-translate-y-px hover:border-[rgba(255,255,255,0.16)] hover:text-[#F0F2F5] active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(255,255,255,0.3)]";
 
 export const detailsCtaBtn =
-  "w-full rounded-full bg-gradient-to-r from-emerald-600 to-green-600 py-3.5 text-center text-[15px] font-semibold text-white shadow-lg shadow-emerald-500/25 transition duration-200 hover:-translate-y-0.5 hover:brightness-110 hover:shadow-emerald-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 active:scale-[0.99]";
+  "w-full rounded-full bg-[#C8FF4D] py-3.5 text-center text-[15px] font-semibold text-[#080B10] shadow-[0_0_24px_rgba(200,255,77,0.25)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#d4ff6a] hover:shadow-[0_0_36px_rgba(200,255,77,0.40)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C8FF4D]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080B10] active:scale-[0.99]";
 
 const cardCtaBase =
-  "mt-4 inline-flex w-full items-center justify-center rounded-full border-0 py-3 text-[15px] font-bold text-white transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 active:scale-[0.99]";
-export const cardDetailsBtn = `${cardCtaBase} bg-gradient-to-r from-emerald-600 to-green-600 shadow-lg shadow-emerald-500/30 hover:-translate-y-0.5 hover:brightness-110 hover:shadow-emerald-500/40 focus-visible:ring-emerald-500/80`;
+  "mt-4 inline-flex w-full items-center justify-center rounded-full border-0 py-3 text-[14px] font-bold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080B10] active:scale-[0.99]";
+export const cardDetailsBtn = `${cardCtaBase} bg-[#C8FF4D] text-[#080B10] shadow-[0_0_20px_rgba(200,255,77,0.20)] hover:-translate-y-0.5 hover:bg-[#d4ff6a] hover:shadow-[0_0_28px_rgba(200,255,77,0.35)] focus-visible:ring-[#C8FF4D]/60`;
 
 const fieldInputBase =
-  "w-full rounded-2xl border border-slate-500/40 bg-slate-900/65 px-4 py-3.5 text-[15px] text-slate-100 shadow-sm transition duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20";
-const fieldInputOk = `${fieldInputBase} focus:border-emerald-400/50 focus:ring-emerald-400/15`;
-const fieldInputErr = `${fieldInputBase} border-rose-500 focus:border-rose-500 focus:ring-rose-500/20 dark:border-rose-500`;
+  "w-full rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-3.5 text-[15px] text-[#F0F2F5] shadow-sm transition duration-200 placeholder:text-[#55606F] focus:outline-none focus:ring-2";
+const fieldInputOk = `${fieldInputBase} focus:border-[rgba(200,255,77,0.35)] focus:ring-[rgba(200,255,77,0.15)]`;
+const fieldInputErr = `${fieldInputBase} border-rose-500 focus:border-rose-500 focus:ring-rose-500/20`;
 
 export function fieldClass(error: boolean): string {
   return error ? fieldInputErr : fieldInputOk;
 }
 
 export const labelClass =
-  "mb-2 block text-sm font-semibold tracking-tight text-slate-100";
+  "mb-2 block text-sm font-semibold tracking-tight text-[#F0F2F5]";
 
 export const kickerText =
-  "text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400";
+  "text-[11px] font-semibold uppercase tracking-[0.22em] text-[#55606F]";
 
 export const heading1 =
-  "text-center text-4xl font-extrabold leading-[1.08] tracking-tight text-slate-50 sm:text-5xl";
+  "text-center text-4xl font-extrabold leading-[1.08] tracking-tight text-[#F0F2F5] sm:text-5xl";
 
 export const heading2 =
-  "text-center text-3xl font-extrabold leading-tight tracking-tight text-slate-50 sm:text-4xl";
+  "text-center text-3xl font-extrabold leading-tight tracking-tight text-[#F0F2F5] sm:text-4xl";
 
 export const bodyLead =
-  "text-center text-base leading-relaxed text-slate-200";
+  "text-center text-base leading-relaxed text-[#8A96A8]";
 
 export const subOptionBase =
   "min-h-[4.5rem] rounded-2xl border p-4 text-start text-sm font-medium leading-snug transition duration-200";
 export const subOptionActive =
-  "border-emerald-400/70 bg-emerald-950/30 text-emerald-100 shadow-md shadow-emerald-500/15 ring-1 ring-emerald-400/25";
+  "border-[rgba(200,255,77,0.40)] bg-[rgba(200,255,77,0.06)] text-[#F0F2F5] shadow-md ring-1 ring-[rgba(200,255,77,0.20)]";
 export const subOptionIdle =
-  "border-slate-500/40 bg-slate-900/55 text-slate-100 hover:-translate-y-px hover:border-slate-300/40 hover:shadow-sm";
+  "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] text-[#8A96A8] hover:-translate-y-px hover:border-[rgba(255,255,255,0.14)] hover:text-[#F0F2F5]";
 
 export const segmentActive =
-  "ring-2 ring-emerald-400/80 bg-emerald-950/30 text-emerald-100 shadow-sm";
+  "ring-2 ring-[rgba(200,255,77,0.60)] bg-[rgba(200,255,77,0.08)] text-[#C8FF4D]";
 export const segmentIdle =
-  "bg-slate-900/65 text-slate-100 ring-1 ring-slate-500/45 hover:ring-slate-300/45";
+  "bg-[rgba(255,255,255,0.04)] text-[#8A96A8] ring-1 ring-[rgba(255,255,255,0.08)] hover:ring-[rgba(255,255,255,0.14)] hover:text-[#F0F2F5]";
 export const priceCardActive =
-  "border-emerald-400/70 bg-emerald-950/30 font-medium text-emerald-100 ring-1 ring-emerald-400/30 shadow-sm";
+  "border-[rgba(200,255,77,0.40)] bg-[rgba(200,255,77,0.06)] font-medium text-[#F0F2F5] ring-1 ring-[rgba(200,255,77,0.20)]";
 export const priceCardIdle =
-  "border-slate-500/40 bg-slate-900/55 text-slate-100 hover:-translate-y-px hover:border-slate-300/40";
+  "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] text-[#8A96A8] hover:-translate-y-px hover:border-[rgba(255,255,255,0.14)] hover:text-[#F0F2F5]";
 
 export const languageTrigger =
-  "inline-flex items-center gap-2 rounded-full border border-slate-500/40 bg-slate-900/70 px-3 py-2 text-xs font-medium text-slate-100 shadow-sm backdrop-blur-md transition duration-200 hover:-translate-y-px hover:bg-slate-800/80 hover:shadow";
+  "inline-flex items-center gap-2 rounded-full border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-3 py-2 text-xs font-medium text-[#8A96A8] shadow-sm backdrop-blur-md transition duration-200 hover:-translate-y-px hover:text-[#F0F2F5] hover:border-[rgba(255,255,255,0.14)]";
 
 export const languageMenu =
-  "absolute end-0 z-[95] mt-2 min-w-[180px] overflow-hidden rounded-2xl border border-slate-500/40 bg-slate-950/95 py-1 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.45)] backdrop-blur-md";
+  "absolute end-0 z-[95] mt-2 min-w-[180px] overflow-hidden rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[rgba(8,11,16,0.96)] py-1 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.6)] backdrop-blur-md";
 
 export const languageMenuItem =
   "block w-full px-4 py-2.5 text-start text-sm transition duration-150";
-export const languageMenuItemActive = `${languageMenuItem} bg-emerald-950/40 font-semibold text-emerald-100`;
-export const languageMenuItemIdle = `${languageMenuItem} text-slate-100 hover:bg-slate-800/70`;
+export const languageMenuItemActive = `${languageMenuItem} bg-[rgba(200,255,77,0.08)] font-semibold text-[#C8FF4D]`;
+export const languageMenuItemIdle = `${languageMenuItem} text-[#8A96A8] hover:bg-[rgba(255,255,255,0.04)] hover:text-[#F0F2F5]`;
 
 export const progressTrack =
-  "mx-auto mt-4 flex h-1.5 max-w-[12rem] overflow-hidden rounded-full bg-slate-700/70";
+  "mx-auto mt-4 flex h-1.5 max-w-[12rem] overflow-hidden rounded-full bg-[rgba(255,255,255,0.06)]";
 export const progressFill =
-  "h-full rounded-full bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 transition-[width] duration-500 ease-out";
+  "h-full rounded-full bg-gradient-to-r from-[#C8FF4D] to-[#4DFFC8] transition-[width] duration-500 ease-out";
 
 export const mainMotion =
   "wizard-step-fade flex flex-1 flex-col items-center justify-center";
