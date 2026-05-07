@@ -44,6 +44,9 @@ export const metadata: Metadata = {
     description:
       "Assistente em etapas para explorar cursos com base em interesses, formato e investimento.",
   },
+  verification: {
+    google: "14b6dbc9b1bfbe4c",
+  },
 };
 
 export default function RootLayout({
