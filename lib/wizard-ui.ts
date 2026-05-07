@@ -29,7 +29,7 @@ const cardCtaBase =
 export const cardDetailsBtn = `${cardCtaBase} bg-[#C8FF4D] text-[#080B10] shadow-[0_0_20px_rgba(200,255,77,0.20)] hover:-translate-y-0.5 hover:bg-[#d4ff6a] hover:shadow-[0_0_28px_rgba(200,255,77,0.35)] focus-visible:ring-[#C8FF4D]/60`;
 
 const fieldInputBase =
-  "w-full rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-3.5 text-[15px] text-[#F0F2F5] shadow-sm transition duration-200 placeholder:text-[#55606F] focus:outline-none focus:ring-2";
+  "w-full rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#0D1117] px-4 py-3.5 text-[15px] text-[#F0F2F5] shadow-sm transition duration-200 placeholder:text-[#55606F] focus:outline-none focus:ring-2 [color-scheme:dark]";
 const fieldInputOk = `${fieldInputBase} focus:border-[rgba(200,255,77,0.35)] focus:ring-[rgba(200,255,77,0.15)]`;
 const fieldInputErr = `${fieldInputBase} border-rose-500 focus:border-rose-500 focus:ring-rose-500/20`;
 
