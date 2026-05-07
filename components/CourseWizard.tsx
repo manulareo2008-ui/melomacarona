@@ -1959,9 +1959,9 @@ export function CourseWizard({
             </section>
           )}
 
-          {wizardStep === 5 && (
+{wizardStep === 5 && (
             <section
-              className="w-full max-w-5xl"
+              className="w-full max-w-3xl"
               key="s4-results"
               aria-labelledby="results-title"
             >
@@ -1979,187 +1979,178 @@ export function CourseWizard({
               {(sponsorInterstitial !== "show" ||
                 wizardVisiblePatrocinadores.length === 0) && (
                 <>
-              <div className={`${panelClassQuiz} mb-6 max-w-2xl mx-auto`}>
-                <h2
-                  id="results-title"
-                  className="text-center text-3xl font-extrabold leading-tight tracking-tight text-slate-100 sm:text-4xl"
-                >
-                  {t("results.title", { firstName })}
-                </h2>
-                <p className="mt-3 text-center text-sm leading-relaxed text-slate-100">
-                  {t(`categories.${area}.label`, { defaultValue: area })} ·{" "}
-                  {subChoice === OUTRA_ESPECIFICA
-                    ? subNicheLabel
-                    : subNicheLabel}{" "}
-                  · {modality ? t(`modalities.${modality}`, { defaultValue: modality }) : ""} ·{" "}
-                  {translatedPriceOptions.find((p) => p.id === priceRange)?.label}
-                </p>
-                <p className="mt-2 text-center text-xs text-emerald-300">
-                  {t("results.smartRecommendationsHint")}
-                </p>
-                {!isLoadingRecommendations && !recommendationError && (
-                  <div className="mt-3 flex justify-center">
-                    <span className="inline-flex items-center rounded-full border border-slate-500/40 bg-slate-900/70 px-3 py-1 text-xs font-medium text-slate-100">
-                      IA:{" "}
-                      {recommendationProvider === "openai"
-                        ? "OpenAI"
-                        : recommendationProvider === "gemini"
-                          ? "Gemini"
-                          : recommendationProvider === "anthropic"
-                            ? "Anthropic Claude"
-                            : recommendationProvider === "mock-external-api"
-                              ? "Mock API"
-                              : recommendationProvider === "local"
-                                ? "Fallback local"
-                                : t("results.providerUnknown")}
-                    </span>
-                  </div>
-                )}
-                <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <button
-                    type="button"
-                    onClick={() => setWizardStep(4)}
-                    className={secondaryBtn}
-                  >
-                    {t("common.back")}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={restartWizardFromBeginning}
-                    className={secondaryBtn}
-                  >
-                    {t("common.restart")}
-                  </button>
-                </div>
-              </div>
-
-              {isLoadingRecommendations && (
-                <div
-                  className="mb-6 mx-auto w-full max-w-3xl"
-                  aria-busy="true"
-                  aria-live="polite"
-                >
-                  <p className="mb-2 text-center text-sm font-medium text-zinc-400 dark:text-zinc-400">
-                    {t("results.loadingRecommendations")}
-                  </p>
-                  <div className="relative overflow-hidden rounded-xl border border-zinc-600/40 bg-zinc-950/70 p-3 shadow-inner dark:border-zinc-600/40">
-                    <pre className="max-h-52 overflow-y-auto whitespace-pre-wrap break-words font-mono text-[11px] leading-relaxed text-zinc-300 dark:text-zinc-300">
-                      {recommendationStreamText ? (
-                        <>
-                          {recommendationStreamText}
-                          <span
-                            className="ml-0.5 inline-block h-3.5 w-1 animate-pulse rounded-sm bg-emerald-400 align-middle"
-                            aria-hidden
-                          />
-                        </>
-                      ) : (
-                        <span className="text-zinc-500 italic">
-                          Aguardando resposta da IA…
-                        </span>
-                      )}
-                    </pre>
-                  </div>
-                </div>
-              )}
-
-              {!isLoadingRecommendations &&
-                recommendationError && (
-                  <p className="mb-6 text-center text-sm text-rose-300">
-                    {recommendationError}
-                  </p>
-                )}
-
-              {!isLoadingRecommendations &&
-                !recommendationError &&
-                (externalRecommendations.length === 0 ||
-                  (externalRecommendations.length > 0 &&
-                    exactMatches.length === 0 &&
-                    similarMatches.length === 0)) && (
-                  <div
-                    className={`${panelClassQuiz} mb-6 mx-auto max-w-2xl text-center`}
-                  >
-                    <h3 className="text-lg font-bold text-slate-100">
-                      Sem cursos exatos para esses critérios
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-300">
-                      Estamos expandindo nosso catálogo curado conforme novas
-                      parcerias institucionais. Tente ajustar a área, modalidade
-                      ou faixa de preço.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={restartWizardFromBeginning}
-                      className={`${primaryBtn} mt-6`}
+                  {/* ── Header de resultados ── */}
+                  <div className={`${panelClassQuiz} mb-8 max-w-2xl mx-auto`}>
+                    <h2
+                      id="results-title"
+                      className="text-center text-3xl font-extrabold leading-tight tracking-tight text-slate-100 sm:text-4xl"
                     >
-                      Refazer com outros critérios
-                    </button>
+                      {t("results.title", { firstName })}
+                    </h2>
+                    <p className="mt-3 text-center text-sm leading-relaxed text-slate-400">
+                      {t(`categories.${area}.label`, { defaultValue: area })} ·{" "}
+                      {subNicheLabel} ·{" "}
+                      {modality ? t(`modalities.${modality}`, { defaultValue: modality }) : ""} ·{" "}
+                      {translatedPriceOptions.find((p) => p.id === priceRange)?.label}
+                    </p>
+                    <p className="mt-2 text-center text-xs text-emerald-400/80">
+                      {t("results.smartRecommendationsHint")}
+                    </p>
+                    {!isLoadingRecommendations && !recommendationError && (
+                      <div className="mt-3 flex justify-center">
+                        <span className="inline-flex items-center rounded-full border border-slate-500/40 bg-slate-900/70 px-3 py-1 text-xs font-medium text-slate-400">
+                          IA:{" "}
+                          {recommendationProvider === "openai"
+                            ? "OpenAI"
+                            : recommendationProvider === "gemini"
+                              ? "Gemini"
+                              : recommendationProvider === "anthropic"
+                                ? "Anthropic Claude"
+                                : recommendationProvider === "mock-external-api"
+                                  ? "Mock API"
+                                  : recommendationProvider === "local"
+                                    ? "Fallback local"
+                                    : t("results.providerUnknown")}
+                        </span>
+                      </div>
+                    )}
+                    <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                      <button
+                        type="button"
+                        onClick={() => setWizardStep(4)}
+                        className={secondaryBtn}
+                      >
+                        {t("common.back")}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={restartWizardFromBeginning}
+                        className={secondaryBtn}
+                      >
+                        {t("common.restart")}
+                      </button>
+                    </div>
                   </div>
-                )}
 
-              {exactMatches.length > 0 && (
-                <section
-                  className="mb-10 w-full"
-                  aria-labelledby="section-exact"
-                >
-                  <h3
-                    id="section-exact"
-                    className="mb-4 text-sm font-bold uppercase tracking-[0.12em] text-white dark:text-white"
-                  >
-                    {t("results.exactSection")}
-                  </h3>
-                  <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {exactMatches.map((c) => (
-                      <li key={c.id} className="flex flex-col gap-2">
-                        {recommendationInsights[c.id] && (
-                          <div className="mb-2 rounded-xl border border-emerald-800/50 bg-gradient-to-br from-emerald-950/45 to-zinc-950/85 p-3 text-zinc-100">
-                            <p className="text-base font-extrabold tabular-nums text-emerald-200 sm:text-lg">
-                              {t("results.affinityScore", {
-                                score: recommendationInsights[c.id].score,
-                              })}
-                            </p>
-                            <p className="mt-1.5 text-sm leading-relaxed text-white">
-                              {recommendationInsights[c.id].pitch}
-                            </p>
-                          </div>
-                        )}
-                        <CourseResultCard
-                          course={c}
-                          match="exact"
-                          detailsButtonClassName={cardDetailsBtn}
-                          onOpenDetails={openDetails}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              )}
+                  {/* ── Loading ── */}
+                  {isLoadingRecommendations && (
+                    <div className="mb-6 mx-auto w-full max-w-3xl" aria-busy="true" aria-live="polite">
+                      <p className="mb-2 text-center text-sm font-medium text-zinc-400">
+                        {t("results.loadingRecommendations")}
+                      </p>
+                      <div className="relative overflow-hidden rounded-xl border border-zinc-600/40 bg-zinc-950/70 p-3 shadow-inner">
+                        <pre className="max-h-52 overflow-y-auto whitespace-pre-wrap break-words font-mono text-[11px] leading-relaxed text-zinc-300">
+                          {recommendationStreamText ? (
+                            <>
+                              {recommendationStreamText}
+                              <span
+                                className="ml-0.5 inline-block h-3.5 w-1 animate-pulse rounded-sm bg-emerald-400 align-middle"
+                                aria-hidden
+                              />
+                            </>
+                          ) : (
+                            <span className="text-zinc-500 italic">Aguardando resposta da IA…</span>
+                          )}
+                        </pre>
+                      </div>
+                    </div>
+                  )}
 
-              {similarMatches.length > 0 && (
-                <section className="w-full" aria-labelledby="section-similar">
-                  <h3
-                    id="section-similar"
-                    className="mb-4 text-sm font-bold uppercase tracking-[0.12em] text-white dark:text-white"
-                  >
-                    {t("results.similarSection")}
-                  </h3>
-                  <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {similarMatches.map((c) => (
-                      <li key={c.id} className="flex flex-col">
-                        <CourseResultCard
-                          course={c}
-                          match="similar"
-                          detailsButtonClassName={cardDetailsBtn}
-                          onOpenDetails={openDetails}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              )}
+                  {/* ── Erro ── */}
+                  {!isLoadingRecommendations && recommendationError && (
+                    <p className="mb-6 text-center text-sm text-rose-300">{recommendationError}</p>
+                  )}
+
+                  {/* ── Sem resultados ── */}
+                  {!isLoadingRecommendations &&
+                    !recommendationError &&
+                    (externalRecommendations.length === 0 ||
+                      (externalRecommendations.length > 0 &&
+                        exactMatches.length === 0 &&
+                        similarMatches.length === 0)) && (
+                      <div className={`${panelClassQuiz} mb-6 mx-auto max-w-2xl text-center`}>
+                        <h3 className="text-lg font-bold text-slate-100">
+                          Sem cursos exatos para esses critérios
+                        </h3>
+                        <p className="mt-2 text-sm leading-relaxed text-slate-300">
+                          Estamos expandindo nosso catálogo. Tente ajustar a área, modalidade ou faixa de preço.
+                        </p>
+                        <button
+                          type="button"
+                          onClick={restartWizardFromBeginning}
+                          className={`${primaryBtn} mt-6`}
+                        >
+                          Refazer com outros critérios
+                        </button>
+                      </div>
+                    )}
+
+                  {/* ── Recomendados ── */}
+                  {exactMatches.length > 0 && (
+                    <section className="mb-8 w-full" aria-labelledby="section-exact">
+                      <div className="mb-4 flex items-center gap-3">
+                        <h3
+                          id="section-exact"
+                          className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#4DFFC8]"
+                        >
+                          {t("results.exactSection")}
+                        </h3>
+                        <div className="flex-1 h-px bg-[rgba(77,255,200,0.12)]" />
+                        <span className="text-[11px] font-medium text-[#455060]">
+                          {exactMatches.length} curso{exactMatches.length !== 1 ? "s" : ""}
+                        </span>
+                      </div>
+                      <ul className="flex flex-col gap-3">
+                        {exactMatches.map((c) => (
+                          <li key={c.id}>
+                            <CourseResultCard
+                              course={c}
+                              match="exact"
+                              detailsButtonClassName={cardDetailsBtn}
+                              onOpenDetails={openDetails}
+                              affinityScore={recommendationInsights[c.id]?.score}
+                              affinityPitch={recommendationInsights[c.id]?.pitch}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  )}
+
+                  {/* ── Similares ── */}
+                  {similarMatches.length > 0 && (
+                    <section className="w-full" aria-labelledby="section-similar">
+                      <div className="mb-3 flex items-center gap-3">
+                        <h3
+                          id="section-similar"
+                          className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#55606F]"
+                        >
+                          {t("results.similarSection")}
+                        </h3>
+                        <div className="flex-1 h-px bg-[rgba(255,255,255,0.06)]" />
+                        <span className="text-[11px] font-medium text-[#455060]">
+                          {similarMatches.length} curso{similarMatches.length !== 1 ? "s" : ""}
+                        </span>
+                      </div>
+                      <ul className="flex flex-col gap-2">
+                        {similarMatches.map((c) => (
+                          <li key={c.id}>
+                            <CourseResultCard
+                              course={c}
+                              match="similar"
+                              detailsButtonClassName={cardDetailsBtn}
+                              onOpenDetails={openDetails}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  )}
                 </>
               )}
             </section>
           )}
+
 
           {detailOpen && detailCourse && (
             <div
