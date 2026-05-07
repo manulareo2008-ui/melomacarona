@@ -1,23 +1,37 @@
 @import "tailwindcss";
 @import "./melomacarona-landing.css";
 
+/* ═══════════════════════════════════════════════════════════
+   MELOMACARONA — DESIGN SYSTEM v2
+   Referências: Linear, Vercel, Stripe
+   Paleta: Neon Lima (#C8FF4D) + Teal (#4DFFC8) sobre #080B10
+   Fontes: Syne (display) + DM Sans (body)
+═══════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+
 :root {
   --background:     #080B10;
   --bg-base:        #080B10;
   --bg-surface:     #0D1117;
   --bg-card:        #111520;
   --bg-elevated:    #161B26;
+
   --border:         rgba(255,255,255,0.07);
   --border-hover:   rgba(255,255,255,0.14);
   --border-accent:  rgba(200,255,77,0.22);
+
   --accent:         #C8FF4D;
   --accent2:        #4DFFC8;
   --accent-soft:    rgba(200,255,77,0.10);
   --accent-glow:    rgba(200,255,77,0.22);
+
   --foreground:     #F0F2F5;
   --text-primary:   #F0F2F5;
   --text-secondary: #8A96A8;
   --text-muted:     #55606F;
+
+  /* Legacy aliases */
   --card:           #111520;
   --muted:          #8A96A8;
   --primary:        #C8FF4D;
@@ -28,15 +42,18 @@
   --accent-muted:   rgba(200,255,77,0.08);
   --meloma-border:  rgba(200,255,77,0.18);
   --meloma-glow:    rgba(200,255,77,0.22);
+
   --radius-sm:      6px;
   --radius-md:      12px;
   --radius-lg:      18px;
   --radius-xl:      28px;
   --radius-full:    9999px;
+
   --font-head:      'Syne', system-ui, sans-serif;
   --font-body:      'DM Sans', system-ui, sans-serif;
   --font-inter:     'DM Sans', system-ui, sans-serif;
   --font-heading:   'Syne', system-ui, sans-serif;
+
   --gradient-accent: linear-gradient(135deg, #C8FF4D 0%, #4DFFC8 100%);
   --gradient-hero:   linear-gradient(135deg, #C8FF4D 0%, #4DFFC8 100%);
 }
@@ -57,7 +74,7 @@ body {
     radial-gradient(ellipse 500px 400px at 10% 80%, rgba(200,255,77,0.04) 0%, transparent 55%);
   background-attachment: fixed;
   color: var(--text-primary);
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: 16px;
   line-height: 1.7;
@@ -65,8 +82,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.022;
+  pointer-events: none;
+  z-index: 0;
+}
+
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Syne', system-ui, sans-serif;
+  font-family: var(--font-head);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.08;
@@ -105,6 +132,7 @@ h1, h2, h3, h4, h5, h6 {
 .new-card-rise { animation: card-rise 420ms cubic-bezier(0.22,0.9,0.3,1) both; }
 
 @media (prefers-reduced-motion: reduce) {
+  body { background-attachment: scroll; }
   .reveal { opacity:1; transform:none; transition:none; }
   .wizard-step-fade, .new-card-rise { animation:none; }
 }
