@@ -1,8 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useState } from "react";
-import { SiteFooter } from "@/components/SiteFooter";
+import emailjs from "@emailjs/browser";
 
 const EMAILJS_SERVICE_ID = "service_lr78g87";
 const EMAILJS_TEMPLATE_ID = "template_crhchws";
@@ -317,6 +317,10 @@ export default function ParceriasPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }, []);
+
   const set = (field: keyof FormData) => (val: string | string[]) => {
     setFormData((prev) => ({ ...prev, [field]: val }));
   };
@@ -375,12 +379,16 @@ export default function ParceriasPage() {
     };
 
     try {
-const emailjs = (window as any).emailjs;
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY);
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        { publicKey: EMAILJS_PUBLIC_KEY }
+      );
       setStep(5);
     } catch (err) {
-      console.error(err);
-      setError("Erro ao enviar o formulário. Tente novamente ou entre em contato por manulareo2008@gmail.com");
+      console.error("EmailJS error:", err);
+      setError("Erro ao enviar o formulário. Tente novamente em alguns instantes ou entre em contato por manulareo2008@gmail.com");
     } finally {
       setLoading(false);
     }
@@ -417,10 +425,6 @@ const emailjs = (window as any).emailjs;
   if (step === 0) {
     return (
       <>
-        <script
-          src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
-          async
-        />
         <main style={{
           minHeight: "100vh",
           background: "#080B10",
@@ -762,7 +766,7 @@ const emailjs = (window as any).emailjs;
           </section>
 
         </main>
-        <SiteFooter />
+        <ParceriasFooter />
       </>
     );
   }
@@ -810,13 +814,13 @@ const emailjs = (window as any).emailjs;
         <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "13px", margin: "0 0 40px" }}>
           Dúvidas urgentes: manulareo2008@gmail.com
         </p>
-        <Link href="/" style={{
+        <a href="/" style={{
           ...btnPrimary,
           textDecoration: "none",
           display: "inline-block",
         }}>
           Voltar para o início
-          </Link>
+        </a>
       </main>
     );
   }
@@ -827,10 +831,6 @@ const emailjs = (window as any).emailjs;
 
   return (
     <>
-      <script
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
-        async
-      />
       <main style={{
         minHeight: "100vh",
         background: "#080B10",
@@ -1309,7 +1309,7 @@ const emailjs = (window as any).emailjs;
           </div>
         </div>
       </main>
-      <SiteFooter />
+      <ParceriasFooter />
     </>
   );
 }
@@ -1358,5 +1358,185 @@ function FaqItem({ q, a, last }: { q: string; a: string; last: boolean }) {
         </p>
       )}
     </div>
+  );
+}
+
+function ParceriasFooter() {
+  return (
+    <footer style={{
+      background: "#05070B",
+      borderTop: "1px solid rgba(255,255,255,0.06)",
+      color: "rgba(255,255,255,0.5)",
+      fontFamily: "'DM Sans', sans-serif",
+      padding: "64px 24px 32px",
+    }}>
+      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+
+        {/* Linha 1 — Brand + Colunas */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: "48px",
+          marginBottom: "48px",
+        }}>
+          {/* Brand */}
+          <div>
+            <div style={{
+              fontFamily: "'Syne', sans-serif",
+              fontWeight: 800,
+              fontSize: "22px",
+              color: "#fff",
+              letterSpacing: "-0.01em",
+              marginBottom: "14px",
+            }}>
+              melomacarona
+            </div>
+            <p style={{
+              fontSize: "13px",
+              lineHeight: 1.6,
+              color: "rgba(255,255,255,0.4)",
+              fontWeight: 300,
+              margin: 0,
+              maxWidth: "260px",
+            }}>
+              Plataforma de descoberta de cursos profissionalizantes. Curadoria humana, recomendação por afinidade, gratuito para alunos.
+            </p>
+          </div>
+
+          {/* Plataforma */}
+          <div>
+            <p style={{
+              fontSize: "11px",
+              color: "#C8FF4D",
+              fontWeight: 500,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              marginBottom: "16px",
+            }}>
+              Plataforma
+            </p>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+              <FooterLink href="/quiz" label="Quiz" />
+              <FooterLink href="/guias" label="Guias" />
+              <FooterLink href="/planos" label="Planos" />
+              <FooterLink href="/parcerias" label="Parcerias" />
+            </ul>
+          </div>
+
+          {/* Para parceiros */}
+          <div>
+            <p style={{
+              fontSize: "11px",
+              color: "#C8FF4D",
+              fontWeight: 500,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              marginBottom: "16px",
+            }}>
+              Para parceiros
+            </p>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+              <FooterLink href="/parcerias" label="Cadastrar instituição" />
+              <FooterLink href="/parcerias#planos" label="Planos de parceria" />
+              <FooterLink href="/parcerias#faq" label="Perguntas frequentes" />
+              <FooterLink href="/contato" label="Falar com a equipe" />
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <p style={{
+              fontSize: "11px",
+              color: "#C8FF4D",
+              fontWeight: 500,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              marginBottom: "16px",
+            }}>
+              Legal
+            </p>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+              <FooterLink href="/privacidade" label="Política de privacidade" />
+              <FooterLink href="/termos" label="Termos de uso" />
+            </ul>
+            <p style={{
+              fontSize: "11px",
+              color: "#C8FF4D",
+              fontWeight: 500,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              marginTop: "28px",
+              marginBottom: "12px",
+            }}>
+              Contato
+            </p>
+            <a
+              href="mailto:manulareo2008@gmail.com"
+              style={{
+                color: "rgba(255,255,255,0.6)",
+                fontSize: "13px",
+                textDecoration: "none",
+                fontWeight: 300,
+                transition: "color 0.15s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#C8FF4D")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.6)")}
+            >
+              manulareo2008@gmail.com
+            </a>
+          </div>
+        </div>
+
+        {/* Linha 2 — Bottom bar */}
+        <div style={{
+          paddingTop: "28px",
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "16px",
+        }}>
+          <p style={{
+            fontSize: "12px",
+            color: "rgba(255,255,255,0.3)",
+            margin: 0,
+            fontWeight: 300,
+          }}>
+            © 2026 Melomacarona. Todos os direitos reservados.
+          </p>
+          <p style={{
+            fontSize: "12px",
+            color: "rgba(255,255,255,0.3)",
+            margin: 0,
+            fontWeight: 300,
+          }}>
+            Feito em <span style={{ color: "#C8FF4D" }}>Santa Catarina</span>
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function FooterLink({ href, label }: { href: string; label: string }) {
+  return (
+    <li>
+      <Link
+        href={href}
+        style={{
+          color: "rgba(255,255,255,0.55)",
+          fontSize: "13px",
+          textDecoration: "none",
+          fontWeight: 300,
+          transition: "color 0.15s",
+          display: "inline-block",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "#C8FF4D")}
+        onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.55)")}
+      >
+        {label}
+      </Link>
+    </li>
   );
 }
