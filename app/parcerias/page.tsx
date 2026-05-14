@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { SiteFooter } from "@/components/SiteFooter";
 
@@ -374,7 +375,7 @@ export default function ParceriasPage() {
     };
 
     try {
-      const emailjs = (window as any).emailjs;
+const emailjs = (window as any).emailjs;
       await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY);
       setStep(5);
     } catch (err) {
@@ -809,13 +810,13 @@ export default function ParceriasPage() {
         <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "13px", margin: "0 0 40px" }}>
           Dúvidas urgentes: manulareo2008@gmail.com
         </p>
-        <a href="/" style={{
+        <Link href="/" style={{
           ...btnPrimary,
           textDecoration: "none",
           display: "inline-block",
         }}>
           Voltar para o início
-        </a>
+          </Link>
       </main>
     );
   }
