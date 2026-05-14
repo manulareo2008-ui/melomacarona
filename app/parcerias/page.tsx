@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import SiteFooter from "@/components/SiteFooter";
+import { SiteFooter } from "@/components/SiteFooter";
 
 const EMAILJS_SERVICE_ID = "service_lr78g87";
 const EMAILJS_TEMPLATE_ID = "template_crhchws";
