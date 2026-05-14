@@ -12,14 +12,6 @@ export default function RecommendationsPage() {
   return (
     <div className="new-ui-shell min-h-screen">
       <section className="new-container pb-6 pt-10 sm:pt-12">
-        <div className="mb-6 flex justify-end">
-          <Link
-            href="/premium/historico"
-            className="new-btn new-btn-ghost"
-          >
-            Meu histórico premium
-          </Link>
-        </div>
         <h1 className="text-balance text-center text-3xl font-extrabold tracking-tight text-slate-100 sm:text-4xl">
           Recomendações personalizadas por IA
         </h1>

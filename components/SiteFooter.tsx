@@ -73,9 +73,6 @@ export function SiteFooter() {
               <Link href="/planos" className="footer-link">
                 Planos
               </Link>
-              <Link href="/premium/login" className="footer-link">
-                Área Premium
-              </Link>
             </div>
           </div>
 

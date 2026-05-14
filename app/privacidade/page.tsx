@@ -35,10 +35,6 @@ export default function PrivacidadePage() {
         <ul className="list-inside list-disc space-y-2 text-slate-300">
           <li>Dados informados no fluxo do quiz (interesses, objetivos, preferências).</li>
           <li>
-            Dados de conta e autenticação na área premium, quando você criar conta ou
-            sessão.
-          </li>
-          <li>
             Dados técnicos automáticos (IP, tipo de navegador, página visitada, tempo
             aproximado de uso), quando necessários à segurança ou medições agregadas.
           </li>

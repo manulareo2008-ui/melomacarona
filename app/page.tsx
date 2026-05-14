@@ -94,7 +94,6 @@ export default function Home() {
             <a href="#como-funciona" className="nav-link">Descobrir</a>
             <Link href="/parcerias" className="nav-link">Parcerias</Link>
             <Link href="/contato" className="nav-link">Contato</Link>
-            <Link href="/premium/login" className="nav-btn nav-btn-ghost">Entrar</Link>
           </div>
 
           <label htmlFor="nav-toggle" className="nav-hamburger" aria-label="Menu">
@@ -108,7 +107,6 @@ export default function Home() {
         <a href="#como-funciona" className="nav-link" onClick={closeMobileMenu}>Descobrir</a>
         <Link href="/parcerias" className="nav-link" onClick={closeMobileMenu}>Parcerias</Link>
         <Link href="/contato" className="nav-link" onClick={closeMobileMenu}>Contato</Link>
-        <Link href="/premium/login" className="nav-btn nav-btn-ghost" onClick={closeMobileMenu}>Entrar</Link>
       </div>
 
       <div id="section-home">
