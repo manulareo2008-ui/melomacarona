@@ -6,7 +6,7 @@ import {
 } from "@/components/MelomaIcons";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteFooter } from "@/components/SiteFooter";
-import { TrustNav } from "@/components/TrustNav";
+import { InternalHeader } from "@/components/InternalHeader";
 
 export const metadata: Metadata = {
   title: "Planos",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function PlanosPage() {
   return (
     <main className="meloma-landing min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)]">
-      <TrustNav />
+      <InternalHeader />
 
       <section className="container py-14 pb-10">
         <ScrollReveal>

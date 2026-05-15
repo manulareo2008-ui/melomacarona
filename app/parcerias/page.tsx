@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import emailjs from "@emailjs/browser";
+import { InternalHeader } from "@/components/InternalHeader";
 
 const EMAILJS_SERVICE_ID = "service_lr78g87";
-const EMAILJS_TEMPLATE_ID = "template_6tiiw2q";
+const EMAILJS_TEMPLATE_ID = "template_crhchws";
 const EMAILJS_PUBLIC_KEY = "aCa83XAnA-2Uv_Eff";
 
 type FormData = {
@@ -14,7 +15,6 @@ type FormData = {
   cnpj: string;
   site: string;
   tipoInstituicao: string;
-  anoFundacao: string;
   cidadeSede: string;
   estadoSede: string;
   // Step 2 — Perfil Educacional
@@ -45,7 +45,6 @@ const initialData: FormData = {
   cnpj: "",
   site: "",
   tipoInstituicao: "",
-  anoFundacao: "",
   cidadeSede: "",
   estadoSede: "",
   possuiCursosPropriosBool: "",
@@ -155,6 +154,76 @@ function CheckboxGroup({
   );
 }
 
+type ValidatorType = "cnpj" | "email" | "phone" | "url";
+
+function validateField(value: string, type: ValidatorType): string {
+  if (!value.trim()) return "";
+
+  if (type === "cnpj") {
+    const digits = value.replace(/\D/g, "");
+    if (digits.length !== 14) return "CNPJ deve ter 14 dígitos.";
+    if (/^(\d)\1+$/.test(digits)) return "CNPJ inválido.";
+    // Validação dos dígitos verificadores
+    const calc = (slice: string, factors: number[]) => {
+      const sum = slice.split("").reduce((acc, d, i) => acc + parseInt(d) * factors[i], 0);
+      const mod = sum % 11;
+      return mod < 2 ? 0 : 11 - mod;
+    };
+    const f1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    const f2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    const d1 = calc(digits.slice(0, 12), f1);
+    const d2 = calc(digits.slice(0, 13), f2);
+    if (parseInt(digits[12]) !== d1 || parseInt(digits[13]) !== d2) {
+      return "CNPJ inválido. Verifique os números.";
+    }
+    return "";
+  }
+
+  if (type === "email") {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!re.test(value)) return "E-mail inválido. Use o formato nome@dominio.com.";
+    return "";
+  }
+
+  if (type === "phone") {
+    const digits = value.replace(/\D/g, "");
+    if (digits.length < 10 || digits.length > 11) {
+      return "Telefone deve ter DDD + número (10 ou 11 dígitos).";
+    }
+    return "";
+  }
+
+  if (type === "url") {
+    try {
+      const url = value.startsWith("http") ? value : `https://${value}`;
+      new URL(url);
+      if (!url.includes(".")) return "URL inválida. Inclua um domínio (ex: exemplo.com).";
+      return "";
+    } catch {
+      return "URL inválida.";
+    }
+  }
+
+  return "";
+}
+
+function formatCNPJ(value: string): string {
+  const digits = value.replace(/\D/g, "").slice(0, 14);
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 5) return `${digits.slice(0, 2)}.${digits.slice(2)}`;
+  if (digits.length <= 8) return `${digits.slice(0, 2)}.${digits.slice(2, 5)}.${digits.slice(5)}`;
+  if (digits.length <= 12) return `${digits.slice(0, 2)}.${digits.slice(2, 5)}.${digits.slice(5, 8)}/${digits.slice(8)}`;
+  return `${digits.slice(0, 2)}.${digits.slice(2, 5)}.${digits.slice(5, 8)}/${digits.slice(8, 12)}-${digits.slice(12)}`;
+}
+
+function formatPhone(value: string): string {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+}
+
 function Input({
   label,
   value,
@@ -162,6 +231,7 @@ function Input({
   placeholder,
   type = "text",
   required,
+  validator,
 }: {
   label: string;
   value: string;
@@ -169,7 +239,25 @@ function Input({
   placeholder?: string;
   type?: string;
   required?: boolean;
+  validator?: ValidatorType;
 }) {
+  const [touched, setTouched] = useState(false);
+  const error = validator && touched ? validateField(value, validator) : "";
+  const hasError = !!error;
+
+  const handleChange = (raw: string) => {
+    if (validator === "cnpj") {
+      onChange(formatCNPJ(raw));
+    } else if (validator === "phone") {
+      onChange(formatPhone(raw));
+    } else {
+      onChange(raw);
+    }
+  };
+
+  const baseBorder = hasError ? "#ff6b6b" : "rgba(255,255,255,0.12)";
+  const focusBorder = hasError ? "#ff6b6b" : "#C8FF4D";
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
       <label style={{
@@ -184,11 +272,16 @@ function Input({
       <input
         type={type}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
+        onBlur={(e) => {
+          setTouched(true);
+          e.target.style.borderColor = baseBorder;
+        }}
+        onFocus={(e) => (e.target.style.borderColor = focusBorder)}
         placeholder={placeholder}
         style={{
           background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(255,255,255,0.12)",
+          border: `1px solid ${baseBorder}`,
           borderRadius: "8px",
           padding: "11px 14px",
           color: "#fff",
@@ -199,9 +292,18 @@ function Input({
           width: "100%",
           boxSizing: "border-box",
         }}
-        onFocus={(e) => (e.target.style.borderColor = "#C8FF4D")}
-        onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.12)")}
       />
+      {hasError && (
+        <span style={{
+          fontSize: "12px",
+          color: "#ff6b6b",
+          fontFamily: "'DM Sans', sans-serif",
+          fontWeight: 300,
+          marginTop: "2px",
+        }}>
+          {error}
+        </span>
+      )}
     </div>
   );
 }
@@ -327,7 +429,11 @@ export default function ParceriasPage() {
 
   const validateStep = (s: number): boolean => {
     if (s === 1) {
-      return !!(formData.nomeInstituicao && formData.tipoInstituicao && formData.cidadeSede && formData.estadoSede);
+      const requiredOk = !!(formData.nomeInstituicao && formData.tipoInstituicao && formData.cidadeSede && formData.estadoSede);
+      // Se CNPJ/site foram preenchidos, devem ser válidos
+      const cnpjOk = !formData.cnpj || !validateField(formData.cnpj, "cnpj");
+      const siteOk = !formData.site || !validateField(formData.site, "url");
+      return requiredOk && cnpjOk && siteOk;
     }
     if (s === 2) {
       return !!(formData.possuiCursosPropriosBool && formData.areasAtuacao.length > 0 && formData.modalidades.length > 0);
@@ -336,7 +442,10 @@ export default function ParceriasPage() {
       return !!(formData.planoInteresse && formData.objetivoPrimario);
     }
     if (s === 4) {
-      return !!(formData.nomeResponsavel && formData.cargoResponsavel && formData.emailResponsavel && formData.telefoneResponsavel);
+      const requiredOk = !!(formData.nomeResponsavel && formData.cargoResponsavel && formData.emailResponsavel && formData.telefoneResponsavel);
+      const emailOk = !validateField(formData.emailResponsavel, "email");
+      const phoneOk = !validateField(formData.telefoneResponsavel, "phone");
+      return requiredOk && emailOk && phoneOk;
     }
     return true;
   };
@@ -355,7 +464,6 @@ export default function ParceriasPage() {
       cnpj: formData.cnpj || "Não informado",
       site: formData.site || "Não informado",
       tipo: formData.tipoInstituicao,
-      ano_fundacao: formData.anoFundacao || "Não informado",
       cidade: formData.cidadeSede,
       estado: formData.estadoSede,
       cursos_proprios: formData.possuiCursosPropriosBool,
@@ -425,6 +533,7 @@ export default function ParceriasPage() {
   if (step === 0) {
     return (
       <>
+      <InternalHeader />
         <main style={{
           minHeight: "100vh",
           background: "#080B10",
@@ -941,12 +1050,9 @@ export default function ParceriasPage() {
                   ]}
                 />
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                  <Input label="CNPJ" value={formData.cnpj} onChange={set("cnpj")} placeholder="00.000.000/0001-00" />
-                  <Input label="Ano de fundação" value={formData.anoFundacao} onChange={set("anoFundacao")} placeholder="Ex: 2015" />
-                </div>
+                <Input label="CNPJ" value={formData.cnpj} onChange={set("cnpj")} placeholder="00.000.000/0001-00" validator="cnpj" />
 
-                <Input label="Site institucional" value={formData.site} onChange={set("site")} placeholder="https://suainstituicao.com.br" type="url" />
+                <Input label="Site institucional" value={formData.site} onChange={set("site")} placeholder="https://suainstituicao.com.br" type="url" validator="url" />
 
                 <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "16px" }}>
                   <Input label="Cidade sede" value={formData.cidadeSede} onChange={set("cidadeSede")} placeholder="Ex: Florianópolis" required />
@@ -1195,9 +1301,9 @@ export default function ParceriasPage() {
                   <Input label="Nome completo" value={formData.nomeResponsavel} onChange={set("nomeResponsavel")} placeholder="Ex: Ana Carolina Silva" required />
                   <Input label="Cargo / função" value={formData.cargoResponsavel} onChange={set("cargoResponsavel")} placeholder="Ex: Diretora de Marketing" required />
                 </div>
-                <Input label="E-mail profissional" value={formData.emailResponsavel} onChange={set("emailResponsavel")} placeholder="nome@suainstituicao.com.br" type="email" required />
+                <Input label="E-mail profissional" value={formData.emailResponsavel} onChange={set("emailResponsavel")} placeholder="nome@suainstituicao.com.br" type="email" required validator="email" />
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                  <Input label="Telefone / WhatsApp" value={formData.telefoneResponsavel} onChange={set("telefoneResponsavel")} placeholder="(48) 99999-9999" required />
+                  <Input label="Telefone / WhatsApp" value={formData.telefoneResponsavel} onChange={set("telefoneResponsavel")} placeholder="(48) 99999-9999" required validator="phone" />
                   <Select
                     label="Melhor horário para contato"
                     value={formData.melhorHorario}
@@ -1286,7 +1392,7 @@ export default function ParceriasPage() {
                     setStep((s) => s + 1);
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   } else {
-                    setError("Preencha os campos obrigatórios antes de continuar.");
+                    setError("Preencha os campos obrigatórios e corrija os erros antes de continuar.");
                     setTimeout(() => setError(""), 3500);
                   }
                 }}

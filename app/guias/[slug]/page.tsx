@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { TrustNav } from "@/components/TrustNav";
+import { InternalHeader } from "@/components/InternalHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { getGuideBySlug, getAllGuideSlugs } from "@/lib/guidesData";
 
@@ -17,7 +17,7 @@ export function generateMetadata({
   params: { slug: string };
 }): Metadata {
   const guide = getGuideBySlug(params.slug);
-  if (!guide) return { title: "Guia nao encontrado" };
+  if (!guide) return { title: "Guia não encontrado" };
 
   return {
     title: `${guide.title} | Melomacarona`,
@@ -46,7 +46,6 @@ export default function GuideDetailPage({
   const guide = getGuideBySlug(params.slug);
   if (!guide) notFound();
 
-  // Schema.org JSON-LD para rich snippets
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -66,7 +65,7 @@ export default function GuideDetailPage({
           {
             "@type": "ListItem",
             position: 1,
-            name: "Inicio",
+            name: "Início",
             item: "https://melomacarona.vercel.app",
           },
           {
@@ -88,22 +87,19 @@ export default function GuideDetailPage({
 
   return (
     <>
-      {/* Schema.org JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
       <main className="meloma-landing min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)]">
-        <TrustNav />
+        <InternalHeader />
 
-        {/* ── Hero ─────────────────────────────────────────────────────────── */}
         <section className="container py-12 md:py-16">
           <div className="mx-auto max-w-3xl">
-            {/* Breadcrumb */}
             <nav className="mb-6 flex items-center gap-2 text-xs text-[var(--text-muted)]">
               <Link href="/" className="hover:text-[var(--accent-primary)] transition-colors">
-                Inicio
+                Início
               </Link>
               <span>/</span>
               <Link href="/guias" className="hover:text-[var(--accent-primary)] transition-colors">
@@ -116,7 +112,6 @@ export default function GuideDetailPage({
             <p className="section-eyebrow">{guide.eyebrow}</p>
             <h1 className="section-title mt-3">{guide.title}</h1>
 
-            {/* Intro paragraphs */}
             <div className="mt-6 space-y-4">
               {guide.intro.split("\n\n").map((paragraph, i) => (
                 <p
@@ -128,7 +123,6 @@ export default function GuideDetailPage({
               ))}
             </div>
 
-            {/* CTA primario — topo */}
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/quiz" className="btn-plan btn-plan-primary text-sm no-underline">
                 Encontrar meu curso ideal
@@ -140,10 +134,8 @@ export default function GuideDetailPage({
           </div>
         </section>
 
-        {/* ── Separador ────────────────────────────────────────────────────── */}
         <div className="border-t border-[var(--border)]" />
 
-        {/* ── Conteudo editorial ───────────────────────────────────────────── */}
         <section className="container py-12">
           <div className="mx-auto max-w-3xl space-y-12">
             {guide.sections.map((section) => (
@@ -166,17 +158,16 @@ export default function GuideDetailPage({
           </div>
         </section>
 
-        {/* ── Cursos recomendados ───────────────────────────────────────────── */}
         {guide.courses.length > 0 && (
           <>
             <div className="border-t border-[var(--border)]" />
             <section className="container py-12">
               <div className="mx-auto max-w-3xl">
                 <h2 className="text-xl font-bold text-[var(--text-primary)] md:text-2xl">
-                  Cursos recomendados nesta area
+                  Cursos recomendados nesta área
                 </h2>
                 <p className="mt-2 text-sm text-[var(--text-muted)]">
-                  Selecao editorial baseada em qualidade de conteudo, atualizacao e reputacao de mercado.
+                  Seleção editorial baseada em qualidade de conteúdo, atualização e reputação de mercado.
                 </p>
 
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -208,7 +199,7 @@ export default function GuideDetailPage({
                     href="/quiz"
                     className="btn-plan btn-plan-primary text-sm no-underline"
                   >
-                    Ver recomendacao personalizada
+                    Ver recomendação personalizada
                   </Link>
                 </div>
               </div>
@@ -216,7 +207,6 @@ export default function GuideDetailPage({
           </>
         )}
 
-        {/* ── FAQ ──────────────────────────────────────────────────────────── */}
         {guide.faq.length > 0 && (
           <>
             <div className="border-t border-[var(--border)]" />
@@ -246,20 +236,19 @@ export default function GuideDetailPage({
           </>
         )}
 
-        {/* ── CTA final ────────────────────────────────────────────────────── */}
         <section className="container pb-16">
           <div className="mx-auto max-w-3xl">
             <div className="rounded-2xl border border-[var(--accent-primary)]/20 bg-[var(--bg-surface)] p-8 text-center">
-              <p className="section-eyebrow">Proximo passo</p>
+              <p className="section-eyebrow">Próximo passo</p>
               <h2 className="mt-3 text-xl font-bold text-[var(--text-primary)] md:text-2xl">
                 Encontre o curso certo para o seu perfil
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-[var(--text-secondary)]">
-                O recomendador do Melomacarona analisa seu objetivo, nivel atual e orcamento para indicar o curso com maior chance de resultado para voce.
+                O recomendador do Melomacarona analisa seu objetivo, nível atual e orçamento para indicar o curso com maior chance de resultado para você.
               </p>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
                 <Link href="/quiz" className="btn-plan btn-plan-primary text-sm no-underline">
-                  Fazer recomendacao gratuita
+                  Fazer recomendação gratuita
                 </Link>
                 <Link href="/guias" className="btn-plan btn-plan-ghost text-sm no-underline">
                   Ver outros guias
