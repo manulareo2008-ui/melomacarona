@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { TrustArticleShell } from "@/components/TrustArticleShell";
-import { InternalHeader } from "@/components/InternalHeader";
+import InternalHeader from "@/components/InternalHeader";
 import { getPublicContactEmail } from "@/lib/site-config";
 
 export const metadata: Metadata = {

@@ -2,83 +2,41 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 
-export function InternalHeader() {
+export default function InternalHeader() {
   const router = useRouter();
 
   return (
-    <header style={{
-      position: "sticky",
-      top: 0,
-      zIndex: 40,
-      background: "rgba(8,11,16,0.85)",
-      backdropFilter: "blur(14px)",
-      WebkitBackdropFilter: "blur(14px)",
-      borderBottom: "1px solid rgba(255,255,255,0.06)",
-      padding: "0 24px",
-    }}>
-      <div style={{
-        maxWidth: "1200px",
-        margin: "0 auto",
-        height: "56px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: "16px",
-      }}>
+    <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-[#080B10]/80 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Esquerda: botão voltar */}
         <button
           type="button"
           onClick={() => router.back()}
           aria-label="Voltar"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.1)",
-            borderRadius: "8px",
-            width: "34px",
-            height: "34px",
-            cursor: "pointer",
-            transition: "all 0.15s",
-            color: "rgba(255,255,255,0.6)",
-            flexShrink: 0,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "rgba(200,255,77,0.08)";
-            e.currentTarget.style.borderColor = "rgba(200,255,77,0.3)";
-            e.currentTarget.style.color = "#C8FF4D";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "rgba(255,255,255,0.04)";
-            e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
-            e.currentTarget.style.color = "rgba(255,255,255,0.6)";
-          }}
+          className="flex h-10 w-10 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/5 hover:text-white"
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12" />
-            <polyline points="12 19 5 12 12 5" />
-          </svg>
+          <ArrowLeft className="h-5 w-5" strokeWidth={1.75} />
         </button>
 
+        {/* Centro: logo */}
         <Link
           href="/"
-          style={{
-            fontFamily: "'Syne', sans-serif",
-            fontWeight: 800,
-            fontSize: "18px",
-            color: "#fff",
-            textDecoration: "none",
-            letterSpacing: "-0.01em",
-            transition: "color 0.15s",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "#C8FF4D")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "#fff")}
+          className="absolute left-1/2 -translate-x-1/2 text-lg font-extrabold tracking-tight text-white transition-opacity hover:opacity-80"
+          style={{ fontFamily: "Syne, sans-serif" }}
         >
           melomacarona
         </Link>
 
-        <div style={{ width: "34px", flexShrink: 0 }} />
+        {/* Direita: CTA institucional */}
+        <Link
+          href="/parcerias?origem=header-internal"
+          className="inline-flex items-center rounded-full border border-[#C8FF4D]/40 px-3.5 py-2 text-xs font-medium text-[#C8FF4D] transition-all hover:border-[#C8FF4D] hover:bg-[#C8FF4D]/5 sm:px-4 sm:text-sm"
+        >
+          <span className="sm:hidden">Instituições</span>
+          <span className="max-sm:hidden">Sou instituição</span>
+        </Link>
       </div>
     </header>
   );

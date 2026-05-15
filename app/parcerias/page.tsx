@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import emailjs from "@emailjs/browser";
-import { InternalHeader } from "@/components/InternalHeader";
+import InternalHeader from "@/components/InternalHeader";
 const EMAILJS_SERVICE_ID = "service_lr78g87";
 const EMAILJS_TEMPLATE_ID = "template_6tiiw2q";
 const EMAILJS_PUBLIC_KEY = "aCa83XAnA-2Uv_Eff";

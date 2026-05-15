@@ -6,7 +6,7 @@ import {
 } from "@/components/MelomaIcons";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteFooter } from "@/components/SiteFooter";
-import { InternalHeader } from "@/components/InternalHeader";
+import InternalHeader from "@/components/InternalHeader";
 
 export const metadata: Metadata = {
   title: "Planos",

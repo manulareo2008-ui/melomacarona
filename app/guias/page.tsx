@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { InternalHeader } from "@/components/InternalHeader";
+import InternalHeader from "@/components/InternalHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { guidesData } from "@/lib/guidesData";
 

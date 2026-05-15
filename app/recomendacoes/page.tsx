@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CourseWizard } from "@/components/CourseWizard";
-import { InternalHeader } from "@/components/InternalHeader";
+import InternalHeader from "@/components/InternalHeader";
 
 export const metadata: Metadata = {
   title: "Recomendações por IA",
