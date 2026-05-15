@@ -32,9 +32,9 @@ const HOW_IT_WORKS = [
   },
   {
     step: "02",
-    title: "IA Processa Tudo",
+    title: "Afinidade Calculada",
     description:
-      "Nosso algoritmo cruza cursos e trilhas para encontrar combinações alinhadas ao seu momento e preferências.",
+      "Nosso sistema combina seu perfil com cursos avaliados manualmente, encontrando alinhamento real entre o que você busca e o que cada curso entrega.",
     Icon: IconStepAI,
   },
   {
@@ -123,7 +123,7 @@ export default function Home() {
                 <span className="hero-badge-icon" aria-hidden>
                   <IconSparkleBadge size={13} />
                 </span>
-                Navegador de carreiras com IA
+                Curadoria humana de cursos profissionalizantes
               </div>
 
               <h1 className="hero-title meloma-hero-reveal meloma-hero-reveal--2">
@@ -133,8 +133,8 @@ export default function Home() {
               </h1>
 
               <p className="hero-subtitle meloma-hero-reveal meloma-hero-reveal--3">
-                Responda 5 perguntas e receba recomendações personalizadas de cursos — com
-                justificativas claras e links diretos para matrícula.
+                Responda 5 perguntas e receba recomendações de cursos com justificativas
+                claras e links diretos para matrícula.
               </p>
 
               <div className="hero-cta-wrap meloma-hero-reveal meloma-hero-reveal--4">
@@ -150,16 +150,16 @@ export default function Home() {
 
               <div className="hero-stats meloma-hero-reveal meloma-hero-reveal--5">
                 <div className="hero-stat">
-                  <div className="hero-stat-value">500+</div>
-                  <div className="hero-stat-label">Cursos mapeados</div>
+                  <div className="hero-stat-value">48</div>
+                  <div className="hero-stat-label">Cursos curados manualmente</div>
                 </div>
                 <div className="hero-stat">
-                  <div className="hero-stat-value">6 áreas</div>
-                  <div className="hero-stat-label">De conhecimento</div>
+                  <div className="hero-stat-value">9</div>
+                  <div className="hero-stat-label">Áreas de conhecimento</div>
                 </div>
                 <div className="hero-stat">
                   <div className="hero-stat-value">2 min</div>
-                  <div className="hero-stat-label">Para completar</div>
+                  <div className="hero-stat-label">Para descobrir o ideal</div>
                 </div>
                 <div className="hero-stat">
                   <div className="hero-stat-value">100%</div>
@@ -180,7 +180,7 @@ export default function Home() {
                   Três etapas para mapear seu caminho
                 </h2>
                 <p className="section-subtitle">
-                  Um processo simples e inteligente para encontrar as melhores opções para você.
+                  Um processo simples e direto para encontrar as melhores opções para você.
                 </p>
               </div>
 
