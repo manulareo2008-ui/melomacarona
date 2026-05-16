@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ConstellationStarfield } from "@/components/ConstellationStarfield";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import {
   IconArrowUpRight,
@@ -112,11 +111,6 @@ export default function Home() {
       <div id="section-home">
         {/* ── HERO ─────────────────────────────────────────── */}
         <section className="hero meloma-hero-v2">
-          <div className="hero-glow-1" />
-          <div className="hero-glow-2" />
-          <div className="hero-grid" />
-          <ConstellationStarfield className="meloma-starfield" />
-
           <div className="container">
             <div className="hero-content">
               <div className="hero-badge meloma-hero-reveal meloma-hero-reveal--1">
