@@ -581,7 +581,7 @@ export default function ParceriasPage() {
               margin: "0 auto 48px",
               fontWeight: 300,
             }}>
-              O Melomacarona conecta profissionais que já sabem o que querem aprender com as instituições certas. Sem scroll infinito, sem algoritmo opaco — só afinidade real entre aluno e curso.
+              O Atloom conecta profissionais que já sabem o que querem aprender com as instituições certas. Sem scroll infinito, sem algoritmo opaco — só afinidade real entre aluno e curso.
             </p>
 
             <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" }}>
@@ -1271,7 +1271,7 @@ export default function ParceriasPage() {
                 />
 
                 <Select
-                  label="Como ficou sabendo do Melomacarona?"
+                  label="Como ficou sabendo do Atloom?"
                   value={formData.comoConheceu}
                   onChange={set("comoConheceu")}
                   options={[
@@ -1494,7 +1494,7 @@ function ParceriasFooter() {
               letterSpacing: "-0.01em",
               marginBottom: "14px",
             }}>
-              melomacarona
+              Atloom
             </div>
             <p style={{
               fontSize: "13px",
@@ -1608,7 +1608,7 @@ function ParceriasFooter() {
             margin: 0,
             fontWeight: 300,
           }}>
-            © 2026 Melomacarona. Todos os direitos reservados.
+            © 2026 Atloom. Todos os direitos reservados.
           </p>
           <p style={{
             fontSize: "12px",

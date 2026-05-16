@@ -1,5 +1,5 @@
 // lib/guidesData.ts
-// Dados completos dos guias editoriais do Melomacarona
+// Dados completos dos guias editoriais do Atloom
 // Cada guia tem conteúdo denso para indexação orgânica no Google
 
 export interface GuideSection {

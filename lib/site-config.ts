@@ -1,7 +1,7 @@
 /**
  * Valores públicos (prefixo NEXT_PUBLIC_). Opcionais: fallback seguro na UI.
  */
-export const SITE_NAME = "Melomacarona";
+export const SITE_NAME = "Atloom";
 
 /** URL absoluta do site (sitemap, OG, metadataBase). Prioridade: env → Vercel → localhost. */
 export function getAbsoluteSiteUrl(): string {

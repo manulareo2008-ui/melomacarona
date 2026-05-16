@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const STORAGE_KEY = "melomacarona_cookie_consent_v1";
+const STORAGE_KEY = "atloom_cookie_consent_v1";
 
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);

@@ -6,7 +6,7 @@ import { getPublicContactEmail, getSiteOperatorLabel } from "@/lib/site-config";
 export const metadata: Metadata = {
   title: "Política de Privacidade",
   description:
-    "Como tratamos dados pessoais no assistente de recomendação de cursos Melomacarona.",
+    "Como tratamos dados pessoais no assistente de recomendação de cursos Atloom.",
 };
 
 export default function PrivacidadePage() {

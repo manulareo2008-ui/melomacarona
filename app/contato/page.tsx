@@ -6,7 +6,7 @@ import { getPublicContactEmail } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Contato",
-  description: "Fale com a equipe Melomacarona — parcerias, suporte e dúvidas gerais.",
+  description: "Fale com a equipe Atloom — parcerias, suporte e dúvidas gerais.",
 };
 
 export default function ContatoPage() {

@@ -26,7 +26,7 @@ export default function InternalHeader() {
           className="absolute left-1/2 -translate-x-1/2 text-lg font-extrabold tracking-tight text-white transition-opacity hover:opacity-80"
           style={{ fontFamily: "Syne, sans-serif" }}
         >
-          melomacarona
+          Atloom
         </Link>
 
         {/* Direita: CTA institucional */}

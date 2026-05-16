@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { guidesData } from "@/lib/guidesData";
 
 export const metadata: Metadata = {
-  title: "Guias de Cursos | Melomacarona",
+  title: "Guias de Cursos | Atloom",
   description:
     "Guias editoriais para escolher cursos profissionalizantes por área, objetivo e orçamento. Conteúdo real, sem patrocínio oculto.",
 };
@@ -68,7 +68,7 @@ export default function GuidesPage() {
               O recomendador analisa seu perfil em minutos
             </h2>
             <p className="mt-3 text-sm text-[var(--text-secondary)]">
-              Responda algumas perguntas sobre seus objetivos e orçamento. O Melomacarona indica os cursos com maior chance de resultado para você.
+              Responda algumas perguntas sobre seus objetivos e orçamento. O Atloom indica os cursos com maior chance de resultado para você.
             </p>
             <div className="mt-6">
               <Link href="/quiz" className="btn-plan btn-plan-primary text-sm no-underline">

@@ -20,13 +20,13 @@ export function generateMetadata({
   if (!guide) return { title: "Guia não encontrado" };
 
   return {
-    title: `${guide.title} | Melomacarona`,
+    title: `${guide.title} | Atloom`,
     description: guide.metaDescription,
     openGraph: {
       title: guide.title,
       description: guide.metaDescription,
       type: "article",
-      siteName: "Melomacarona",
+      siteName: "Atloom",
     },
     twitter: {
       card: "summary_large_image",
@@ -55,7 +55,7 @@ export default function GuideDetailPage({
         description: guide.metaDescription,
         publisher: {
           "@type": "Organization",
-          name: "Melomacarona",
+          name: "Atloom",
           url: "https://melomacarona.vercel.app",
         },
       },
@@ -244,7 +244,7 @@ export default function GuideDetailPage({
                 Encontre o curso certo para o seu perfil
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-[var(--text-secondary)]">
-                O recomendador do Melomacarona analisa seu objetivo, nível atual e orçamento para indicar o curso com maior chance de resultado para você.
+                O recomendador do Atloom analisa seu objetivo, nível atual e orçamento para indicar o curso com maior chance de resultado para você.
               </p>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
                 <Link href="/quiz" className="btn-plan btn-plan-primary text-sm no-underline">

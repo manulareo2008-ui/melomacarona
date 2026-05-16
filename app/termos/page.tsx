@@ -7,7 +7,7 @@ import { getPublicContactEmail } from "@/lib/site-config";
 export const metadata: Metadata = {
   title: "Termos de uso",
   description:
-    "Condições gerais de uso do site Melomacarona e do assistente de recomendação.",
+    "Condições gerais de uso do site Atloom e do assistente de recomendação.",
 };
 
 export default function TermosPage() {

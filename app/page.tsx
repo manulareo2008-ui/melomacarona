@@ -86,7 +86,7 @@ export default function Home() {
             <span className="nav-logo-icon" aria-hidden>
               <IconRocketSmall size={20} />
             </span>
-            Melomacarona
+            Atloom
           </Link>
 
           <div className="nav-links">

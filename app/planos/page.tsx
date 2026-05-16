@@ -11,7 +11,7 @@ import InternalHeader from "@/components/InternalHeader";
 export const metadata: Metadata = {
   title: "Planos",
   description:
-    "Como o Melomacarona funciona — gratuito para alunos, sustentado por instituições parceiras que valorizam alcance qualificado.",
+    "Como o Atloom funciona — gratuito para alunos, sustentado por instituições parceiras que valorizam alcance qualificado.",
 };
 
 export default function PlanosPage() {
@@ -27,7 +27,7 @@ export default function PlanosPage() {
               Gratuito para alunos. Sempre.
             </h1>
             <p className="section-subtitle mt-5 text-[var(--text-muted)] leading-relaxed">
-              O Melomacarona não cobra de quem está procurando curso. Nossa receita vem
+              O Atloom não cobra de quem está procurando curso. Nossa receita vem
               de instituições de ensino que querem alcance qualificado e relevante —
               não banner para todo mundo, mas presença para alunos com perfil real de
               compra.{" "}
@@ -104,7 +104,7 @@ export default function PlanosPage() {
             </h2>
             <p className="section-subtitle mt-5 text-[var(--text-muted)] leading-relaxed">
               Plataformas que cobram do aluno têm incentivo a empurrar venda. Plataformas
-              de afiliado puro têm incentivo a vender qualquer curso. O Melomacarona
+              de afiliado puro têm incentivo a vender qualquer curso. O Atloom
               só ganha quando uma instituição parceira ganha um aluno realmente
               alinhado — e o aluno ganha quando encontra o curso certo. Os três
               interesses caminham juntos.

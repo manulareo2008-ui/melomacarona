@@ -1,4 +1,4 @@
-# Publicar o Melomacarona (cursos-app)
+# Publicar o Atloom (cursos-app)
 
 Este projeto é **Next.js full-stack**: interface e rotas de API (`app/api`) sobem **no mesmo deploy**. Por isso o fluxo natural é **um repositório Git + um host (recomendado: Vercel)** — **não** é obrigatório usar Render para “back-end” como no tutorial genérico.
 

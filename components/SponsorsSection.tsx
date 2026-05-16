@@ -4,8 +4,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
-const REGION_STORAGE_KEY = "melomacarona_user_region";
-const QUIZ_MOCK_STORAGE_KEY = "melomacarona_quiz_vocational_mock";
+const REGION_STORAGE_KEY = "atloom_user_region";
+const QUIZ_MOCK_STORAGE_KEY = "atloom_quiz_vocational_mock";
 
 const TIPO_LABELS: Record<string, string> = {
   instituicao: "Instituição parceira",
@@ -124,7 +124,7 @@ function buildSummary(p: PatrocinadorPublic): string {
     areas.length > 0
       ? ` Áreas declaradas no cadastro: ${areas.join(", ")}.`
       : " Áreas de foco podem ser complementadas no painel administrativo.";
-  return `${tipo} na plataforma Melomacarona.${areaPart} Use os links oficiais quando disponíveis para conhecer programas e matrículas.`;
+  return `${tipo} na plataforma Atloom.${areaPart} Use os links oficiais quando disponíveis para conhecer programas e matrículas.`;
 }
 
 function quizMatchesAreas(p: PatrocinadorPublic, quiz: QuizVocationalMock | null): string[] {
