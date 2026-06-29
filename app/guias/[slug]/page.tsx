@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import InternalHeader from "@/components/InternalHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { getGuideBySlug, getAllGuideSlugs } from "@/lib/guidesData";
+import { getAbsoluteSiteUrl } from "@/lib/site-config";
 
 // ─── Static generation ────────────────────────────────────────────────────────
 
@@ -46,6 +47,7 @@ export default function GuideDetailPage({
   const guide = getGuideBySlug(params.slug);
   if (!guide) notFound();
 
+  const siteUrl = getAbsoluteSiteUrl();
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -56,7 +58,7 @@ export default function GuideDetailPage({
         publisher: {
           "@type": "Organization",
           name: "Atloom",
-          url: "https://melomacarona.vercel.app",
+          url: siteUrl,
         },
       },
       {
@@ -66,19 +68,19 @@ export default function GuideDetailPage({
             "@type": "ListItem",
             position: 1,
             name: "Início",
-            item: "https://melomacarona.vercel.app",
+            item: siteUrl,
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Guias",
-            item: "https://melomacarona.vercel.app/guias",
+            item: `${siteUrl}/guias`,
           },
           {
             "@type": "ListItem",
             position: 3,
             name: guide.title,
-            item: `https://melomacarona.vercel.app/guias/${guide.slug}`,
+            item: `${siteUrl}/guias/${guide.slug}`,
           },
         ],
       },
