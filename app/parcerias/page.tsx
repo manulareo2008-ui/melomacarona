@@ -1523,7 +1523,6 @@ function ParceriasFooter() {
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
               <FooterLink href="/quiz" label="Quiz" />
               <FooterLink href="/guias" label="Guias" />
-              <FooterLink href="/planos" label="Planos" />
               <FooterLink href="/parcerias" label="Parcerias" />
             </ul>
           </div>

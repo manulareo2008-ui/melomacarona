@@ -14,7 +14,6 @@ const PUBLIC_PATHS: { path: string; priority: number; changeFrequency: MetadataR
     { path: "/quiz", priority: 0.95, changeFrequency: "weekly" },
     { path: "/recomendacoes", priority: 0.9, changeFrequency: "weekly" },
     { path: "/guias", priority: 0.85, changeFrequency: "weekly" },
-    { path: "/planos", priority: 0.85, changeFrequency: "monthly" },
     { path: "/parcerias", priority: 0.75, changeFrequency: "monthly" },
     { path: "/contato", priority: 0.75, changeFrequency: "monthly" },
     { path: "/privacidade", priority: 0.5, changeFrequency: "yearly" },

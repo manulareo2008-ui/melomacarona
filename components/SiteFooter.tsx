@@ -70,9 +70,6 @@ export function SiteFooter() {
               <Link href="/guias" className="footer-link">
                 Guias
               </Link>
-              <Link href="/planos" className="footer-link">
-                Planos
-              </Link>
             </div>
           </div>
 

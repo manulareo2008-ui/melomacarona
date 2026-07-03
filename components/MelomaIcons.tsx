@@ -190,20 +190,6 @@ export function IconSparkleBadge({ size = 14 }: { size?: number }) {
   );
 }
 
-export function IconPlanFree({ size = 36 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.65" />
-      <path
-        d="M8 12h8M12 8v8"
-        stroke="currentColor"
-        strokeWidth="1.65"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
 export function IconPlanPremium({ size = 36 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -213,21 +199,6 @@ export function IconPlanPremium({ size = 36 }: { size?: number }) {
         strokeWidth="1.5"
         strokeLinejoin="round"
       />
-    </svg>
-  );
-}
-
-export function IconPlanInstitution({ size = 36 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M6 21V10l6-4 6 4v11"
-        stroke="currentColor"
-        strokeWidth="1.65"
-        strokeLinecap="round"
-      />
-      <path d="M10 21v-6h4v6" stroke="currentColor" strokeWidth="1.65" />
-      <path d="M4 21h16" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" />
     </svg>
   );
 }
