@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IconEnvelope } from "@/components/MelomaIcons";
+import { IconEnvelope } from "@/components/AtloomIcons";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { TrustArticleShell } from "@/components/TrustArticleShell";
 import { getPublicContactEmail } from "@/lib/site-config";

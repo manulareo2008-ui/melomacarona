@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 const MUX_HLS_URL =
   "https://stream.mux.com/tLkHO1qZoaaQOUeVWo8hEBeGQfySP02EPS02BmnNFyXys.m3u8";
 
-export function MelomaVideoHero() {
+export function AtloomVideoHero() {
   const bgVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {

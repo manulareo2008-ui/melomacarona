@@ -18,7 +18,7 @@ import {
   IconStepAI,
   IconStepLink,
   IconStepProfile,
-} from "@/components/MelomaIcons";
+} from "@/components/AtloomIcons";
 import { SiteFooter } from "@/components/SiteFooter";
 
 const HOW_IT_WORKS = [

@@ -4,7 +4,7 @@ export type AreaLinksMap = Record<string, string>;
 
 /**
  * URL do parceiro direcionada à área do aluno.
- * Usa `links_por_area[area]` quando for uma URL válida; caso contrário, acrescenta `?meloma_area=` na `site_url`.
+ * Usa `links_por_area[area]` quando for uma URL válida; caso contrário, acrescenta `?atloom_area=` na `site_url`.
  */
 export function partnerSiteUrlForArea(
   siteUrl: string | null | undefined,
@@ -26,7 +26,7 @@ export function partnerSiteUrlForArea(
   }
   try {
     const u = new URL(base);
-    if (key) u.searchParams.set("meloma_area", key);
+    if (key) u.searchParams.set("atloom_area", key);
     return u.toString();
   } catch {
     return base;
