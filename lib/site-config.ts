@@ -16,7 +16,7 @@ export function getAbsoluteSiteUrl(): string {
 }
 
 /** E-mail público exibido no site quando `NEXT_PUBLIC_CONTACT_EMAIL` não está definido. */
-const FALLBACK_PUBLIC_CONTACT_EMAIL = "manulareo2008@gmail.com";
+const FALLBACK_PUBLIC_CONTACT_EMAIL = "contato@atloom.com";
 
 export function getPublicContactEmail(): string {
   const raw = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim();

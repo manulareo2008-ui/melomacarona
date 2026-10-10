@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
-import { Syne, DM_Sans } from "next/font/google";
+import { Fraunces, Hanken_Grotesk } from "next/font/google";
 import { CookieConsent } from "@/components/CookieConsent";
 import { getAbsoluteSiteUrl, SITE_NAME } from "@/lib/site-config";
 import "./globals.css";
 
-const syne = Syne({
+/* design-system.md §2: Fraunces (display, variável com optical sizing e o eixo SOFT, usado em
+   atloom-landing.css para serifas mais macias) + Hanken Grotesk (corpo). */
+const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
+  axes: ["opsz", "SOFT"],
   display: "swap",
-  variable: "--font-syne",
+  variable: "--font-display",
 });
 
-const dmSans = DM_Sans({
+const hankenGrotesk = Hanken_Grotesk({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  style: ["normal", "italic"],
   display: "swap",
-  variable: "--font-inter", // mantém alias --font-inter para não quebrar nada
+  variable: "--font-body",
 });
 
 const siteUrl = getAbsoluteSiteUrl();
@@ -55,8 +55,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${syne.variable} ${dmSans.variable}`}>
-      <body className={`${dmSans.className} antialiased`}>
+    <html lang="pt-BR" className={`${fraunces.variable} ${hankenGrotesk.variable}`}>
+      <body className={`${hankenGrotesk.className} antialiased`}>
         {children}
         <CookieConsent />
       </body>

@@ -74,3 +74,26 @@ Tailwind CSS v4. Shared UI constants (class strings for buttons, panels, typogra
 | `GEMINI_API_KEY` / `GEMINI_MODEL` | No | Gemini fallback |
 
 `next.config.ts` allows `192.168.1.10` as a dev origin (local network access).
+
+## Estado do rebuild visual da home
+
+**Feito (Pass 1–3, reskin editorial completo):**
+- Guiado por `design-system.md` (raiz), a fonte de verdade visual; referências em `refs/`. Skills usadas: `apple-design` e `emil-design-eng` (`.claude/skills/`).
+- `app/page.tsx` agora é a landing (componentes em `components/home/`); o wizard roda em `/quiz`. O "Core flow" acima está desatualizado nesse ponto.
+- Fontes Fraunces (display, eixos `opsz` + `SOFT`) + Hanken Grotesk via `next/font` em `app/layout.tsx`.
+- Tokens escopados em `.atl` (`app/globals.css`); pele da home na parte 1 de `app/atloom-landing.css` (a parte 2 é o legado das outras páginas). Molas em `lib/motion.ts`.
+- Cena scrolly "o teste se monta" (`TestAssemblyScene.tsx`): sticky sem travar o scroll, com números reais do `scoring.ts`. Áreas e prova leem o catálogo no servidor (`catalogFacts.ts`).
+
+**Convenções:**
+- Respeitar a lista PROIBIDO do `design-system.md` (§7) em todo build.
+- Tokens só em `.atl`, nunca em `:root`: o quiz e as páginas legadas dependem do `:root`/body escuros.
+- Textos da home em português direto no código, por decisão (sem refatorar i18n agora).
+- Nada commitado ainda.
+
+**Feito (Pass 4):**
+- Faixa de prova sem nomes de marcas (só a contagem de instituições, do catálogo); hover/prévia das áreas intactos.
+- E-mail público padrão: `contato@atloom.com` (fallback em `lib/site-config.ts`; rodapé e /contato).
+- Scroll que salta: não reproduzido no Chrome via DevTools MCP (1440/1024/900/375, subindo e descendo). O único layout-shift era a nav: os links pulavam quando o CTA da nav entrava/saía; agora deslizam por mola (`layout="position"` + `layoutRoot` no header fixo + `popLayout`).
+
+**Pendente:**
+- Teste em mobile real (toque, momentum, movimento reduzido do sistema) e commit.
